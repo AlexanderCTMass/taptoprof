@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>TapToProf · AI marketplace infrastructure</title>
+  <!-- Шрифт Inter (без засечек, строгий) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (минимальные иконки) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #111111;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px; /* уменьшил padding для мобильных */
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: 3.2rem; /* чуть меньше для мобильных */
+      line-height: 1.1;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    h2 {
+      font-size: 2.2rem; /* адаптивный размер */
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #555555;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .subhead {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+    }
+
+    /* адаптивная навигация */
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #eaeaea;
+      margin-bottom: 40px;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      color: #555;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+    }
+    
+    .nav-links span, .nav-links a {
+      cursor: default;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 6px;
+      margin-left: 0;
+    }
+    
+    .lang-btn {
+      background: transparent;
+      border: 1px solid #ccc;
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      color: #555;
+    }
+    
+    .lang-btn.active {
+      background: #111;
+      border-color: #111;
+      color: white;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: default;
+      background: transparent;
+      border: 1px solid #222;
+      color: #222;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #111;
+      color: white;
+      border: 1px solid #111;
+    }
+
+    .btn-primary:hover {
+      background: #333;
+    }
+
+    .btn-outline {
+      border: 1px solid #ddd;
+      color: #333;
+    }
+
+    /* адаптивные сетки */
+    .grid-2, .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    @media (min-width: 640px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 900px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .container {
+        padding: 0 48px;
+      }
+      h1 { font-size: 4.2rem; }
+      h2 { font-size: 2.8rem; }
+    }
+
+    .metric-card {
+      border-top: 1px solid #eee;
+      padding-top: 24px;
+    }
+
+    .metric-value {
+      font-size: 2.5rem; /* адаптивно */
+      font-weight: 450;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .metric-label {
+      color: #666;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .feature-card {
+      padding: 28px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .feature-card > div {
+      flex-direction: column;
+      gap: 16px !important;
+    }
+
+    .feature-card .number {
+      min-width: auto;
+      color: #888;
+      font-size: 1rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: #f5f5f5;
+      color: #333;
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #eaeaea;
+      margin: 40px 0;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+
+    /* карусель – мобильная адаптация */
+    .prototype-showcase {
+      background: transparent;
+      padding: 20px 0;
+      width: 100%;
+      overflow: hidden; /* чтобы ничего не вылезало */
+    }
+    
+    .cards-stack {
+      position: relative;
+      width: 100%;
+      height: 500px; /* меньше высота для мобильных */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    
+    .card-item {
+      position: absolute;
+      width: 200px; /* базовый размер для мобильных */
+      height: 440px;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.15);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+      cursor: pointer;
+      border: 3px solid white;
+      background: #f0f0f0;
+      transform-origin: center center;
+    }
+    
+    .card-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    
+    /* позиции для мобильных — чуть ближе друг к другу */
+    .card-item[data-position="0"] {
+      transform: translateX(-140px) scale(0.75);
+      z-index: 1;
+      opacity: 0.6;
+      filter: brightness(0.8);
+    }
+    
+    .card-item[data-position="1"] {
+      transform: translateX(-70px) scale(0.85);
+      z-index: 2;
+      opacity: 0.8;
+      filter: brightness(0.9);
+    }
+    
+    .card-item[data-position="2"] {
+      transform: translateX(0) scale(1);
+      z-index: 5;
+      opacity: 1;
+      filter: brightness(1);
+      box-shadow: 0 30px 50px -15px rgba(0,0,0,0.3);
+      border-width: 4px;
+    }
+    
+    .card-item[data-position="3"] {
+      transform: translateX(70px) scale(0.85);
+      z-index: 2;
+      opacity: 0.8;
+      filter: brightness(0.9);
+    }
+    
+    .card-item[data-position="4"] {
+      transform: translateX(140px) scale(0.75);
+      z-index: 1;
+      opacity: 0.6;
+      filter: brightness(0.8);
+    }
+
+    @media (min-width: 640px) {
+      .card-item {
+        width: 230px;
+        height: 520px;
+      }
+      .card-item[data-position="0"] { transform: translateX(-180px) scale(0.8); }
+      .card-item[data-position="1"] { transform: translateX(-90px) scale(0.9); }
+      .card-item[data-position="2"] { transform: translateX(0) scale(1); }
+      .card-item[data-position="3"] { transform: translateX(90px) scale(0.9); }
+      .card-item[data-position="4"] { transform: translateX(180px) scale(0.8); }
+    }
+
+    @media (max-width: 440px) {
+      .card-item {
+        width: 160px;
+        height: 360px;
+      }
+      .card-item[data-position="0"] { transform: translateX(-110px) scale(0.7); }
+      .card-item[data-position="1"] { transform: translateX(-55px) scale(0.8); }
+      .card-item[data-position="2"] { transform: translateX(0) scale(1); }
+      .card-item[data-position="3"] { transform: translateX(55px) scale(0.8); }
+      .card-item[data-position="4"] { transform: translateX(110px) scale(0.7); }
+    }
+    
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+    
+    .carousel-arrow {
+      background: white;
+      border: 1px solid #ddd;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      color: #333;
+    }
+    
+    .carousel-arrow:hover {
+      background: #111;
+      color: white;
+      border-color: #111;
+    }
+    
+    .carousel-dots {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 20px;
+      background: #ccc;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .carousel-dot.active {
+      width: 22px;
+      background: #111;
+    }
+    
+    .carousel-caption {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 500;
+      color: #444;
+      font-size: 0.95rem;
+      min-height: 50px;
+    }
+
+    /* дополнительные мобильные фиксы */
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .hero-stats > div {
+      flex: 1 1 auto;
+    }
+
+    .funds-block {
+      background: #f5f5f5;
+      padding: 32px 24px;
+      border-radius: 24px;
+    }
+
+    /* выравнивание feature-card */
+    .feature-card > div {
+      display: flex;
+      gap: 16px;
+      flex-direction: row !important;
+      align-items: flex-start;
+    }
+    .feature-card .number {
+      min-width: 60px;
+      font-size: 1rem;
+    }
+    @media (max-width: 480px) {
+      .feature-card > div {
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+    }
+
+    .scale-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header / навигация -->
+<div class="container">
+  <div class="navbar">
+    <div class="logo">TapToProf</div>
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
+      <div class="nav-links">
+<!--        <span>Concept</span>-->
+<!--        <span>AI</span>-->
+<!--        <span>Metrics</span>-->
+        <a href="memo.html" style="cursor:default;">White paper</a>
+      </div>
+      <div class="lang-switch">
+        <button class="lang-btn active" id="lang-ru">РУС</button>
+        <button class="lang-btn" id="lang-en">ENG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hero с каруселью прототипов (mobile first) -->
+<section style="padding: 10px 0 30px 0;">
+  <div class="container">
+    <div class="grid-2" style="align-items: center; gap: 30px;">
+      <!-- текст hero теперь сверху на мобильных, но grid сам упорядочит -->
+      <div>
+        <div class="tag" style="margin-bottom: 16px;" id="hero-tag">INFRASTRUCTURE FOR BLUE-COLLAR</div>
+        <h1 id="hero-title">Tap. To Prof.<br>Done.</h1>
+        <p class="subhead" style="margin-bottom: 32px;" id="hero-subhead">AI-orchestrated marketplace. Zero UI for clients, SaaS for pros. No more commission bleed.</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="memo.html" class="btn btn-primary" id="hero-whitepaper">Read white paper →</a>
+          <span class="btn btn-outline" id="hero-investor">Investor deck</span>
+        </div>
+        <div class="hero-stats">
+          <div><span style="font-weight: 500;" id="feature-1-label">100% voice/photo</span><br><span style="color: #666;" id="feature-1-desc">no forms</span></div>
+          <div><span style="font-weight: 500;" id="feature-2-label">$29.9/month</span><br><span style="color: #666;" id="feature-2-desc">pro subscription</span></div>
+          <div><span style="font-weight: 500;" id="feature-3-label">multi‑agent</span><br><span style="color: #666;" id="feature-3-desc">AI negotiation</span></div>
+        </div>
+      </div>
+      
+      <!-- Карточная колода (stacked cards) адаптивная -->
+      <div class="prototype-showcase">
+        <div class="cards-stack" id="cardsStack">
+          <!-- Карточки через JS -->
+        </div>
+        
+        <div class="carousel-controls">
+          <div class="carousel-arrow" id="prevSlide">
+            <i class="fas fa-chevron-left"></i>
+          </div>
+          <div class="carousel-dots" id="carouselDots"></div>
+          <div class="carousel-arrow" id="nextSlide">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+        
+        <div class="carousel-caption" id="carouselCaption">
+          1/5 · Create order
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Проблема -->
+<section style="padding: 50px 0; border-top: 1px solid #eee;">
+  <div class="container">
+    <div class="section-header">
+      <div class="tag" id="problem-tag">legacy is broken</div>
+      <h2 id="problem-title">Current marketplaces<br>take 30% and give nothing.</h2>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h3 style="margin-bottom: 16px;" id="client-title">Client side</h3>
+        <p style="margin-bottom: 16px;" id="client-desc">20‑minute forms, 10 chats, no transparency. 85% drop off before booking.</p>
+        <div style="background: #f5f5f5; height: 2px; width: 100%; margin: 16px 0;"></div>
+        <div style="display: flex; justify-content: space-between;">
+          <span id="client-loss-label">conversion loss</span>
+          <span style="font-weight: 500;">85%</span>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom: 16px;" id="pro-title">Pro side</h3>
+        <p style="margin-bottom: 16px;" id="pro-desc">30% commission, unpaid paperwork, unstable leads. 70% of value taken by platforms.</p>
+        <div style="background: #f5f5f5; height: 2px; width: 100%; margin: 16px 0;"></div>
+        <div style="display: flex; justify-content: space-between;">
+          <span id="pro-cut-label">platform cut</span>
+          <span style="font-weight: 500;">70%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI-агенты -->
+<section style="padding: 50px 0; border-top: 1px solid #eee;">
+  <div class="container">
+    <div class="section-header">
+      <div class="tag" id="agents-tag">multi‑agent orchestration</div>
+      <h2 id="agents-title">Five agents, one tap.</h2>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <div class="feature-card">
+        <div>
+          <div class="number" style="color:#888;">01</div>
+          <div style="flex:1;">
+            <h3 id="agent1-title">Classifier agent</h3>
+            <p style="max-width: 600px;" id="agent1-desc">Parses photo + voice, defines job type and scope. No categories, no dropdowns.</p>
+          </div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div>
+          <div class="number" style="color:#888;">02</div>
+          <div style="flex:1;">
+            <h3 id="agent2-title">Negotiator agent</h3>
+            <p style="max-width: 600px;" id="agent2-desc">Enters auction, bids, compares ratings — fully automatic, works within price corridor.</p>
+          </div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div>
+          <div class="number" style="color:#888;">03</div>
+          <div style="flex:1;">
+            <h3 id="agent3-title">Reputation agent</h3>
+            <p style="max-width: 600px;" id="agent3-desc">Synthesises open‑source reviews, gov databases, old profiles into unbiased score.</p>
+          </div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div>
+          <div class="number" style="color:#888;">04</div>
+          <div style="flex:1;">
+            <h3 id="agent4-title">Scheduler agent</h3>
+            <p style="max-width: 600px;" id="agent4-desc">Matches calendar slots, confirms ETA, sends reminders.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Юнит-экономика -->
+<section style="padding: 50px 0; border-top: 1px solid #eee; background: #fafafa;">
+  <div class="container">
+    <div class="section-header">
+      <div class="tag" id="economics-tag">unit economics · subscription‑first</div>
+      <h2 id="economics-title">SaaS for pros, not % per job.</h2>
+    </div>
+    <!-- на мобильных grid-3 превращается в 1 колонку, но на планшетах 2/3 -->
+    <div class="grid-3" style="margin-bottom: 32px;">
+      <div class="metric-card">
+        <div class="metric-value">$29.9</div>
+        <div class="metric-label" id="metric-arpu">ARPU / pro / month</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">12 mo</div>
+        <div class="metric-label" id="metric-lifetime">avg. lifetime</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">$360</div>
+        <div class="metric-label" id="metric-ltv">LTV (conservative)</div>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-bottom: 32px;">
+      <div class="metric-card">
+        <div class="metric-value">$100</div>
+        <div class="metric-label" id="metric-cac">CAC (supply)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">3.6x</div>
+        <div class="metric-label" id="metric-ltv-cac">LTV/CAC</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">4 mo</div>
+        <div class="metric-label" id="metric-payback">payback</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- масштабирование: адаптивный ряд -->
+    <div class="scale-flex">
+      <div>
+        <div style="font-size: 2.4rem; font-weight: 450;">1k</div>
+        <span style="color: #666;" id="scale-1">pros → $25k MRR</span>
+      </div>
+      <div>
+        <div style="font-size: 2.4rem; font-weight: 450;">10k</div>
+        <span style="color: #666;" id="scale-2">pros → $250k MRR · $3M ARR</span>
+      </div>
+      <div>
+        <div style="font-size: 2.4rem; font-weight: 450;">50k</div>
+        <span style="color: #666;" id="scale-3">pros → $1.25M MRR · $15M ARR</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Команда / инвестиции -->
+<section style="padding: 60px 0;">
+  <div class="container">
+    <div class="grid-2" style="gap: 48px;">
+      <div>
+        <div class="tag" id="invest-tag">pre‑seed · $500k</div>
+        <h2 style="margin-bottom: 20px;" id="invest-title">Looking for founding team & partners</h2>
+        <p style="margin-bottom: 32px;" id="invest-desc">CTO (Python/AI), AI/ML engineer, product lead, growth. Stack: LangChain, multimodal, PWA/Telegram.</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <span class="btn btn-primary" id="invest-partner">Partner with us →</span>
+          <span class="btn btn-outline" id="invest-memo">Download memo</span>
+        </div>
+      </div>
+      <div class="funds-block">
+        <div style="font-weight: 500; margin-bottom: 24px;" id="funds-title">Use of funds</div>
+        <div style="margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span id="funds-supply">Supply acquisition</span><span>40%</span></div>
+          <div style="background: #ddd; height: 4px; width: 100%;"><div style="width:40%; background:#111; height:4px;"></div></div>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span id="funds-ai">AI dev / R&D</span><span>30%</span></div>
+          <div style="background: #ddd; height: 4px; width: 100%;"><div style="width:30%; background:#111; height:4px;"></div></div>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span id="funds-demand">Demand marketing</span><span>20%</span></div>
+          <div style="background: #ddd; height: 4px; width: 100%;"><div style="width:20%; background:#111; height:4px;"></div></div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span id="funds-ops">Ops & legal</span><span>10%</span></div>
+          <div style="background: #ddd; height: 4px; width: 100%;"><div style="width:10%; background:#111; height:4px;"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Футер -->
+<footer style="border-top: 1px solid #eee; padding: 30px 0;">
+  <div class="container">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: #888; font-size: 0.85rem;">
+      <span id="footer-copyright">TapToProf — AI infrastructure for blue‑collar</span>
+      <span id="footer-version">white paper v1.0 · march 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Данные для слайдов
+  const slidesData = [
+    { src: '4.png', title: { en: 'Create order', ru: 'Создание заказа' }, desc: { en: 'Photo + voice input', ru: 'Фото + голос' } },
+    { src: '5.png', title: { en: 'Searching for pro', ru: 'Поиск мастера' }, desc: { en: 'AI agents working', ru: 'AI агенты работают' } },
+    { src: '1.png', title: { en: 'New order', ru: 'Новый заказ' }, desc: { en: 'Pro notification', ru: 'Уведомление мастеру' } },
+    { src: '2.png', title: { en: 'Auction chat', ru: 'Чат аукциона' }, desc: { en: 'Real-time bidding', ru: 'Торги в реальном времени' } },
+    { src: '3.png', title: { en: 'Confirmed', ru: 'Подтверждено' }, desc: { en: 'Pro is on the way', ru: 'Мастер едет' } },
+  ];
+
+  let currentIndex = 0; // центральный
+  const totalSlides = slidesData.length;
+  let autoPlayInterval;
+
+  const cardsStack = document.getElementById('cardsStack');
+  const carouselDots = document.getElementById('carouselDots');
+  const captionEl = document.getElementById('carouselCaption');
+  const prevBtn = document.getElementById('prevSlide');
+  const nextBtn = document.getElementById('nextSlide');
+
+  function renderCards() {
+    let html = '';
+    for (let i = 0; i < totalSlides; i++) {
+      const slideIndex = i;
+      const slide = slidesData[slideIndex];
+      let position = slideIndex - currentIndex;
+      if (position < 0) position = totalSlides + position;
+      if (position > 4) position = position - totalSlides;
+      html += `<div class="card-item" data-position="${position}" data-index="${slideIndex}" style="cursor: pointer;"><img src="${slide.src}" alt="${slide.title.en}" onerror="this.src='https://via.placeholder.com/260x520?text=${slide.title.en.replace(/ /g, '+')}'"></div>`;
+    }
+    cardsStack.innerHTML = html;
+    document.querySelectorAll('.card-item').forEach(card => {
+      card.addEventListener('click', () => {
+        const index = parseInt(card.getAttribute('data-index'));
+        if (index !== currentIndex) { updatePositions(index); resetAutoPlay(); }
+      });
+    });
+    updateCaption();
+    updateDots();
+  }
+
+  function updatePositions(newIndex) {
+    currentIndex = newIndex;
+    const cards = document.querySelectorAll('.card-item');
+    cards.forEach(card => {
+      const index = parseInt(card.getAttribute('data-index'));
+      let position = index - currentIndex;
+      if (position < 0) position = totalSlides + position;
+      if (position > 4) position = position - totalSlides;
+      card.setAttribute('data-position', position);
+    });
+    updateCaption();
+    updateDots();
+  }
+
+  function updateCaption() {
+    const currentSlide = slidesData[currentIndex];
+    const lang = document.getElementById('lang-ru').classList.contains('active') ? 'ru' : 'en';
+    captionEl.innerHTML = `${currentIndex+1}/${totalSlides} · ${currentSlide.title[lang]}<br><span style="color:#666; font-size:0.85rem;">${currentSlide.desc[lang]}</span>`;
+  }
+
+  function updateDots() {
+    let dotsHtml = '';
+    for (let i = 0; i < totalSlides; i++) {
+      dotsHtml += `<span class="carousel-dot ${i === currentIndex ? 'active' : ''}" data-index="${i}"></span>`;
+    }
+    carouselDots.innerHTML = dotsHtml;
+    document.querySelectorAll('.carousel-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        updatePositions(parseInt(dot.getAttribute('data-index')));
+        resetAutoPlay();
+      });
+    });
+  }
+
+  function nextSlide() { updatePositions((currentIndex + 1) % totalSlides); }
+  function prevSlide() { updatePositions((currentIndex - 1 + totalSlides) % totalSlides); }
+
+  function startAutoPlay() { clearInterval(autoPlayInterval); autoPlayInterval = setInterval(nextSlide, 4000); }
+  function resetAutoPlay() { clearInterval(autoPlayInterval); startAutoPlay(); }
+
+  prevBtn.addEventListener('click', () => { prevSlide(); resetAutoPlay(); });
+  nextBtn.addEventListener('click', () => { nextSlide(); resetAutoPlay(); });
+
+  cardsStack.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+  cardsStack.addEventListener('mouseleave', () => startAutoPlay());
+
+  renderCards();
+  startAutoPlay();
+
+  // i18n (сокращенно, основные строки, остальные аналогично)
+  const i18n = {
+    ru: {
+      'hero-tag': 'ИНФРАСТРУКТУРА ДЛЯ BLUE-COLLAR',
+      'hero-title': 'Tap. To Prof.<br>Готово.',
+      'hero-subhead': 'AI-оркестратор. Zero UI для клиентов, SaaS для мастеров. Никаких комиссий.',
+      'hero-whitepaper': 'Читать документ →',
+      'hero-investor': 'Питч-дек',
+      'feature-1-label': '100% голос/фото','feature-1-desc': 'без форм','feature-2-label': '$29.9/мес','feature-2-desc': 'подписка мастера','feature-3-label': 'мульти‑агент','feature-3-desc': 'AI переговоры',
+      'problem-tag': 'старая модель сломана','problem-title': 'Текущие площадки<br>берут 30% и не дают ничего.',
+      'client-title': 'Клиент','client-desc': 'Формы на 20 минут, 10 чатов, никакой прозрачности. 85% уходят до брони.','client-loss-label': 'потеря конверсии',
+      'pro-title': 'Мастер','pro-desc': 'Комиссия 30%, бумажная работа, нестабильные заказы. 70% дохода забирают платформы.','pro-cut-label': 'доля платформы',
+      'agents-tag': 'мультиагентная оркестрация','agents-title': 'Пять агентов, одно касание.',
+      'agent1-title': 'Классификатор','agent1-desc': 'Анализирует фото и голос, определяет тип задачи и объем. Никаких категорий и списков.',
+      'agent2-title': 'Переговорщик','agent2-desc': 'Участвует в аукционе, сравнивает рейтинги — полностью автоматически, работает в ценовом коридоре.',
+      'agent3-title': 'Рейтинг','agent3-desc': 'Собирает открытые отзывы, данные из госресурсов, старые профили в объективную оценку.',
+      'agent4-title': 'Планировщик','agent4-desc': 'Согласовывает время в календаре, подтверждает приезд, напоминает.',
+      'economics-tag': 'юнит-экономика · подписка','economics-title': 'SaaS для мастеров, а не % с заказа.',
+      'metric-arpu': 'ARPU / мастера / месяц','metric-lifetime': 'срок жизни','metric-ltv': 'LTV (консервативно)','metric-cac': 'CAC (привлечение)','metric-ltv-cac': 'LTV/CAC','metric-payback': 'окупаемость',
+      'scale-1': 'мастеров → $25k MRR','scale-2': 'мастеров → $250k MRR · $3M ARR','scale-3': 'мастеров → $1.25M MRR · $15M ARR',
+      'invest-tag': 'pre‑seed · $500k','invest-title': 'Ищем команду и партнеров','invest-desc': 'CTO (Python/AI), AI/ML инженер, продакт, growth. Стек: LangChain, мультимодальные модели, PWA/Telegram.','invest-partner': 'Стать партнером →','invest-memo': 'Скачать меморандум',
+      'funds-title': 'Использование средств','funds-supply': 'Привлечение мастеров','funds-ai': 'AI разработка / R&D','funds-demand': 'Маркетинг (спрос)','funds-ops': 'Операции и юр. вопросы',
+      'footer-copyright': 'TapToProf — AI инфраструктура для blue‑collar','footer-version': 'white paper v1.0 · март 2026'
+    },
+    en: {
+      'hero-tag': 'INFRASTRUCTURE FOR BLUE-COLLAR','hero-title': 'Tap. To Prof.<br>Done.','hero-subhead': 'AI-orchestrated marketplace. Zero UI for clients, SaaS for pros. No more commission bleed.','hero-whitepaper': 'Read white paper →','hero-investor': 'Investor deck',
+      'feature-1-label': '100% voice/photo','feature-1-desc': 'no forms','feature-2-label': '$29.9/month','feature-2-desc': 'pro subscription','feature-3-label': 'multi‑agent','feature-3-desc': 'AI negotiation',
+      'problem-tag': 'legacy is broken','problem-title': 'Current marketplaces<br>take 30% and give nothing.',
+      'client-title': 'Client side','client-desc': '20‑minute forms, 10 chats, no transparency. 85% drop off before booking.','client-loss-label': 'conversion loss',
+      'pro-title': 'Pro side','pro-desc': '30% commission, unpaid paperwork, unstable leads. 70% of value taken by platforms.','pro-cut-label': 'platform cut',
+      'agents-tag': 'multi‑agent orchestration','agents-title': 'Five agents, one tap.',
+      'agent1-title': 'Classifier agent','agent1-desc': 'Parses photo + voice, defines job type and scope. No categories, no dropdowns.',
+      'agent2-title': 'Negotiator agent','agent2-desc': 'Enters auction, bids, compares ratings — fully automatic, works within price corridor.',
+      'agent3-title': 'Reputation agent','agent3-desc': 'Synthesises open‑source reviews, gov databases, old profiles into unbiased score.',
+      'agent4-title': 'Scheduler agent','agent4-desc': 'Matches calendar slots, confirms ETA, sends reminders.',
+      'economics-tag': 'unit economics · subscription‑first','economics-title': 'SaaS for pros, not % per job.',
+      'metric-arpu': 'ARPU / pro / month','metric-lifetime': 'avg. lifetime','metric-ltv': 'LTV (conservative)','metric-cac': 'CAC (supply)','metric-ltv-cac': 'LTV/CAC','metric-payback': 'payback',
+      'scale-1': 'pros → $25k MRR','scale-2': 'pros → $250k MRR · $3M ARR','scale-3': 'pros → $1.25M MRR · $15M ARR',
+      'invest-tag': 'pre‑seed · $500k','invest-title': 'Looking for founding team & partners','invest-desc': 'CTO (Python/AI), AI/ML engineer, product lead, growth. Stack: LangChain, multimodal, PWA/Telegram.','invest-partner': 'Partner with us →','invest-memo': 'Download memo',
+      'funds-title': 'Use of funds','funds-supply': 'Supply acquisition','funds-ai': 'AI dev / R&D','funds-demand': 'Demand marketing','funds-ops': 'Ops & legal',
+      'footer-copyright': 'TapToProf — AI infrastructure for blue‑collar','footer-version': 'white paper v1.0 · march 2026'
+    }
+  };
+
+  function setLanguage(lang) {
+    const translations = i18n[lang];
+    for (const [key, value] of Object.entries(translations)) {
+      const el = document.getElementById(key);
+      if (el) {
+        if (key.includes('title') || key.includes('hero-title') || key.includes('problem-title') || key.includes('agents-title') || key.includes('economics-title')) el.innerHTML = value;
+        else el.textContent = value;
+      }
+    }
+    document.getElementById('lang-ru').classList.toggle('active', lang === 'ru');
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    updateCaption();
+  }
+
+  document.getElementById('lang-ru').addEventListener('click', () => setLanguage('ru'));
+  document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+  setLanguage('en');
+</script>
+
+</body>
+</html>
