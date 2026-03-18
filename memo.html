@@ -607,26 +607,27 @@
             <!-- Проблема -->
             <section id="problem" class="section-grey">
                 <span class="tag">legacy is broken</span>
-                <h2>Проблема: болевые точки рынка США</h2>
-                <h3>Со стороны клиента</h3>
-                <p>Высокий порог ввода: чтобы вызвать сантехника, нужно заполнить анкету, сравнить 10+ откликов. Отсутствие доверия: фото работ могут быть скачаны из Pinterest, верификация — главный сдерживающий фактор (<span class="source-ref">Juniper Research, 2024</span>).</p>
-                <h3>Со стороны мастера</h3>
-                <p><strong>Angi</strong> продаёт один лид 3‑8 подрядчикам, цена закрытой сделки достигает $1400–2500 (<a href="https://www.bbb.org/us/in/indianapolis/profile/contractor-referral/angi-0382-3041007/complaints?page=4" class="source-ref">BBB жалобы, 2025</a>). <strong>TaskRabbit</strong> забирает 15‑30% комиссии + сбор с клиента 5‑9% (<a href="https://terms.law/ToS-Watchdog/home-services/taskrabbit/" class="source-ref">TaskRabbit ToS, 2026</a>). Мастер с заказа $100 получает на руки ~$80.</p>
-                <h3>Структурный застой</h3>
+                <h2>Проблема: Анализ болевых точек рынка США</h2>
+                <h3>Проблемы клиента (Спрос)</h3>
+                <p>Высокий порог ввода: чтобы вызвать сантехника, нужно заполнить анкету, сравнить 10+ откликов. Отсутствие доверия: фото работ могут быть скачаны из Pinterest, верификация — главный сдерживающий фактор (<span class="source-ref">Juniper Research, 2024</span>). Усталость от выбора и спам: получить 10-15 откликов — не подарок, а наказание.</p>
+                <h3>Проблемы мастера (Предложение)</h3>
+                <p><strong>Angi</strong> продаёт один лид 3‑8 подрядчикам, цена закрытой сделки достигает $1400–2500 (<a href="https://www.bbb.org/us/in/indianapolis/profile/contractor-referral/angi-0382-3041007/complaints?page=4" class="source-ref">BBB жалобы, 2025</a>). <strong>TaskRabbit</strong> забирает 15‑30% комиссии + сбор с клиента 5‑9% (<a href="https://terms.law/ToS-Watchdog/home-services/taskrabbit/" class="source-ref">TaskRabbit ToS, 2026</a>). Мастер с заказа $100 получает на руки ~$80. 80% времени мастера тратится на «офисную работу»: переписки, звонки, уточнения.</p>
+                <h3>Структурный застой рынка</h3>
                 <p>Монополистам выгоден хаос: они монетизируют каждый контакт. Рынок созрел для disruption.</p>
             </section>
 
             <!-- Решение -->
             <section id="solution">
                 <span class="tag">Service‑as‑a‑Software</span>
-                <h2>Решение: SaaS вместо комиссий</h2>
+                <h2>Решение: Service‑as‑a‑Software (SaaS) — Новая парадигма</h2>
                 <p>AI‑операционная система для услуг. Ключевые инновации: <strong>Zero‑UI, мультиагентная система, прозрачный аукцион, синтезированная репутация, подписка $29.99/мес.</strong></p>
                 <table>
-                    <thead><tr><th>Модель</th><th>Пример</th><th>Проблема</th><th>Решение TapToProf</th></tr></thead>
+                    <thead><tr><th>Модель</th><th>Пример</th><th>Суть</th><th>Проблема</th><th>Решение TapToProf</th></tr></thead>
                     <tbody>
-                    <tr><td>Плата за лид</td><td>Angi, Thumbtack</td><td>Мусорные лиды, оплата за воздух</td><td>Фикс. подписка, лиды бесплатны</td></tr>
-                    <tr><td>Комиссия со сделки</td><td>TaskRabbit</td><td>Цена растёт, мастер теряет доход</td><td>Никаких комиссий, только подписка</td></tr>
-                    <tr><td>Pay‑per‑click</td><td>Google LSA</td><td>Дорого для мелких заказов</td><td>Аукцион + AI‑оптимизация цены</td></tr>
+                    <tr><td>Плата за лид</td><td>Angi, Thumbtack</td><td>Мастер платит за контакт</td><td>Плата за «мусор», многократная продажа</td><td>Фикс. подписка, лиды бесплатны</td></tr>
+                    <tr><td>Комиссия со сделки</td><td>TaskRabbit</td><td>Платформа берет % с заказа</td><td>Цена растет, мастер теряет доход</td><td>Никаких комиссий, только подписка</td></tr>
+                    <tr><td>Pay‑per‑click</td><td>Google LSA</td><td>Оплата за звонок или сообщение</td><td>Дорого для мелких заказов</td><td>Аукцион + AI‑оптимизация цены</td></tr>
+                    <tr><td>Подписка для клиента</td><td>Angie's List</td><td>Клиент платит за доступ</td><td>Не решает проблему поиска</td><td>Zero‑UI + AI‑агент</td></tr>
                     </tbody>
                 </table>
             </section>
@@ -635,18 +636,21 @@
             <section id="scenarios"class="section-grey">
                 <span class="tag">user journeys</span>
                 <h2>Пользовательские сценарии (США)</h2>
-                <p><strong>Клиент Анна (Денвер):</strong> фотографирует кран, говорит голосом → AI распознаёт, запускает аукцион среди ближайших сантехников. Через минуту получает предложение с ценой $90 и подтверждением.</p>
-                <p><strong>Мастер Александр:</strong> открывает приложение, видит заявки, ставит цену или включает «автопилот» (AI торгуется в пределах $80‑120). В конце месяца платит $29.99 подписки.</p>
+                <h3>Сценарий для клиента (Анна, Денвер)</h3>
+                <p><strong>Инпут:</strong> Анна открывает приложение, фотографирует кран, говорит: "Вот тут течет, под раковиной. Нужно починить. Я дома после 7 вечера". <strong>AI‑обработка:</strong> CV определяет тип смесителя, NLP извлекает суть. <strong>Аукцион:</strong> Система отправляет заявку ближайшим сантехникам. <strong>Торги:</strong> Один ставит $90, другой $85. <strong>Выбор:</strong> AI предлагает Анне: "Найден сантехник Александр. Рейтинг 4.9. Цена $90. Подтвердить?" <strong>Результат:</strong> Анна нажимает "Да", мастер получает адрес.</p>
+                <h3>Сценарий для мастера (Александр, сантехник)</h3>
+                <p><strong>Онбординг:</strong> Скачивает приложение, даёт доступ к геолокации, AI парсит его профиль (Google Maps, Yelp). <strong>Работа:</strong> Видит ленту заявок, нажимает "Участвовать". <strong>Автопилот:</strong> Включает режим, AI торгуется в пределах $80‑120. <strong>Оплата:</strong> В конце месяца платит $29.99 подписки. Никаких комиссий.</p>
             </section>
 
             <!-- Технология -->
             <section id="technology">
                 <span class="tag">multi‑agent orchestration</span>
-                <h2>AI‑мультиагентная система</h2>
-                <p>Оркестр агентов: <strong>Classifier</strong> (CV+NLP), <strong>Scheduler</strong> (календари, Maps), <strong>Negotiator</strong> (прогноз цены, автоторги), <strong>Reputation</strong> (парсинг Google Maps, Yelp, выявление накруток), <strong>Summary</strong> (отзывы, отчёты).</p>
-                <p>Стек: Python (FastAPI), LangChain, OpenAI/Claude, YOLOv8, PostgreSQL (pgvector), Stripe Connect.</p>
+                <h2>Технология: Архитектура AI‑мультиагентной системы</h2>
+                <p>Оркестр агентов: <strong>Agent‑Classifier</strong> (CV+NLP) определяет задачу; <strong>Agent‑Scheduler</strong> (календари, Maps) согласует время; <strong>Agent‑Negotiator</strong> анализирует ставки, прогнозирует цену, ведет торги; <strong>Agent‑Reputation</strong> парсит открытые данные (Google Maps, Yelp, соцсети), выявляет накрутки; <strong>Agent‑Summary</strong> собирает отзыв, генерирует чек.</p>
+                <p>Стек: Python (FastAPI), LangChain / AutoGen, OpenAI/Claude/Llama 3, YOLOv8/CLIP, PostgreSQL (pgvector), Stripe Connect.</p>
             </section>
 
+            <!-- UI макеты (без изменений) -->
             <section id="prototypes">
                 <span class="tag">UI prototypes · MVP</span>
                 <h2>Макеты мобильного приложения MVP</h2>
@@ -654,35 +658,30 @@
                     <div class="prototype-card">
                         <div class="prototype-img">
                             <img src="1.png" alt="Создание заказа" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Создание заказа</span>'">
-
                         </div>
                         <p>Экран 1: <br/>фото + голос</p>
                     </div>
                     <div class="prototype-card">
                         <div class="prototype-img">
                             <img src="2.png" alt="Создание заказа" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Создание заказа</span>'">
-
                         </div>
                         <p>Экран 2: <br/>AI-агенты работают</p>
                     </div>
                     <div class="prototype-card">
                         <div class="prototype-img">
                             <img src="3.png" alt="Создание заказа" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Создание заказа</span>'">
-
                         </div>
                         <p>Экран 3: <br/>уведомление мастеру</p>
                     </div>
                     <div class="prototype-card">
                         <div class="prototype-img">
                             <img src="4.png" alt="Создание заказа" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Создание заказа</span>'">
-
                         </div>
                         <p>Экран 4: <br/>торги в реальном времени</p>
                     </div>
                     <div class="prototype-card">
                         <div class="prototype-img">
                             <img src="5.png" alt="Создание заказа" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Создание заказа</span>'">
-
                         </div>
                         <p>Экран 5: <br/>мастер едет</p>
                     </div>
@@ -692,61 +691,63 @@
             <!-- Анализ рынка -->
             <section id="market-analysis"class="section-grey">
                 <span class="tag">market sizing & competition</span>
-                <h2>Анализ рынка и конкуренты</h2>
-                <h3>TAM/SAM/SOM</h3>
-                <p>TAM (США, бытовые услуги) = $543 млрд (<a href="https://www.ibisworld.org/" class="source-ref">IBISWorld, 2026</a>).
-                    <br/>
-                    SAM (онлайн‑сегмент) — [ДАННЫЕ ОТСУТСТВУЮТ, ТРЕБУЕТСЯ УТОЧНЕНИЕ].
-                    <br/>
-                    SOM: ниша AI‑подписки, первые 500 мастеров в пилотном городе.</p>
-                <h3>Конкуренты</h3>
+                <h2>Анализ рынка и конкурентная среда в США</h2>
+                <h3>Оценка рынка (TAM, SAM, SOM)</h3>
+                <p><strong>TAM</strong> (США, бытовые услуги) = $543 млрд (<a href="https://www.ibisworld.org/" class="source-ref">IBISWorld, 2026</a>). Другие оценки — до $870 млрд.</p>
+                <p><strong>SAM</strong> (онлайн‑сегмент) — десятки миллиардов долларов, точные данные отсутствуют, требуется уточнение.</p>
+                <p><strong>SOM</strong>: ниша AI‑подписки, первые 500 мастеров в пилотном городе.</p>
+                <h3>Конкурентный анализ «Большой пятерки» США</h3>
                 <table>
-                    <thead><tr><th>Компания</th><th>Модель</th><th>Уязвимость</th></tr></thead>
+                    <thead><tr><th>Компания</th><th>Модель</th><th>Комиссия / стоимость</th><th>Уязвимость</th></tr></thead>
                     <tbody>
-                    <tr><td>Angi</td><td>Плата за лид</td><td>Мастера ненавидят «мусорные» лиды, суды из‑за «сертификации»</td></tr>
-                    <tr><td>TaskRabbit</td><td>Комиссия 15‑30%</td><td>Двусторонний сбор, топ‑мастера уходят в «личку»</td></tr>
-                    <tr><td>Thumbtack</td><td>Плата за лид</td><td>Клиент платит, чтобы отправить запрос</td></tr>
-                    <tr><td>Google LSA</td><td>PPC</td><td>Дорого для мелкого ремонта</td></tr>
+                    <tr><td>Angi</td><td>Плата за лид</td><td>$15–120+ за лид</td><td>Мастера ненавидят «мусорные» лиды, юридические проблемы с «сертификацией»</td></tr>
+                    <tr><td>TaskRabbit</td><td>Комиссия со сделки</td><td>15‑30% с мастера + 5‑9% с клиента</td><td>Двусторонний сбор, топ‑мастера уходят в «личку»</td></tr>
+                    <tr><td>Thumbtack</td><td>Плата за лид</td><td>Предоплата за отправку запроса</td><td>Барьер для клиентов и мастеров</td></tr>
+                    <tr><td>Google LSA</td><td>Pay‑per‑click</td><td>Оплата за звонок/сообщение</td><td>Дорого для мелкого ремонта</td></tr>
+                    <tr><td>Craigslist/Yelp</td><td>Бесплатно / реклама</td><td>—</td><td>Отсутствие верификации, мошенничество</td></tr>
                     </tbody>
                 </table>
-                <h3>SWOT</h3>
-                <p><strong>Силы:</strong> подрывная цена ($30/мес vs 30% комиссии), AI‑удобство, прозрачность.<br>
+                <h3>Детальный разбор ключевых конкурентов</h3>
+                <p><strong>Angi:</strong> тысячи жалоб в BBB, автоматическое продление, комиссии за расторжение до $880. <strong>TaskRabbit:</strong> высокий процент, мастер получает $80‑85 со $100. <strong>Структурная проблема:</strong> платформы не могут предложить локализованных решений и гибких моделей.</p>
+                <h3>SWOT-анализ для выхода на рынок США</h3>
+                <p><strong>Силы:</strong> подрывная цена ($30/мес vs 30% комиссии), AI‑удобство, прозрачность аукциона.<br>
                     <strong>Слабости:</strong> проблема «курица‑яйцо», верификация, комиссии эквайринга.<br>
-                    <strong>Возможности:</strong> миграция мастеров от Angi, B2B (property managers), партнёрства с Home Depot.<br>
+                    <strong>Возможности:</strong> миграция мастеров от Angi (из-за скандалов), B2B (property managers), партнёрства с Home Depot/Lowe's.<br>
                     <strong>Угрозы:</strong> ответ Google LSA, регуляторика (AB5 в Калифорнии).</p>
             </section>
 
             <!-- Юнит-экономика -->
             <section id="business-model">
                 <span class="tag">unit economics · subscription‑first</span>
-                <h2>Бизнес‑модель и юнит‑экономика</h2>
+                <h2>Бизнес‑модель и Юнит‑экономика</h2>
                 <h3>Потоки дохода</h3>
                 <ul style="margin-left:2rem; color:#555;">
-                    <li>Подписка «Про»: $29.99/мес (основной)</li>
-                    <li>VIP для клиентов: $4.99/мес (гарантия 1ч)</li>
-                    <li>Транзакционный сбор (3‑5%) опционально</li>
+                    <li><strong>Основной: Подписка для специалистов (SaaS) «Про»</strong> — $29.99/мес (AI‑переговорщик, приоритет, автопилот).</li>
+                    <li><strong>Второстепенный: Премиум для клиентов «VIP‑доступ»</strong> — $4.99/мес (гарантированный выезд за 1 час, расширенная гарантия).</li>
+                    <li><strong>Транзакционный (опционально):</strong> 3‑5% с клиента за безопасную сделку (escrow).</li>
                 </ul>
-                <h3>Юнит‑экономика (мастер)</h3>
+                <h3>Юнит‑экономика (Master Pro)</h3>
                 <div class="grid-3">
                     <div class="metric-card"><div class="metric-value">$30</div><div class="metric-label">ARPU / мес</div></div>
                     <div class="metric-card"><div class="metric-value">24 мес</div><div class="metric-label">срок жизни</div></div>
                     <div class="metric-card"><div class="metric-value">$720</div><div class="metric-label">LTV</div></div>
                     <div class="metric-card"><div class="metric-value">$180</div><div class="metric-label">CAC</div></div>
                     <div class="metric-card"><div class="metric-value">4.0</div><div class="metric-label">LTV/CAC</div></div>
-                    <div class="metric-card"><div class="metric-value">6 мес</div><div class="metric-label">окупаемость</div></div>
+                    <div class="metric-card"><div class="metric-value">6 мес</div><div class="metric-label">окупаемость CAC</div></div>
                 </div>
-                <h3>Масштабирование</h3>
+                <h3>Финансовая модель масштабирования</h3>
                 <div class="scale-flex">
-                    <div><span style="font-size:2.04rem;">1k</span> <span style="color:#666;">мастеров → $25k MRR</span></div>
-                    <div><span style="font-size:2.04rem;">10k</span> <span style="color:#666;">мастеров → $250k MRR · $3M ARR</span></div>
-                    <div><span style="font-size:2.04rem;">50k</span> <span style="color:#666;">мастеров → $1.25M MRR · $15M ARR</span></div>
+                    <div><span style="font-size:2.04rem;">500</span> <span style="color:#666;"> мастеров → $15k MRR</span></div>
+                    <div><span style="font-size:2.04rem;">10k</span> <span style="color:#666;"> мастеров → $300k MRR · $3.6M ARR</span></div>
+                    <div><span style="font-size:2.04rem;">50k</span> <span style="color:#666;"> мастеров → $1.5M MRR · $18M ARR</span></div>
                 </div>
+                <p>При комиссии 5% с клиента дополнительный доход: 500 → $19.5k/мес; 10k → $1M/мес; 50k → $5M/мес.</p>
             </section>
 
             <!-- Дорожная карта + Gantt -->
             <section id="roadmap" class="section-grey">
                 <span class="tag">roadmap</span>
-                <h2>Стратегия выхода и дорожная карта</h2>
+                <h2>Стратегия выхода на рынок и дорожная карта</h2>
                 <div class="gantt">
                     <div class="gantt-item">
                         <span class="gantt-label">Фаза 0: <br/>Pre‑seed</span>
@@ -775,13 +776,15 @@
                     <strong>Фаза 1 (3‑6 мес):</strong> PWA, ручное соединение клиентов и мастеров, проверка NPS.<br>
                     <strong>Фаза 2 (6‑12 мес):</strong> AI‑классификатор, аукцион, интеграция Stripe.<br>
                     <strong>Фаза 3 (12‑18 мес):</strong> запуск подписки $29.99, AI‑переговорщик, партнёрства с Home Depot/Lowe’s.</p>
+                <h3>Команда (Роли для рынка США)</h3>
+                <p><strong>СЕО / Founder:</strong> визионер с опытом маркетплейсов; <strong>CTO / Tech Lead:</strong> Python/AI, мультиагентные системы; <strong>AI/ML Engineer:</strong> NLP, CV; <strong>Product Lead:</strong> опыт в маркетплейсах США; <strong>Growth Marketer:</strong> привлечение мастеров и клиентов.</p>
             </section>
 
             <!-- Инвестиции -->
             <section id="investment">
                 <span class="tag">pre‑seed · $500k</span>
                 <h2>Инвестиционное предложение</h2>
-                <p>Pre‑seed $500k на 18 месяцев.</p>
+                <p>Pre‑seed $500k на 18 месяцев для выхода на рынок США. Оценка компании для обсуждения ($3‑5 млн).</p>
                 <div class="funds-block" style="margin-top:24px;">
                     <div style="font-weight:500; margin-bottom:24px;">Использование средств</div>
                     <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
@@ -791,23 +794,24 @@
                         <div style="flex:1; min-width: 200px;">
                             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                                 <span style="width: 16px; height: 16px; background: #2b5aa1; border-radius: 4px;"></span>
-                                <span>Привлечение мастеров <strong>40%</strong></span>
+                                <span>Привлечение мастеров (Supply) <strong>40% ($200k)</strong></span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                                 <span style="width: 16px; height: 16px; background: #5d7cb3; border-radius: 4px;"></span>
-                                <span>AI разработка / R&D <strong>30%</strong></span>
+                                <span>AI разработка / R&D <strong>30% ($150k)</strong></span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                                 <span style="width: 16px; height: 16px; background: #a0b4d5; border-radius: 4px;"></span>
-                                <span>Маркетинг (спрос) <strong>20%</strong></span>
+                                <span>Маркетинг (спрос) <strong>20% ($100k)</strong></span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                                 <span style="width: 16px; height: 16px; background: #D8E0ECFF; border-radius: 4px;"></span>
-                                <span>Операции и юр. вопросы <strong>10%</strong></span>
+                                <span>Операции и юр. вопросы <strong>10% ($50k)</strong></span>
                             </div>
                         </div>
                     </div>
                 </div>
+                <p style="margin-top:24px;"><strong>Что получит инвестор:</strong> доля в компании, вход в сектор AI+Blue‑Collar на ранней стадии, продукт с LTV/CAC >3 и глобальным потенциалом.</p>
             </section>
 
             <div class="footnote" style="font-size:0.85rem; color:#888; border-top:1px solid #eee; padding-top:24px; margin-top:40px;">
@@ -862,15 +866,17 @@
     // Языковой переключатель (заглушка, можно добавить перевод позже)
     const langRu = document.getElementById('lang-ru');
     const langEn = document.getElementById('lang-en');
-    langRu.addEventListener('click', () => {
-        langRu.classList.add('active');
-        langEn.classList.remove('active');
-        // здесь можно добавить смену текста
-    });
-    langEn.addEventListener('click', () => {
-        langEn.classList.add('active');
-        langRu.classList.remove('active');
-    });
+    if (langRu && langEn) {
+        langRu.addEventListener('click', () => {
+            langRu.classList.add('active');
+            langEn.classList.remove('active');
+            // здесь можно добавить смену текста
+        });
+        langEn.addEventListener('click', () => {
+            langEn.classList.add('active');
+            langRu.classList.remove('active');
+        });
+    }
 
     // Плавная прокрутка для якорей (чтобы работало и в мобильном меню)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
