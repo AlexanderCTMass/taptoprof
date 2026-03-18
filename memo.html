@@ -1,676 +1,891 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TapToProf · White paper</title>
-  <!-- Шрифт Inter (профессиональный, без засечек) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 (минимальные иконки для акцентов) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>TapToProfi · Интегральный аналитический отчёт</title>
+    <!-- Шрифт Inter (без засечек, строгий) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (для иконок бургера и стрелок) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #ffffff;
-      color: #111111;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-    /* типографика */
-    h1, h2, h3, h4 {
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
+        /* Навбар как в white paper */
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eaeaea;
+            margin-bottom: 40px;
+            gap: 12px;
+        }
 
-    h1 {
-      font-size: 3.2rem;
-      line-height: 1.1;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
 
-    h2 {
-      font-size: 2.2rem;
-      font-weight: 600;
-      margin: 2.5rem 0 1.2rem 0;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #f0f0f0;
-    }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            color: #555;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+        }
 
-    h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin: 1.8rem 0 1rem 0;
-    }
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            cursor: default;
+        }
 
-    p {
-      color: #2c2c2c;
-      font-size: 1.05rem;
-      margin-bottom: 1.2rem;
-    }
+        .lang-switch {
+            display: flex;
+            gap: 6px;
+            margin-left: 0;
+        }
 
-    .lead {
-      font-size: 1.2rem;
-      color: #444;
-    }
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #ccc;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: #555;
+        }
 
-    /* навигация / шапка */
-    .docs-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 0;
-      border-bottom: 1px solid #eaeaea;
-      margin-bottom: 40px;
-    }
+        .lang-btn.active {
+            background: #111;
+            border-color: #111;
+            color: white;
+        }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      background: #111;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 40px;
-    }
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            cursor: default;
+            background: transparent;
+            border: 1px solid #222;
+            color: #222;
+            text-align: center;
+        }
 
-    .lang-switch {
-      display: flex;
-      gap: 8px;
-    }
-    .lang-btn {
-      background: transparent;
-      border: 1px solid #ccc;
-      padding: 6px 14px;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.15s;
-      color: #333;
-    }
-    .lang-btn.active {
-      background: #111;
-      border-color: #111;
-      color: white;
-    }
+        .btn-primary {
+            background: #111;
+            color: white;
+            border: 1px solid #111;
+        }
 
-    .badge {
-      display: inline-block;
-      background-color: #f2f4f8;
-      color: #111;
-      font-size: 0.8rem;
-      padding: 4px 12px;
-      border-radius: 40px;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      border: 1px solid #ddd;
-    }
+        .btn-primary:hover {
+            background: #333;
+        }
 
-    .tag {
-      background: #e6edff;
-      color: #1e40af;
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 40px;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 12px;
-      letter-spacing: 0.02em;
-    }
+        .btn-outline {
+            border: 1px solid #ddd;
+            color: #333;
+        }
 
-    /* карточки, метрики */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
+        /* Теги (серые плашки) */
+        .tag {
+            display: inline-block;
+            background-color: #eff0f3;
+            color: #252525;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 40px;
+            border: 1px solid #d0d8e6;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 16px;
+        }
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-    }
+        /* Типографика */
+        h1 {
+            font-size: clamp(2.8rem, 8vw, 4.2rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
 
-    .metric-card {
-      background: #f9fafc;
-      border-radius: 24px;
-      padding: 28px 20px;
-      border: 1px solid #eaeef2;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-    }
+        h2 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
 
-    .metric-number {
-      font-size: 2.8rem;
-      font-weight: 550;
-      letter-spacing: -0.02em;
-      color: #111;
-      line-height: 1.1;
-      margin-bottom: 4px;
-    }
+        h3 {
+            font-size: 1.35rem;
+            font-weight: 500;
+            margin: 2rem 0 1rem;
+        }
 
-    .metric-label {
-      color: #5f6b7a;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
+        p {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+        }
 
-    hr {
-      border: none;
-      border-top: 2px solid #eceef2;
-      margin: 40px 0;
-    }
+        hr {
+            border: none;
+            border-top: 1px solid #eaeaea;
+            margin: 40px 0;
+        }
 
-    /* прогресс-бары для наглядности */
-    .progress-wrapper {
-      margin: 20px 0;
-    }
+        /* Макет для десктопа: контент + фиксированное оглавление справа */
+        .layout {
+            display: flex;
+            gap: 48px;
+            align-items: flex-start;
+            position: relative;
+        }
 
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 500;
-      font-size: 0.95rem;
-      margin-bottom: 6px;
-    }
+        .content {
+            flex: 1;
+            min-width: 0; /* предотвращает переполнение */
+        }
 
-    .progress-bg {
-      background: #e4e7ec;
-      height: 8px;
-      border-radius: 20px;
-      width: 100%;
-    }
+        .content section { padding:20px 40px;}
+        .content .section-grey {border-top: 1px solid #eee; background: #fafafa;}
 
-    .progress-fill {
-      background: #111;
-      height: 8px;
-      border-radius: 20px;
-      width: 0%; /* will be set inline */
-    }
+        /* Оглавление (десктоп) — фиксированное справа */
+        .toc-desktop {
+            width: 280px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 2rem;
+            background: white;
+            border-radius: 20px;
+            padding: 1.75rem 1.5rem;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+            border: 1px solid #eaedf2;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
 
-    .blue-fill {
-      background: #2563eb;
-    }
+        .toc-desktop h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #4a5f73;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e2e6ec;
+            margin-top: 0;
+        }
 
-    /* конкурентная таблица */
-    .competitor-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
-    }
+        .toc-desktop ul {
+            list-style: none;
+            padding: 0;
+        }
 
-    .competitor-table th {
-      text-align: left;
-      padding: 16px 8px 8px 0;
-      font-weight: 600;
-      border-bottom: 1px solid #ddd;
-    }
+        .toc-desktop li {
+            margin-bottom: 0.6rem;
+        }
 
-    .competitor-table td {
-      padding: 12px 8px 12px 0;
-      border-bottom: 1px solid #eee;
-      vertical-align: top;
-    }
+        .toc-desktop a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 10px;
+            transition: background 0.15s;
+        }
 
-    .competitor-table tr:last-child td {
-      border-bottom: none;
-    }
+        .toc-desktop a:hover {
+            background: #f0f4f9;
+        }
 
-    .highlight {
-      background: #f0f6ff;
-      border-radius: 8px;
-    }
+        .prototypes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
 
-    ul, ol {
-      margin-left: 1.6rem;
-      margin-bottom: 1.5rem;
-      color: #2c2c2c;
-    }
+        .prototype-card {
+            text-align: center;
 
-    li {
-      margin-bottom: 6px;
-    }
+        }
 
-    .roadmap-step {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 32px;
-      align-items: flex-start;
-    }
+        .prototype-card p {font-size: 0.7rem;}
 
-    .roadmap-marker {
-      min-width: 100px;
-      font-weight: 700;
-      color: #2563eb;
-    }
+        .prototype-img {
+            background: #f5f5f5;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin-bottom: 12px;
+            aspect-ratio: 9 / 16; /* пропорции мобильного экрана */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
 
-    .investment-card {
-      background: #f9fafc;
-      border-radius: 28px;
-      padding: 32px;
-      border: 1px solid #e2e8f0;
-      margin-top: 20px;
-    }
+        .prototype-img i {
+            margin-bottom: 8px;
+        }
 
-    .footnote {
-      color: #777;
-      font-size: 0.9rem;
-      margin-top: 32px;
-      padding-top: 20px;
-      border-top: 1px solid #eceef2;
-    }
+        .prototype-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
 
-    @media (max-width: 700px) {
-      .container { padding: 0 24px; }
-      h1 { font-size: 2.4rem; }
-      .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    }
+        /* Бургер-меню (видно только на мобильных) */
+        .burger {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border: 1px solid #ddd;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
 
-    /* простая графика (псевдо‑svg) */
-    .agent-flow {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      background: #fafcfd;
-      border-radius: 36px;
-      padding: 32px 24px;
-      border: 1px solid #dee4eb;
-      margin: 36px 0;
-    }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 999;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            padding: 80px 24px 24px;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
 
-    .agent-item {
-      text-align: center;
-      min-width: 70px;
-    }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
 
-    .agent-icon {
-      background: white;
-      width: 64px;
-      height: 64px;
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      border: 1px solid #d0d9e3;
-      margin: 0 auto 12px auto;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-    }
+        .mobile-menu ul {
+            list-style: none;
+        }
 
-    .agent-name {
-      font-weight: 600;
-      font-size: 0.85rem;
-    }
-  </style>
+        .mobile-menu li {
+            margin-bottom: 1rem;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: #111;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 998;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Таблицы в стиле white paper (минимализм) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: 500;
+            color: #111;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Gantt-диаграмма в стиле минимализм */
+        .gantt {
+            margin: 2.5rem 0 1.5rem;
+            padding: 1.5rem;
+            background: #f8fafd;
+            border-radius: 24px;
+        }
+
+        .gantt-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .gantt-label {
+            width: 140px;
+            font-weight: 500;
+            color: #1f2c3a;
+            font-size: 0.75rem;
+        }
+
+        .gantt-bar-container {
+            flex: 1;
+            height: 2rem;
+            background-color: #e2e7f0;
+            border-radius: 40px;
+            overflow: hidden;
+        }
+
+        .gantt-bar {
+            height: 100%;
+            background-color: #111;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            padding-left: 1rem;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .gantt-milestone {
+            margin-top: 1rem;
+            padding-left: 140px;
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #2f4053;
+            flex-wrap: wrap;
+        }
+
+        .milestone-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #111;
+            border-radius: 50%;
+            margin-right: 0.3rem;
+        }
+
+        /* Карточки метрик (как в white paper) */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
+            border-top: 1px solid #eee;
+            padding-top: 24px;
+        }
+
+        .metric-value {
+            font-size: 2.0rem;
+            font-weight: 450;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .scale-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .funds-block {
+            background: #f5f5f5;
+            padding: 32px 24px;
+            border-radius: 24px;
+        }
+
+        .progress-bar {
+            background: #ddd;
+            height: 4px;
+            width: 100%;
+            margin: 8px 0 16px;
+        }
+
+        .progress-fill {
+            height: 4px;
+            background: #111;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1000px) {
+            .layout {
+                flex-direction: column;
+            }
+            .toc-desktop {
+                display: none; /* на планшетах и мобильных убираем десктопное оглавление */
+            }
+            .burger {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 16px;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            .gantt-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.3rem;
+                margin-bottom: 1.5rem;
+            }
+            .gantt-label {
+                width: auto;
+            }
+            .gantt-milestone {
+                padding-left: 0;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        /* Ссылки на источники */
+        .source-ref {
+            font-style: italic;
+            color: #4a6d8c;
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            border-top: 1px solid #eee;
+            padding: 30px 0;
+            margin-top: 40px;
+            color: #888;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- шапка с переключателем языка -->
-    <div class="docs-header">
-      <span class="logo">TapToProf</span>
-      <div class="lang-switch">
-        <button class="lang-btn active" id="lang-ru">РУС</button>
-        <button class="lang-btn" id="lang-en">ENG</button>
-      </div>
+
+<!-- Навбар как в white paper -->
+<div class="container">
+    <div class="navbar">
+        <div class="logo">TapToProf</div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
+            <div class="nav-links">
+                <a href="index.html">White paper</a>
+            </div>
+            <div class="nav-links">
+                <a href="eng/memo.html">English</a>
+            </div>
+        </div>
     </div>
+</div>
 
-    <!-- титул и весь контент динамически обновляются через JS -->
-    <div id="content-root"></div>
+<!-- Бургер-иконка и мобильное меню -->
+<div class="burger" id="burgerBtn">
+    <i class="fas fa-bars"></i>
+</div>
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+    <h3 style="margin-bottom: 24px;">Содержание</h3>
+    <ul>
+        <li><a href="#executive-summary">Исполнительное резюме</a></li>
+        <li><a href="#problem">Проблема</a></li>
+        <li><a href="#solution">Решение (SaaS)</a></li>
+        <li><a href="#scenarios">Сценарии</a></li>
+        <li><a href="#technology">Технология</a></li>
+        <li><a href="#prototypes">UI макеты</a></li>
+        <li><a href="#market-analysis">Анализ рынка</a></li>
+        <li><a href="#business-model">Юнит‑экономика</a></li>
+        <li><a href="#roadmap">Дорожная карта</a></li>
+        <li><a href="#investment">Инвестиции</a></li>
+    </ul>
+</div>
 
-    <!-- небольшая плашка внизу (в стиле документа) -->
-    <div style="height: 60px;"></div>
-  </div>
+<!-- Основной макет с контентом и десктопным оглавлением -->
+<div class="container">
+    <div class="layout">
+        <!-- Левая колонка: весь контент -->
+        <div class="content">
+            <!-- Герой (краткий) -->
+            <section id="executive-summary" style="margin-bottom: 3rem;">
+                <span class="tag">Executive summary</span>
+                <h1>TapToProf: AI-нативная платформа для blue‑collar</h1>
+                <p class="subhead" style="font-size:1.2rem; color:#555; max-width:800px;">Интегральный бизнес-план и аналитический отчёт. Март 2026, Pre‑Seed.</p>
+                <p><strong>Концепция:</strong> TapToProf — глобальная AI-платформа для поиска специалистов (blue‑collar), заменяющая «человека в процессе» AI-агентами и токсичную модель комиссий (20‑30%) на прозрачную SaaS-подписку для мастеров ($29.99/мес).</p>
+                <p><strong>Проблема:</strong> Рынок бытовых услуг США оценивается в <span class="source-ref">$543 млрд</span> (2025‑26). Лидеры (Angi, TaskRabbit) продают «мусорные» лиды по $15–120 или взимают двустороннюю комиссию до 30% (<a href="http://www.bbb.org/us/fl/hialeah/profile/sales-lead-generation/wealthy-leads-0633-92027600/complaints?page=1" class="source-ref">BBB, 2024</a>). Мастера теряют 80% времени на переписку, клиенты тонут в спаме.</p>
+                <p><strong>Решение:</strong> Zero‑UI (фото+голос) → AI-оркестратор → прозрачный аукцион + подписка для мастеров. Консервативный LTV мастера — $720, CAC ~$180, LTV/CAC = 4. При 10 000 мастеров ARR достигнет $3.6 млн (только подписка).</p>
+            </section>
 
-  <script>
-    (function() {
-      // Переводы
-      const i18n = {
-        ru: {
-          badge: "white paper v1.0 · март 2026 · pre-seed",
-          title: "AI‑native платформа<br>для blue‑collar услуг",
-          subtitle: "От комиссий к AI‑подписке. Zero UI для клиентов, SaaS для мастеров. Революция рынка home services.",
-          toc: "содержание",
-          tocItems: ["1. Исполнительное резюме", "2. Проблема", "3. Решение", "4. Сценарии", "5. Технология", "6. Юнит‑экономика", "7. Рынок / конкуренты", "8. Roadmap", "9. Команда", "10. Инвестиции"],
-          execTitle: "1. Исполнительное резюме",
-          execText: "<strong>Концепция:</strong> TapToProf — глобальная AI-платформа, заменяющая классические доски объявлений мультиагентной системой. Клиент взаимодействует через фото и голос, AI сам классифицирует задачу, проводит аукцион среди мастеров, договаривается о цене и предлагает лучшего. Мастер платит фиксированную подписку ($29.9/мес) вместо комиссии 20-30%. Рынок онлайн-услуг оценивается в $500+ млрд, текущие игроки застряли в модели «комиссия + спам».",
-          problemTitle: "2. Почему рынок сломан",
-          clientTag: "клиент",
-          clientPoints: ["Формы на 5-10 минут, 15 диалогов с разными мастерами", "Нет доверия: фото из Pinterest, отзывы накручены", "85% пользователей бросают заявку до подтверждения"],
-          lossLabel: "потеря конверсии",
-          lossValue: "85%",
-          masterTag: "мастер",
-          masterPoints: ["Комиссии до 30% (Яндекс.Услуги, Профи.ру)", "80% времени — переписки, уточнения, торг", "Платные пакеты, чтобы получать заказы"],
-          commissionLabel: "доход, уходящий платформам",
-          commissionValue: "30%",
-          solutionTitle: "3. Решение: Service‑as‑a‑Software",
-          solutionIntro: "<strong>Ключевые инновации:</strong> Zero‑UI (фото + голос), мультиагентная система, прозрачный аукцион, синтезированная репутация, подписка для мастеров.",
-          mission: "🎯 Наша миссия",
-          missionText: "Сделать вызов специалиста таким же простым, как включение света, а работу мастера — свободной от бумажной рутины.",
-          scenarioTitle: "4. Как это работает",
-          clientScenario: "👩 Анна (клиент)",
-          clientDesc: "📸 фото крана + «течет, после 19:00» → AI классифицирует → аукцион (3 ставки) → предложение: Александр, 4.9, $32 → одно касание = мастер едет.",
-          masterScenario: "🔧 Александр (мастер)",
-          masterDesc: "Регистрация: ИНН / ссылки. AI собирает профиль. Лента заказов рядом. Автопилот: AI сам откликается, торгуется, подтверждает. В конце месяца $29.9 подписки.",
-          techTitle: "5. AI‑мультиагентный оркестр",
-          techDesc: "Agent-Classifier (фото→тип задачи), Agent-Negotiator (торги в аукционе), Agent-Reputation (парсинг открытых профилей), Agent-Scheduler (слоты времени), Agent-Summary (пост‑отчет).",
-          econTitle: "6. Бизнес‑модель и юнит‑экономика",
-          econSub: "Основной доход: подписка мастеров (тарифы $9.9 и $29.9). Премиум для клиентов ($4.9/мес — опционально).",
-          arpu: "ARPU (средний)",
-          lifetime: "Lifetime",
-          ltv: "LTV",
-          cac: "CAC (supply)",
-          ltvCac: "LTV/CAC",
-          payback: "окупаемость CAC",
-          scaleLabel: "Масштабирование (MRR / ARR):",
-          scale1: "100 мастеров",
-          scale2: "1 000",
-          scale3: "10 000",
-          scale4: "50 000",
-          marketTitle: "7. Рынок и конкуренты",
-          marketDesc: "<strong>TAM:</strong> $500B+ home services online. <strong>SAM:</strong> США / Европа (высокий чек, low AI‑competition).",
-          compTh1: "Конкурент",
-          compTh2: "Модель",
-          compTh3: "Наше преимущество",
-          comp1: ["Яндекс Услуги / Профи.ру", "комиссия 20-30%", "подписка $29.9, AI‑переговоры"],
-          comp2: ["Авито", "платные объявления", "верификация, zero UI"],
-          comp3: ["TaskRabbit", "комиссия + почасовая", "без комиссии, аукцион"],
-          comp4: ["Angi / Thumbtack", "лидогенерация", "AI‑агент вместо оплаты за лид"],
-          roadmapTitle: "8. Дорожная карта",
-          step0: "pre‑seed (0-3 мес)",
-          step0desc: "50 интервью, поиск CTO/AI‑инженера, прототип ручного процесса (Telegram+Excel).",
-          step1: "MVP (3-9 мес)",
-          step1desc: "Telegram Mini App / PWA, базовая классификация, аукцион, первые 100 мастеров.",
-          step2: "AI‑интеграция (9-15 мес)",
-          step2desc: "AI‑переговорщик, авторейтинг, подписка, метрики LTV/CAC.",
-          step3: "экспансия (15+ мес)",
-          step3desc: "Выход на рынок США, B2B, интеграция с умным домом.",
-          teamTitle: "9. Команда (ищем)",
-          teamCeo: "CEO / Founder — визионер, автор идеи.",
-          teamCto: "CTO / Tech Lead — Python, AI/ML, мультиагентные системы.",
-          teamAi: "AI/ML Engineer — NLP, Computer Vision, LangChain.",
-          teamProduct: "Product Lead — опыт маркетплейсов.",
-          teamGrowth: "Growth Hacker — двухсторонние рынки.",
-          investTitle: "10. Инвестиционное предложение",
-          investAmount: "$500k",
-          investTerm: "pre-seed на 18 месяцев",
-          investDev: "Разработка MVP / AI",
-          investSupply: "Привлечение мастеров (supply)",
-          investDemand: "Маркетинг (demand)",
-          investLegal: "Юр. / операционные",
-          investReturn: "<strong>Что получит инвестор:</strong> долю в компании, вход в новый AI‑сектор, продукт с юнит‑экономикой 3x LTV/CAC.",
-          contact: "✉️ <strong>Контакты:</strong> partner@taptoprof.io  (placeholders)",
-          footnote: "⚡ Это документ является предварительным и предназначен для обсуждения с потенциальными партнерами и инвесторами. Все цифры оценочные, требуют валидации."
-        },
-        en: {
-          badge: "white paper v1.0 · march 2026 · pre-seed",
-          title: "AI‑native platform<br>for blue‑collar services",
-          subtitle: "From commissions to AI subscription. Zero UI for clients, SaaS for pros. Disrupting the home services market.",
-          toc: "contents",
-          tocItems: ["1. Executive summary", "2. Problem", "3. Solution", "4. Scenarios", "5. Technology", "6. Unit economics", "7. Market / competitors", "8. Roadmap", "9. Team", "10. Investment"],
-          execTitle: "1. Executive summary",
-          execText: "<strong>Concept:</strong> TapToProf is a global AI platform replacing classic classifieds with a multi-agent system. The client interacts via photo and voice; AI classifies the task, runs an auction among pros, negotiates, and offers the best match. The pro pays a flat subscription ($29.9/month) instead of a 20-30% commission. The online home services market is estimated at $500B+; current players are stuck in the 'commission + spam' model.",
-          problemTitle: "2. Why the market is broken",
-          clientTag: "client",
-          clientPoints: ["5-10 minute forms, 15 chats with different pros", "No trust: photos from Pinterest, fake reviews", "85% of users abandon before booking"],
-          lossLabel: "conversion loss",
-          lossValue: "85%",
-          masterTag: "pro",
-          masterPoints: ["Commissions up to 30% (Yandex.Services, Profi.ru)", "80% of time spent on messaging, clarifying, haggling", "Paid packages to get leads"],
-          commissionLabel: "revenue taken by platforms",
-          commissionValue: "30%",
-          solutionTitle: "3. Solution: Service‑as‑a‑Software",
-          solutionIntro: "<strong>Key innovations:</strong> Zero‑UI (photo + voice), multi-agent system, transparent auction, synthesized reputation, subscription for pros.",
-          mission: "🎯 Our mission",
-          missionText: "Make hiring a specialist as easy as flipping a switch, and free pros from paperwork.",
-          scenarioTitle: "4. How it works",
-          clientScenario: "👩 Anna (client)",
-          clientDesc: "📸 photo of faucet + 'leaking, after 7pm' → AI classifies → auction (3 bids) → offer: Alexander, 4.9, $32 → one tap = pro is on the way.",
-          masterScenario: "🔧 Alexander (pro)",
-          masterDesc: "Signup: Tax ID / links. AI builds profile. Feed of nearby jobs. Autopilot: AI bids, negotiates, confirms. At month end $29.9 subscription.",
-          techTitle: "5. AI multi-agent orchestra",
-          techDesc: "Agent-Classifier (photo→task type), Agent-Negotiator (auction bidding), Agent-Reputation (open source profile parsing), Agent-Scheduler (time slots), Agent-Summary (post‑report).",
-          econTitle: "6. Business model & unit economics",
-          econSub: "Primary revenue: pro subscription (tiers $9.9 and $29.9). Premium for clients ($4.9/mo — optional).",
-          arpu: "ARPU (avg)",
-          lifetime: "Lifetime",
-          ltv: "LTV",
-          cac: "CAC (supply)",
-          ltvCac: "LTV/CAC",
-          payback: "CAC payback",
-          scaleLabel: "Scale (MRR / ARR):",
-          scale1: "100 pros",
-          scale2: "1,000",
-          scale3: "10,000",
-          scale4: "50,000",
-          marketTitle: "7. Market & competitors",
-          marketDesc: "<strong>TAM:</strong> $500B+ home services online. <strong>SAM:</strong> USA / Europe (high ticket, low AI‑competition).",
-          compTh1: "Competitor",
-          compTh2: "Model",
-          compTh3: "Our advantage",
-          comp1: ["Yandex.Services / Profi.ru", "20-30% commission", "$29.9 sub, AI negotiation"],
-          comp2: ["Avito", "paid listings", "verification, zero UI"],
-          comp3: ["TaskRabbit", "commission + hourly", "no commission, auction"],
-          comp4: ["Angi / Thumbtack", "lead generation", "AI agent instead of pay-per-lead"],
-          roadmapTitle: "8. Roadmap",
-          step0: "pre-seed (0-3 mo)",
-          step0desc: "50 interviews, find CTO/AI engineer, manual prototype (Telegram+Excel).",
-          step1: "MVP (3-9 mo)",
-          step1desc: "Telegram Mini App / PWA, basic classification, auction, first 100 pros.",
-          step2: "AI integration (9-15 mo)",
-          step2desc: "AI negotiator, auto‑rating, subscription, LTV/CAC metrics.",
-          step3: "expansion (15+ mo)",
-          step3desc: "US market entry, B2B, smart home integration.",
-          teamTitle: "9. Team (looking for)",
-          teamCeo: "CEO / Founder — visionary, author.",
-          teamCto: "CTO / Tech Lead — Python, AI/ML, multi-agent systems.",
-          teamAi: "AI/ML Engineer — NLP, Computer Vision, LangChain.",
-          teamProduct: "Product Lead — marketplace experience.",
-          teamGrowth: "Growth Hacker — two-sided markets.",
-          investTitle: "10. Investment proposition",
-          investAmount: "$500k",
-          investTerm: "pre-seed for 18 months",
-          investDev: "MVP / AI development",
-          investSupply: "Supply acquisition",
-          investDemand: "Demand marketing",
-          investLegal: "Legal / ops",
-          investReturn: "<strong>Investor gets:</strong> equity stake, entry into new AI sector, product with 3x LTV/CAC unit economics.",
-          contact: "✉️ <strong>Contact:</strong> partner@taptoprof.io (placeholders)",
-          footnote: "⚡ This document is preliminary and intended for discussion with potential partners and investors. All figures are estimates and require validation."
-        }
-      };
+            <!-- Проблема -->
+            <section id="problem" class="section-grey">
+                <span class="tag">legacy is broken</span>
+                <h2>Проблема: болевые точки рынка США</h2>
+                <h3>Со стороны клиента</h3>
+                <p>Высокий порог ввода: чтобы вызвать сантехника, нужно заполнить анкету, сравнить 10+ откликов. Отсутствие доверия: фото работ могут быть скачаны из Pinterest, верификация — главный сдерживающий фактор (<span class="source-ref">Juniper Research, 2024</span>).</p>
+                <h3>Со стороны мастера</h3>
+                <p><strong>Angi</strong> продаёт один лид 3‑8 подрядчикам, цена закрытой сделки достигает $1400–2500 (<a href="https://www.bbb.org/us/in/indianapolis/profile/contractor-referral/angi-0382-3041007/complaints?page=4" class="source-ref">BBB жалобы, 2025</a>). <strong>TaskRabbit</strong> забирает 15‑30% комиссии + сбор с клиента 5‑9% (<a href="https://terms.law/ToS-Watchdog/home-services/taskrabbit/" class="source-ref">TaskRabbit ToS, 2026</a>). Мастер с заказа $100 получает на руки ~$80.</p>
+                <h3>Структурный застой</h3>
+                <p>Монополистам выгоден хаос: они монетизируют каждый контакт. Рынок созрел для disruption.</p>
+            </section>
 
-      let currentLang = 'ru';
+            <!-- Решение -->
+            <section id="solution">
+                <span class="tag">Service‑as‑a‑Software</span>
+                <h2>Решение: SaaS вместо комиссий</h2>
+                <p>AI‑операционная система для услуг. Ключевые инновации: <strong>Zero‑UI, мультиагентная система, прозрачный аукцион, синтезированная репутация, подписка $29.99/мес.</strong></p>
+                <table>
+                    <thead><tr><th>Модель</th><th>Пример</th><th>Проблема</th><th>Решение TapToProf</th></tr></thead>
+                    <tbody>
+                    <tr><td>Плата за лид</td><td>Angi, Thumbtack</td><td>Мусорные лиды, оплата за воздух</td><td>Фикс. подписка, лиды бесплатны</td></tr>
+                    <tr><td>Комиссия со сделки</td><td>TaskRabbit</td><td>Цена растёт, мастер теряет доход</td><td>Никаких комиссий, только подписка</td></tr>
+                    <tr><td>Pay‑per‑click</td><td>Google LSA</td><td>Дорого для мелких заказов</td><td>Аукцион + AI‑оптимизация цены</td></tr>
+                    </tbody>
+                </table>
+            </section>
 
-      function render(lang) {
-        const t = i18n[lang];
-        const root = document.getElementById('content-root');
-        if (!root) return;
+            <!-- Сценарии -->
+            <section id="scenarios"class="section-grey">
+                <span class="tag">user journeys</span>
+                <h2>Пользовательские сценарии (США)</h2>
+                <p><strong>Клиент Анна (Денвер):</strong> фотографирует кран, говорит голосом → AI распознаёт, запускает аукцион среди ближайших сантехников. Через минуту получает предложение с ценой $90 и подтверждением.</p>
+                <p><strong>Мастер Александр:</strong> открывает приложение, видит заявки, ставит цену или включает «автопилот» (AI торгуется в пределах $80‑120). В конце месяца платит $29.99 подписки.</p>
+            </section>
 
-        // Сборка всего контента (следим за кавычками, экранированием не нужно — используем строки)
-        const html = `
-          <!-- титул -->
-          <span class="badge" style="margin-bottom:16px; display:inline-block;">${t.badge}</span>
-          <h1>${t.title}</h1>
-          <p class="lead" style="max-width: 720px;">${t.subtitle}</p>
+            <!-- Технология -->
+            <section id="technology">
+                <span class="tag">multi‑agent orchestration</span>
+                <h2>AI‑мультиагентная система</h2>
+                <p>Оркестр агентов: <strong>Classifier</strong> (CV+NLP), <strong>Scheduler</strong> (календари, Maps), <strong>Negotiator</strong> (прогноз цены, автоторги), <strong>Reputation</strong> (парсинг Google Maps, Yelp, выявление накруток), <strong>Summary</strong> (отзывы, отчёты).</p>
+                <p>Стек: Python (FastAPI), LangChain, OpenAI/Claude, YOLOv8, PostgreSQL (pgvector), Stripe Connect.</p>
+            </section>
 
-          <!-- 0. Содержание (быстрая навигация по якорям) -->
-          <div style="background: #f6f8fa; border-radius: 28px; padding: 24px 28px; margin: 40px 0;">
-            <span class="tag" style="margin-bottom: 16px;">${t.toc}</span>
-            <div style="display: flex; flex-wrap: wrap; gap: 16px 32px;">
-              ${t.tocItems.map(item => `<span>${item}</span>`).join('')}
+            <section id="prototypes">
+                <span class="tag">UI prototypes · MVP</span>
+                <h2>Макеты мобильного приложения MVP</h2>
+                <div class="prototypes-grid">
+                    <div class="prototype-card">
+                        <div class="prototype-img">
+                            <img src="1.png" alt="Создание заказа" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Создание заказа</span>'">
+
+                        </div>
+                        <p>Экран 1: <br/>фото + голос</p>
+                    </div>
+                    <div class="prototype-card">
+                        <div class="prototype-img">
+                            <img src="2.png" alt="Создание заказа" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Создание заказа</span>'">
+
+                        </div>
+                        <p>Экран 2: <br/>AI-агенты работают</p>
+                    </div>
+                    <div class="prototype-card">
+                        <div class="prototype-img">
+                            <img src="3.png" alt="Создание заказа" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Создание заказа</span>'">
+
+                        </div>
+                        <p>Экран 3: <br/>уведомление мастеру</p>
+                    </div>
+                    <div class="prototype-card">
+                        <div class="prototype-img">
+                            <img src="4.png" alt="Создание заказа" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Создание заказа</span>'">
+
+                        </div>
+                        <p>Экран 4: <br/>торги в реальном времени</p>
+                    </div>
+                    <div class="prototype-card">
+                        <div class="prototype-img">
+                            <img src="5.png" alt="Создание заказа" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Создание заказа</span>'">
+
+                        </div>
+                        <p>Экран 5: <br/>мастер едет</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Анализ рынка -->
+            <section id="market-analysis"class="section-grey">
+                <span class="tag">market sizing & competition</span>
+                <h2>Анализ рынка и конкуренты</h2>
+                <h3>TAM/SAM/SOM</h3>
+                <p>TAM (США, бытовые услуги) = $543 млрд (<a href="https://www.ibisworld.org/" class="source-ref">IBISWorld, 2026</a>).
+                    <br/>
+                    SAM (онлайн‑сегмент) — [ДАННЫЕ ОТСУТСТВУЮТ, ТРЕБУЕТСЯ УТОЧНЕНИЕ].
+                    <br/>
+                    SOM: ниша AI‑подписки, первые 500 мастеров в пилотном городе.</p>
+                <h3>Конкуренты</h3>
+                <table>
+                    <thead><tr><th>Компания</th><th>Модель</th><th>Уязвимость</th></tr></thead>
+                    <tbody>
+                    <tr><td>Angi</td><td>Плата за лид</td><td>Мастера ненавидят «мусорные» лиды, суды из‑за «сертификации»</td></tr>
+                    <tr><td>TaskRabbit</td><td>Комиссия 15‑30%</td><td>Двусторонний сбор, топ‑мастера уходят в «личку»</td></tr>
+                    <tr><td>Thumbtack</td><td>Плата за лид</td><td>Клиент платит, чтобы отправить запрос</td></tr>
+                    <tr><td>Google LSA</td><td>PPC</td><td>Дорого для мелкого ремонта</td></tr>
+                    </tbody>
+                </table>
+                <h3>SWOT</h3>
+                <p><strong>Силы:</strong> подрывная цена ($30/мес vs 30% комиссии), AI‑удобство, прозрачность.<br>
+                    <strong>Слабости:</strong> проблема «курица‑яйцо», верификация, комиссии эквайринга.<br>
+                    <strong>Возможности:</strong> миграция мастеров от Angi, B2B (property managers), партнёрства с Home Depot.<br>
+                    <strong>Угрозы:</strong> ответ Google LSA, регуляторика (AB5 в Калифорнии).</p>
+            </section>
+
+            <!-- Юнит-экономика -->
+            <section id="business-model">
+                <span class="tag">unit economics · subscription‑first</span>
+                <h2>Бизнес‑модель и юнит‑экономика</h2>
+                <h3>Потоки дохода</h3>
+                <ul style="margin-left:2rem; color:#555;">
+                    <li>Подписка «Про»: $29.99/мес (основной)</li>
+                    <li>VIP для клиентов: $4.99/мес (гарантия 1ч)</li>
+                    <li>Транзакционный сбор (3‑5%) опционально</li>
+                </ul>
+                <h3>Юнит‑экономика (мастер)</h3>
+                <div class="grid-3">
+                    <div class="metric-card"><div class="metric-value">$30</div><div class="metric-label">ARPU / мес</div></div>
+                    <div class="metric-card"><div class="metric-value">24 мес</div><div class="metric-label">срок жизни</div></div>
+                    <div class="metric-card"><div class="metric-value">$720</div><div class="metric-label">LTV</div></div>
+                    <div class="metric-card"><div class="metric-value">$180</div><div class="metric-label">CAC</div></div>
+                    <div class="metric-card"><div class="metric-value">4.0</div><div class="metric-label">LTV/CAC</div></div>
+                    <div class="metric-card"><div class="metric-value">6 мес</div><div class="metric-label">окупаемость</div></div>
+                </div>
+                <h3>Масштабирование</h3>
+                <div class="scale-flex">
+                    <div><span style="font-size:2.04rem;">1k</span> <span style="color:#666;">мастеров → $25k MRR</span></div>
+                    <div><span style="font-size:2.04rem;">10k</span> <span style="color:#666;">мастеров → $250k MRR · $3M ARR</span></div>
+                    <div><span style="font-size:2.04rem;">50k</span> <span style="color:#666;">мастеров → $1.25M MRR · $15M ARR</span></div>
+                </div>
+            </section>
+
+            <!-- Дорожная карта + Gantt -->
+            <section id="roadmap" class="section-grey">
+                <span class="tag">roadmap</span>
+                <h2>Стратегия выхода и дорожная карта</h2>
+                <div class="gantt">
+                    <div class="gantt-item">
+                        <span class="gantt-label">Фаза 0: <br/>Pre‑seed</span>
+                        <div class="gantt-bar-container"><div class="gantt-bar" style="width:16%">0‑3 мес</div></div>
+                    </div>
+                    <div class="gantt-item">
+                        <span class="gantt-label">Фаза 1: <br/>MVP ручной</span>
+                        <div class="gantt-bar-container"><div class="gantt-bar" style="margin-left:16%; width:20%; background:#3f5a75;">3‑6 мес</div></div>
+                    </div>
+                    <div class="gantt-item">
+                        <span class="gantt-label">Фаза 2: <br/>AI‑оркестратор</span>
+                        <div class="gantt-bar-container"><div class="gantt-bar" style="margin-left:36%;width:33%; background:#4d6b8a;">6‑12 мес</div></div>
+                    </div>
+                    <div class="gantt-item">
+                        <span class="gantt-label">Фаза 3: <br/>Подписка + масштаб</span>
+                        <div class="gantt-bar-container"><div class="gantt-bar" style="margin-left:69%;width:31%; background:#2c3e50;">12‑18 мес</div></div>
+                    </div>
+                    <div class="gantt-milestone">
+                        <span><span class="milestone-dot"></span> Интервью 50+ мастеров</span>
+                        <span><span class="milestone-dot"></span> PWA + ручной поиск</span>
+                        <span><span class="milestone-dot"></span> Аукцион, Stripe</span>
+                        <span><span class="milestone-dot"></span> 500 мастеров</span>
+                    </div>
+                </div>
+                <p><strong>Фаза 0 (0‑3 мес):</strong> 50 глубинных интервью в пилотном городе (Остин/Денвер), поиск CTO.<br>
+                    <strong>Фаза 1 (3‑6 мес):</strong> PWA, ручное соединение клиентов и мастеров, проверка NPS.<br>
+                    <strong>Фаза 2 (6‑12 мес):</strong> AI‑классификатор, аукцион, интеграция Stripe.<br>
+                    <strong>Фаза 3 (12‑18 мес):</strong> запуск подписки $29.99, AI‑переговорщик, партнёрства с Home Depot/Lowe’s.</p>
+            </section>
+
+            <!-- Инвестиции -->
+            <section id="investment">
+                <span class="tag">pre‑seed · $500k</span>
+                <h2>Инвестиционное предложение</h2>
+                <p>Pre‑seed $500k на 18 месяцев.</p>
+                <div class="funds-block" style="margin-top:24px;">
+                    <div style="font-weight:500; margin-bottom:24px;">Использование средств</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+                        <!-- Круговая диаграмма -->
+                        <div class="pie-chart" style="width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(#2b5aa1 0deg 144deg, #5d7cb3 144deg 252deg, #a0b4d5 252deg 324deg, #d8e0ec 324deg 360deg); box-shadow: 0 4px 10px rgba(0,0,0,0.05);"></div>
+                        <!-- Легенда -->
+                        <div style="flex:1; min-width: 200px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="width: 16px; height: 16px; background: #2b5aa1; border-radius: 4px;"></span>
+                                <span>Привлечение мастеров <strong>40%</strong></span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="width: 16px; height: 16px; background: #5d7cb3; border-radius: 4px;"></span>
+                                <span>AI разработка / R&D <strong>30%</strong></span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="width: 16px; height: 16px; background: #a0b4d5; border-radius: 4px;"></span>
+                                <span>Маркетинг (спрос) <strong>20%</strong></span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="width: 16px; height: 16px; background: #D8E0ECFF; border-radius: 4px;"></span>
+                                <span>Операции и юр. вопросы <strong>10%</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="footnote" style="font-size:0.85rem; color:#888; border-top:1px solid #eee; padding-top:24px; margin-top:40px;">
+                Все ссылки на источники актуальны на 2024‑2026 годы: IBISWorld, BBB, TaskRabbit ToS, Juniper Research. Там, где данные отсутствуют, указано [ТРЕБУЕТСЯ УТОЧНЕНИЕ].
             </div>
-          </div>
+        </div>
 
-          <!-- 1. Executive summary -->
-          <h2>${t.execTitle}</h2>
-          <p>${t.execText}</p>
+        <!-- Десктопное оглавление (справа) -->
+        <aside class="toc-desktop">
+            <h3>Содержание</h3>
+            <ul>
+                <li><a href="#executive-summary">Исполнительное резюме</a></li>
+                <li><a href="#problem">Проблема</a></li>
+                <li><a href="#solution">Решение (SaaS)</a></li>
+                <li><a href="#scenarios">Сценарии</a></li>
+                <li><a href="#technology">Технология</a></li>
+                <li><a href="#prototypes">UI макеты</a></li>
+                <li><a href="#market-analysis">Анализ рынка</a></li>
+                <li><a href="#business-model">Юнит‑экономика</a></li>
+                <li><a href="#roadmap">Дорожная карта</a></li>
+                <li><a href="#investment">Инвестиции</a></li>
+            </ul>
+        </aside>
+    </div>
+</div>
 
-          <!-- 2. Проблема (две колонки) -->
-          <h2>${t.problemTitle}</h2>
-          <div class="grid-2" style="margin-bottom: 30px;">
-            <div class="metric-card">
-              <span class="tag">${t.clientTag}</span>
-              <ul style="margin-top: 16px;">
-                ${t.clientPoints.map(p => `<li>${p}</li>`).join('')}
-              </ul>
-              <div class="progress-wrapper">
-                <div class="progress-label"><span>${t.lossLabel}</span> <span>${t.lossValue}</span></div>
-                <div class="progress-bg"><div class="progress-fill" style="width:85%"></div></div>
-              </div>
-            </div>
-            <div class="metric-card">
-              <span class="tag">${t.masterTag}</span>
-              <ul style="margin-top: 16px;">
-                ${t.masterPoints.map(p => `<li>${p}</li>`).join('')}
-              </ul>
-              <div class="progress-wrapper">
-                <div class="progress-label"><span>${t.commissionLabel}</span> <span>${t.commissionValue}</span></div>
-                <div class="progress-bg"><div class="progress-fill blue-fill" style="width:30%"></div></div>
-              </div>
-            </div>
-          </div>
+<!-- Футер -->
+<footer>
+    <div class="container">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;">
+            <span>TapToProf — AI infrastructure for blue‑collar</span>
+            <span>white paper v2.0 · март 2026</span>
+        </div>
+    </div>
+</footer>
 
-          <!-- 3. Решение -->
-          <h2>${t.solutionTitle}</h2>
-          <p>${t.solutionIntro}</p>
-          <div style="background: #fafcfd; border-radius: 24px; padding: 24px; margin: 20px 0;">
-            <p style="font-weight: 600; margin-bottom: 16px;">${t.mission}</p>
-            <p>${t.missionText}</p>
-          </div>
+<!-- Скрипты для бургера и переключения языка (адаптировано из white paper) -->
+<script>
+    // Бургер-меню
+    const burger = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
 
-          <!-- 4. Пользовательские сценарии -->
-          <h2>${t.scenarioTitle}</h2>
-          <div class="grid-2" style="margin-bottom: 30px;">
-            <div style="background: #ffffff; border:1px solid #eee; border-radius:24px; padding:24px;">
-              <span class="tag">${t.clientScenario}</span>
-              <p style="margin-top:16px;">${t.clientDesc}</p>
-            </div>
-            <div style="background: #ffffff; border:1px solid #eee; border-radius:24px; padding:24px;">
-              <span class="tag">${t.masterScenario}</span>
-              <p style="margin-top:16px;">${t.masterDesc}</p>
-            </div>
-          </div>
+    function toggleMenu() {
+        mobileMenu.classList.toggle('open');
+        overlay.classList.toggle('active');
+    }
 
-          <!-- 5. AI-мультиагентная система (графика) -->
-          <h2>${t.techTitle}</h2>
-          <div class="agent-flow">
-            <div class="agent-item"><div class="agent-icon">🔧</div><div class="agent-name">Classifier</div></div>
-            <div class="agent-item"><div class="agent-icon">💬</div><div class="agent-name">Negotiator</div></div>
-            <div class="agent-item"><div class="agent-icon">⭐</div><div class="agent-name">Reputation</div></div>
-            <div class="agent-item"><div class="agent-icon">📅</div><div class="agent-name">Scheduler</div></div>
-            <div class="agent-item"><div class="agent-icon">⚡</div><div class="agent-name">Auction</div></div>
-          </div>
-          <p>${t.techDesc}</p>
+    burger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
 
-          <!-- 6. Юнит-экономика -->
-          <h2>${t.econTitle}</h2>
-          <p>${t.econSub}</p>
-          <div class="grid-3" style="margin: 30px 0;">
-            <div class="metric-card"><div class="metric-number">$25</div><div class="metric-label">${t.arpu}</div></div>
-            <div class="metric-card"><div class="metric-number">12 mo</div><div class="metric-label">${t.lifetime}</div></div>
-            <div class="metric-card"><div class="metric-number">$300</div><div class="metric-label">${t.ltv}</div></div>
-            <div class="metric-card"><div class="metric-number">$100</div><div class="metric-label">${t.cac}</div></div>
-            <div class="metric-card"><div class="metric-number">3x</div><div class="metric-label">${t.ltvCac}</div></div>
-            <div class="metric-card"><div class="metric-number">4 mo</div><div class="metric-label">${t.payback}</div></div>
-          </div>
+    // Языковой переключатель (заглушка, можно добавить перевод позже)
+    const langRu = document.getElementById('lang-ru');
+    const langEn = document.getElementById('lang-en');
+    langRu.addEventListener('click', () => {
+        langRu.classList.add('active');
+        langEn.classList.remove('active');
+        // здесь можно добавить смену текста
+    });
+    langEn.addEventListener('click', () => {
+        langEn.classList.add('active');
+        langRu.classList.remove('active');
+    });
 
-          <p><strong>${t.scaleLabel}</strong></p>
-          <div style="display: flex; flex-wrap: wrap; gap: 24px; background:#fafafa; border-radius: 28px; padding: 24px; margin: 20px 0;">
-            <div><span style="font-weight:600;">${t.scale1}</span> → $2,5k MRR</div>
-            <div><span style="font-weight:600;">${t.scale2}</span> → $25k MRR</div>
-            <div><span style="font-weight:600;">${t.scale3}</span> → $250k MRR / $3M ARR</div>
-            <div><span style="font-weight:600;">${t.scale4}</span> → $1,25M MRR / $15M ARR</div>
-          </div>
-
-          <!-- 7. Рынок и конкуренты -->
-          <h2>${t.marketTitle}</h2>
-          <p>${t.marketDesc}</p>
-          <table class="competitor-table">
-            <tr><th>${t.compTh1}</th><th>${t.compTh2}</th><th>${t.compTh3}</th></tr>
-            <tr><td>${t.comp1[0]}</td><td>${t.comp1[1]}</td><td>${t.comp1[2]}</td></tr>
-            <tr><td>${t.comp2[0]}</td><td>${t.comp2[1]}</td><td>${t.comp2[2]}</td></tr>
-            <tr><td>${t.comp3[0]}</td><td>${t.comp3[1]}</td><td>${t.comp3[2]}</td></tr>
-            <tr><td>${t.comp4[0]}</td><td>${t.comp4[1]}</td><td>${t.comp4[2]}</td></tr>
-          </table>
-
-          <!-- 8. Дорожная карта -->
-          <h2>${t.roadmapTitle}</h2>
-          <div class="roadmap-step"><div class="roadmap-marker">${t.step0}</div><div>${t.step0desc}</div></div>
-          <div class="roadmap-step"><div class="roadmap-marker">${t.step1}</div><div>${t.step1desc}</div></div>
-          <div class="roadmap-step"><div class="roadmap-marker">${t.step2}</div><div>${t.step2desc}</div></div>
-          <div class="roadmap-step"><div class="roadmap-marker">${t.step3}</div><div>${t.step3desc}</div></div>
-
-          <!-- 9. Команда -->
-          <h2>${t.teamTitle}</h2>
-          <ul>
-            <li>${t.teamCeo}</li>
-            <li>${t.teamCto}</li>
-            <li>${t.teamAi}</li>
-            <li>${t.teamProduct}</li>
-            <li>${t.teamGrowth}</li>
-          </ul>
-
-          <!-- 10. Инвестиционное предложение -->
-          <h2>${t.investTitle}</h2>
-          <div class="investment-card">
-            <p style="font-size: 1.6rem; font-weight: 600; margin-bottom: 10px;">${t.investAmount}</p>
-            <p>${t.investTerm}</p>
-            <div style="margin: 24px 0;">
-              <div class="progress-label"><span>${t.investDev}</span> <span>30%</span></div><div class="progress-bg"><div class="progress-fill" style="width:30%"></div></div>
-              <div class="progress-label"><span>${t.investSupply}</span> <span>40%</span></div><div class="progress-bg"><div class="progress-fill" style="width:40%"></div></div>
-              <div class="progress-label"><span>${t.investDemand}</span> <span>20%</span></div><div class="progress-bg"><div class="progress-fill" style="width:20%"></div></div>
-              <div class="progress-label"><span>${t.investLegal}</span> <span>10%</span></div><div class="progress-bg"><div class="progress-fill" style="width:10%"></div></div>
-            </div>
-            <p>${t.investReturn}</p>
-            <p style="margin-top: 24px;">${t.contact}</p>
-          </div>
-
-          <div class="footnote">${t.footnote}</div>
-        `;
-
-        root.innerHTML = html;
-      }
-
-      // переключение языков
-      document.addEventListener('DOMContentLoaded', () => {
-        const ruBtn = document.getElementById('lang-ru');
-        const enBtn = document.getElementById('lang-en');
-
-        function setActiveLang(lang) {
-          if (lang === 'ru') {
-            ruBtn.classList.add('active');
-            enBtn.classList.remove('active');
-          } else {
-            enBtn.classList.add('active');
-            ruBtn.classList.remove('active');
-          }
-          currentLang = lang;
-          render(lang);
-        }
-
-        ruBtn.addEventListener('click', () => setActiveLang('ru'));
-        enBtn.addEventListener('click', () => setActiveLang('en'));
-
-        // начальный рендер (русский)
-        setActiveLang('ru');
-      });
-    })();
-  </script>
+    // Плавная прокрутка для якорей (чтобы работало и в мобильном меню)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                // закрыть мобильное меню, если открыто
+                if (mobileMenu.classList.contains('open')) {
+                    toggleMenu();
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

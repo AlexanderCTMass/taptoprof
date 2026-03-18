@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>TapToProfi · Integrated Analytical Report</title>
+    <!-- Inter font (strict sans‑serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (burger / arrows) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* navbar same as white paper */
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eaeaea;
+            margin-bottom: 40px;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            color: #555;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            cursor: default;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 6px;
+            margin-left: 0;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #ccc;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: #555;
+        }
+
+        .lang-btn.active {
+            background: #111;
+            border-color: #111;
+            color: white;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            cursor: default;
+            background: transparent;
+            border: 1px solid #222;
+            color: #222;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #111;
+            color: white;
+            border: 1px solid #111;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+        }
+
+        .btn-outline {
+            border: 1px solid #ddd;
+            color: #333;
+        }
+
+        /* grey tags */
+        .tag {
+            display: inline-block;
+            background-color: #eff0f3;
+            color: #252525;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 40px;
+            border: 1px solid #d0d8e6;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 16px;
+        }
+
+        /* typography */
+        h1 {
+            font-size: clamp(2.8rem, 8vw, 4.2rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            font-weight: 500;
+            margin: 2rem 0 1rem;
+        }
+
+        p {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eaeaea;
+            margin: 40px 0;
+        }
+
+        /* desktop: content + sticky TOC */
+        .layout {
+            display: flex;
+            gap: 48px;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .content section { padding:20px 40px;}
+        .content .section-grey {border-top: 1px solid #eee; background: #fafafa;}
+
+        /* desktop TOC – sticky right */
+        .toc-desktop {
+            width: 280px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 2rem;
+            background: white;
+            border-radius: 20px;
+            padding: 1.75rem 1.5rem;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+            border: 1px solid #eaedf2;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+
+        .toc-desktop h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #4a5f73;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e2e6ec;
+            margin-top: 0;
+        }
+
+        .toc-desktop ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc-desktop li {
+            margin-bottom: 0.6rem;
+        }
+
+        .toc-desktop a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 10px;
+            transition: background 0.15s;
+        }
+
+        .toc-desktop a:hover {
+            background: #f0f4f9;
+        }
+
+        .prototypes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .prototype-card {
+            text-align: center;
+        }
+
+        .prototype-card p {font-size: 0.7rem;}
+
+        .prototype-img {
+            background: #f5f5f5;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin-bottom: 12px;
+            aspect-ratio: 9 / 16;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .prototype-img i {
+            margin-bottom: 8px;
+        }
+
+        .prototype-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* burger – visible only on mobile */
+        .burger {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border: 1px solid #ddd;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 999;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            padding: 80px 24px 24px;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 1rem;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: #111;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 998;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* tables – white paper minimalism */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: 500;
+            color: #111;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Gantt minimal */
+        .gantt {
+            margin: 2.5rem 0 1.5rem;
+            padding: 1.5rem;
+            background: #f8fafd;
+            border-radius: 24px;
+        }
+
+        .gantt-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .gantt-label {
+            width: 140px;
+            font-weight: 500;
+            color: #1f2c3a;
+            font-size: 0.75rem;
+        }
+
+        .gantt-bar-container {
+            flex: 1;
+            height: 2rem;
+            background-color: #e2e7f0;
+            border-radius: 40px;
+            overflow: hidden;
+        }
+
+        .gantt-bar {
+            height: 100%;
+            background-color: #111;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            padding-left: 1rem;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .gantt-milestone {
+            margin-top: 1rem;
+            padding-left: 140px;
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #2f4053;
+            flex-wrap: wrap;
+        }
+
+        .milestone-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #111;
+            border-radius: 50%;
+            margin-right: 0.3rem;
+        }
+
+        /* metric cards */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
+            border-top: 1px solid #eee;
+            padding-top: 24px;
+        }
+
+        .metric-value {
+            font-size: 2.0rem;
+            font-weight: 450;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .scale-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .funds-block {
+            background: #f5f5f5;
+            padding: 32px 24px;
+            border-radius: 24px;
+        }
+
+        .progress-bar {
+            background: #ddd;
+            height: 4px;
+            width: 100%;
+            margin: 8px 0 16px;
+        }
+
+        .progress-fill {
+            height: 4px;
+            background: #111;
+        }
+
+        /* responsiveness */
+        @media (max-width: 1000px) {
+            .layout {
+                flex-direction: column;
+            }
+            .toc-desktop {
+                display: none;
+            }
+            .burger {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 16px;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            .gantt-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.3rem;
+                margin-bottom: 1.5rem;
+            }
+            .gantt-label {
+                width: auto;
+            }
+            .gantt-milestone {
+                padding-left: 0;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        .source-ref {
+            font-style: italic;
+            color: #4a6d8c;
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            border-top: 1px solid #eee;
+            padding: 30px 0;
+            margin-top: 40px;
+            color: #888;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<!-- navbar as in white paper -->
+<div class="container">
+    <div class="navbar">
+        <div class="logo">TapToProf</div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
+            <div class="nav-links">
+                <a href="index.html">White paper</a>
+            </div>
+            <div class="nav-links">
+                <a href="../memo.html">Русский</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- burger icon & mobile menu -->
+<div class="burger" id="burgerBtn">
+    <i class="fas fa-bars"></i>
+</div>
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+    <h3 style="margin-bottom: 24px;">Contents</h3>
+    <ul>
+        <li><a href="#executive-summary">Executive summary</a></li>
+        <li><a href="#problem">Problem</a></li>
+        <li><a href="#solution">Solution (SaaS)</a></li>
+        <li><a href="#scenarios">Scenarios</a></li>
+        <li><a href="#technology">Technology</a></li>
+        <li><a href="#prototypes">UI mockups</a></li>
+        <li><a href="#market-analysis">Market analysis</a></li>
+        <li><a href="#business-model">Unit economics</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#investment">Investment</a></li>
+    </ul>
+</div>
+
+<!-- main layout: content + desktop TOC -->
+<div class="container">
+    <div class="layout">
+        <!-- left column: full content -->
+        <div class="content">
+            <!-- hero (brief) -->
+            <section id="executive-summary" style="margin-bottom: 3rem;">
+                <span class="tag">Executive summary</span>
+                <h1>TapToProf: AI‑native platform for blue‑collar</h1>
+                <p class="subhead" style="font-size:1.2rem; color:#555; max-width:800px;">Integrated business plan & analytical report. March 2026, Pre‑Seed.</p>
+                <p><strong>Concept:</strong> TapToProf — global AI platform connecting blue‑collar pros, replacing human middlemen with AI agents and toxic commission models (20‑30%) with a transparent SaaS subscription for pros ($29.99/month).</p>
+                <p><strong>Problem:</strong> US home services market is estimated at <span class="source-ref">$543B</span> (2025‑26). Incumbents (Angi, TaskRabbit) sell "junk" leads for $15–120 or charge double‑sided commissions up to 30% (<a href="http://www.bbb.org/us/fl/hialeah/profile/sales-lead-generation/wealthy-leads-0633-92027600/complaints?page=1" class="source-ref">BBB, 2024</a>). Pros waste 80% time on messaging, clients drown in spam.</p>
+                <p><strong>Solution:</strong> Zero‑UI (photo+voice) → AI orchestrator → transparent auction + pro subscription. Conservative pro LTV $720, CAC ~$180, LTV/CAC = 4. At 10,000 pros ARR reaches $3.6M (subscription only).</p>
+            </section>
+
+            <!-- Problem -->
+            <section id="problem" class="section-grey">
+                <span class="tag">legacy is broken</span>
+                <h2>Problem: US market pain points</h2>
+                <h3>Client side</h3>
+                <p>High entry barrier: to call a plumber you need to fill forms, compare 10+ replies. Lack of trust: work photos can be downloaded from Pinterest, verification is a major bottleneck (<span class="source-ref">Juniper Research, 2024</span>).</p>
+                <h3>Pro side</h3>
+                <p><strong>Angi</strong> sells one lead to 3‑8 contractors, closed‑deal cost can reach $1400–2500 (<a href="https://www.bbb.org/us/in/indianapolis/profile/contractor-referral/angi-0382-3041007/complaints?page=4" class="source-ref">BBB complaints, 2025</a>). <strong>TaskRabbit</strong> takes 15‑30% commission + client fee 5‑9% (<a href="https://terms.law/ToS-Watchdog/home-services/taskrabbit/" class="source-ref">TaskRabbit ToS, 2026</a>). A pro on a $100 job nets ~$80.</p>
+                <h3>Structural stagnation</h3>
+                <p>Monopolists benefit from chaos: they monetize every contact. The market is ripe for disruption.</p>
+            </section>
+
+            <!-- Solution -->
+            <section id="solution">
+                <span class="tag">Service‑as‑a‑Software</span>
+                <h2>Solution: SaaS instead of commissions</h2>
+                <p>AI operating system for services. Key innovations: <strong>Zero‑UI, multi‑agent system, transparent auction, synthesized reputation, $29.99/month subscription.</strong></p>
+                <table>
+                    <thead><tr><th>Model</th><th>Example</th><th>Problem</th><th>TapToProf solution</th></tr></thead>
+                    <tbody>
+                    <tr><td>Pay‑per‑lead</td><td>Angi, Thumbtack</td><td>Junk leads, pay for nothing</td><td>Fixed sub, leads free</td></tr>
+                    <tr><td>Commission</td><td>TaskRabbit</td><td>Price inflates, pro loses income</td><td>Zero commissions, only sub</td></tr>
+                    <tr><td>Pay‑per‑click</td><td>Google LSA</td><td>Expensive for small jobs</td><td>Auction + AI price optimization</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Scenarios -->
+            <section id="scenarios" class="section-grey">
+                <span class="tag">user journeys</span>
+                <h2>User scenarios (USA)</h2>
+                <p><strong>Client Anna (Denver):</strong> snaps a photo of a faucet, speaks → AI recognises, launches auction among nearby plumbers. Within a minute gets an offer at $90 with confirmation.</p>
+                <p><strong>Pro Alexander:</strong> opens app, sees requests, sets price or enables "autopilot" (AI bids within $80‑120). At month end pays $29.99 subscription.</p>
+            </section>
+
+            <!-- Technology -->
+            <section id="technology">
+                <span class="tag">multi‑agent orchestration</span>
+                <h2>AI multi‑agent system</h2>
+                <p>Agent orchestrator: <strong>Classifier</strong> (CV+NLP), <strong>Scheduler</strong> (calendars, Maps), <strong>Negotiator</strong> (price prediction, auto‑bidding), <strong>Reputation</strong> (scrapes Google Maps, Yelp, detects fake reviews), <strong>Summary</strong> (reviews, reports).</p>
+                <p>Stack: Python (FastAPI), LangChain, OpenAI/Claude, YOLOv8, PostgreSQL (pgvector), Stripe Connect.</p>
+            </section>
+
+            <!-- UI mockups -->
+            <section id="prototypes">
+                <span class="tag">UI prototypes · MVP</span>
+                <h2>Mobile app mockups (MVP)</h2>
+                <div class="prototypes-grid">
+                    <div class="prototype-card">
+                        <div class="prototype-img">
+                            <img src="1.png" alt="Create order" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Create order</span>'">
+                        </div>
+                        <p>Screen 1: <br/>photo + voice</p>
+                    </div>
+                    <div class="prototype-card">
+                        <div class="prototype-img">
+                            <img src="2.png" alt="Create order" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Create order</span>'">
+                        </div>
+                        <p>Screen 2: <br/>AI agents working</p>
+                    </div>
+                    <div class="prototype-card">
+                        <div class="prototype-img">
+                            <img src="3.png" alt="Create order" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Create order</span>'">
+                        </div>
+                        <p>Screen 3: <br/>notification to pro</p>
+                    </div>
+                    <div class="prototype-card">
+                        <div class="prototype-img">
+                            <img src="4.png" alt="Create order" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Create order</span>'">
+                        </div>
+                        <p>Screen 4: <br/>live bidding</p>
+                    </div>
+                    <div class="prototype-card">
+                        <div class="prototype-img">
+                            <img src="5.png" alt="Create order" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-mobile-alt fa-2x\'></i><span>Create order</span>'">
+                        </div>
+                        <p>Screen 5: <br/>pro en route</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Market analysis -->
+            <section id="market-analysis" class="section-grey">
+                <span class="tag">market sizing & competition</span>
+                <h2>Market analysis & competitors</h2>
+                <h3>TAM/SAM/SOM</h3>
+                <p>TAM (US home services) = $543B (<a href="https://www.ibisworld.org/" class="source-ref">IBISWorld, 2026</a>).
+                    <br/>
+                    SAM (online segment) — [DATA MISSING, NEEDS VERIFICATION].
+                    <br/>
+                    SOM: AI‑subscription niche, first 500 pros in pilot city.</p>
+                <h3>Competitors</h3>
+                <table>
+                    <thead><tr><th>Company</th><th>Model</th><th>Weakness</th></tr></thead>
+                    <tbody>
+                    <tr><td>Angi</td><td>Pay‑per‑lead</td><td>Pros hate "junk" leads, lawsuits over "certification"</td></tr>
+                    <tr><td>TaskRabbit</td><td>15‑30% commission</td><td>Double‑sided fee, top pros go "offline"</td></tr>
+                    <tr><td>Thumbtack</td><td>Pay‑per‑lead</td><td>Client pays to send request</td></tr>
+                    <tr><td>Google LSA</td><td>PPC</td><td>Expensive for small repairs</td></tr>
+                    </tbody>
+                </table>
+                <h3>SWOT</h3>
+                <p><strong>Strengths:</strong> disruptive price ($30/mo vs 30% commission), AI convenience, transparency.<br>
+                    <strong>Weaknesses:</strong> chicken‑and‑egg, verification, payment processing fees.<br>
+                    <strong>Opportunities:</strong> pro migration from Angi, B2B (property managers), partnerships with Home Depot.<br>
+                    <strong>Threats:</strong> Google LSA response, regulation (AB5 in California).</p>
+            </section>
+
+            <!-- Unit economics -->
+            <section id="business-model">
+                <span class="tag">unit economics · subscription‑first</span>
+                <h2>Business model & unit economics</h2>
+                <h3>Revenue streams</h3>
+                <ul style="margin-left:2rem; color:#555;">
+                    <li>"Pro" subscription: $29.99/month (core)</li>
+                    <li>VIP for clients: $4.99/month (1‑hour guarantee)</li>
+                    <li>Transaction fee (3‑5%) optional</li>
+                </ul>
+                <h3>Unit economics (pro)</h3>
+                <div class="grid-3">
+                    <div class="metric-card"><div class="metric-value">$30</div><div class="metric-label">ARPU / mo</div></div>
+                    <div class="metric-card"><div class="metric-value">24 mo</div><div class="metric-label">lifetime</div></div>
+                    <div class="metric-card"><div class="metric-value">$720</div><div class="metric-label">LTV</div></div>
+                    <div class="metric-card"><div class="metric-value">$180</div><div class="metric-label">CAC</div></div>
+                    <div class="metric-card"><div class="metric-value">4.0</div><div class="metric-label">LTV/CAC</div></div>
+                    <div class="metric-card"><div class="metric-value">6 mo</div><div class="metric-label">payback</div></div>
+                </div>
+                <h3>Scaling</h3>
+                <div class="scale-flex">
+                    <div><span style="font-size:2.04rem;">1k</span> <span style="color:#666;">pros → $25k MRR</span></div>
+                    <div><span style="font-size:2.04rem;">10k</span> <span style="color:#666;">pros → $250k MRR · $3M ARR</span></div>
+                    <div><span style="font-size:2.04rem;">50k</span> <span style="color:#666;">pros → $1.25M MRR · $15M ARR</span></div>
+                </div>
+            </section>
+
+            <!-- Roadmap + Gantt -->
+            <section id="roadmap" class="section-grey">
+                <span class="tag">roadmap</span>
+                <h2>Go‑to‑market strategy & roadmap</h2>
+                <div class="gantt">
+                    <div class="gantt-item">
+                        <span class="gantt-label">Phase 0: <br/>Pre‑seed</span>
+                        <div class="gantt-bar-container"><div class="gantt-bar" style="width:16%">0‑3 mo</div></div>
+                    </div>
+                    <div class="gantt-item">
+                        <span class="gantt-label">Phase 1: <br/>Manual MVP</span>
+                        <div class="gantt-bar-container"><div class="gantt-bar" style="margin-left:16%; width:20%; background:#3f5a75;">3‑6 mo</div></div>
+                    </div>
+                    <div class="gantt-item">
+                        <span class="gantt-label">Phase 2: <br/>AI orchestrator</span>
+                        <div class="gantt-bar-container"><div class="gantt-bar" style="margin-left:36%;width:33%; background:#4d6b8a;">6‑12 mo</div></div>
+                    </div>
+                    <div class="gantt-item">
+                        <span class="gantt-label">Phase 3: <br/>Subscription + scale</span>
+                        <div class="gantt-bar-container"><div class="gantt-bar" style="margin-left:69%;width:31%; background:#2c3e50;">12‑18 mo</div></div>
+                    </div>
+                    <div class="gantt-milestone">
+                        <span><span class="milestone-dot"></span> 50+ pro interviews</span>
+                        <span><span class="milestone-dot"></span> PWA + manual matching</span>
+                        <span><span class="milestone-dot"></span> Auction, Stripe</span>
+                        <span><span class="milestone-dot"></span> 500 pros</span>
+                    </div>
+                </div>
+                <p><strong>Phase 0 (0‑3 mo):</strong> 50 in‑depth interviews in pilot city (Austin/Denver), find CTO.<br>
+                    <strong>Phase 1 (3‑6 mo):</strong> PWA, manual client‑pro matching, NPS validation.<br>
+                    <strong>Phase 2 (6‑12 mo):</strong> AI classifier, auction, Stripe integration.<br>
+                    <strong>Phase 3 (12‑18 mo):</strong> launch $29.99 subscription, AI negotiator, Home Depot/Lowe’s partnerships.</p>
+            </section>
+
+            <!-- Investment -->
+            <section id="investment">
+                <span class="tag">pre‑seed · $500k</span>
+                <h2>Investment proposition</h2>
+                <p>Pre‑seed $500k for 18 months.</p>
+                <div class="funds-block" style="margin-top:24px;">
+                    <div style="font-weight:500; margin-bottom:24px;">Use of funds</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+                        <!-- pie chart -->
+                        <div class="pie-chart" style="width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(#2b5aa1 0deg 144deg, #5d7cb3 144deg 252deg, #a0b4d5 252deg 324deg, #d8e0ec 324deg 360deg); box-shadow: 0 4px 10px rgba(0,0,0,0.05);"></div>
+                        <!-- legend -->
+                        <div style="flex:1; min-width: 200px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="width: 16px; height: 16px; background: #2b5aa1; border-radius: 4px;"></span>
+                                <span>Pro acquisition <strong>40%</strong></span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="width: 16px; height: 16px; background: #5d7cb3; border-radius: 4px;"></span>
+                                <span>AI dev / R&D <strong>30%</strong></span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="width: 16px; height: 16px; background: #a0b4d5; border-radius: 4px;"></span>
+                                <span>Demand marketing <strong>20%</strong></span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="width: 16px; height: 16px; background: #D8E0ECFF; border-radius: 4px;"></span>
+                                <span>Ops & legal <strong>10%</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="footnote" style="font-size:0.85rem; color:#888; border-top:1px solid #eee; padding-top:24px; margin-top:40px;">
+                All sources are current as of 2024‑2026: IBISWorld, BBB, TaskRabbit ToS, Juniper Research. Where data is missing [NEEDS VERIFICATION] is indicated.
+            </div>
+        </div>
+
+        <!-- desktop TOC (right) -->
+        <aside class="toc-desktop">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#executive-summary">Executive summary</a></li>
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#solution">Solution (SaaS)</a></li>
+                <li><a href="#scenarios">Scenarios</a></li>
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#prototypes">UI mockups</a></li>
+                <li><a href="#market-analysis">Market analysis</a></li>
+                <li><a href="#business-model">Unit economics</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#investment">Investment</a></li>
+            </ul>
+        </aside>
+    </div>
+</div>
+
+<!-- footer -->
+<footer>
+    <div class="container">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;">
+            <span>TapToProf — AI infrastructure for blue‑collar</span>
+            <span>white paper v2.0 · March 2026</span>
+        </div>
+    </div>
+</footer>
+
+<!-- scripts for burger & language switch -->
+<script>
+    // burger menu
+    const burger = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    function toggleMenu() {
+        mobileMenu.classList.toggle('open');
+        overlay.classList.toggle('active');
+    }
+
+    burger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    // language switcher (stub, actual translation would be added later)
+    const langEn = document.getElementById('lang-en');
+    const langRu = document.getElementById('lang-ru');
+    langEn.addEventListener('click', () => {
+        langEn.classList.add('active');
+        langRu.classList.remove('active');
+        // here you could switch language
+    });
+    langRu.addEventListener('click', () => {
+        langRu.classList.add('active');
+        langEn.classList.remove('active');
+    });
+
+    // smooth scroll for anchors (works in mobile menu too)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                // close mobile menu if open
+                if (mobileMenu.classList.contains('open')) {
+                    toggleMenu();
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>TapToProf · AI marketplace infrastructure</title>
-  <!-- Шрифт Inter (без засечек, строгий) -->
+  <title>TapToProfi · AI‑инфраструктура для blue‑collar</title>
+  <!-- Шрифт Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 (минимальные иконки) -->
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -29,7 +29,7 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 24px; /* уменьшил padding для мобильных */
+      padding: 0 24px;
     }
 
     h1, h2, h3, h4 {
@@ -38,14 +38,14 @@
     }
 
     h1 {
-      font-size: 3.2rem; /* чуть меньше для мобильных */
+      font-size: 3.2rem;
       line-height: 1.1;
       font-weight: 500;
       margin-bottom: 1.25rem;
     }
 
     h2 {
-      font-size: 2.2rem; /* адаптивный размер */
+      font-size: 2.2rem;
       font-weight: 500;
       letter-spacing: -0.02em;
       margin-bottom: 1rem;
@@ -63,7 +63,6 @@
       max-width: 600px;
     }
 
-    /* адаптивная навигация */
     .navbar {
       display: flex;
       flex-wrap: wrap;
@@ -88,35 +87,10 @@
       font-size: 0.95rem;
       flex-wrap: wrap;
     }
-    
-    .nav-links span, .nav-links a {
-      cursor: default;
-      color: inherit;
-      text-decoration: none;
-    }
 
-    .lang-switch {
-      display: flex;
-      gap: 6px;
-      margin-left: 0;
-    }
-    
-    .lang-btn {
-      background: transparent;
-      border: 1px solid #ccc;
-      padding: 4px 10px;
-      border-radius: 30px;
-      font-weight: 500;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      color: #555;
-    }
-    
-    .lang-btn.active {
-      background: #111;
-      border-color: #111;
-      color: white;
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
     }
 
     .btn {
@@ -127,11 +101,11 @@
       font-size: 0.95rem;
       text-decoration: none;
       transition: all 0.15s ease;
-      cursor: default;
       background: transparent;
       border: 1px solid #222;
       color: #222;
       text-align: center;
+      cursor: pointer;
     }
 
     .btn-primary {
@@ -149,7 +123,23 @@
       color: #333;
     }
 
-    /* адаптивные сетки */
+    .btn-video {
+      background: #e62e2e;
+      color: white;
+      border: 1px solid #e62e2e;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-video:hover {
+      background: #c41e1e;
+    }
+
+    .btn-video i {
+      font-size: 0.9rem;
+    }
+
     .grid-2, .grid-3 {
       display: grid;
       grid-template-columns: 1fr;
@@ -179,7 +169,7 @@
     }
 
     .metric-value {
-      font-size: 2.5rem; /* адаптивно */
+      font-size: 2.5rem;
       font-weight: 450;
       letter-spacing: -0.02em;
       margin-bottom: 8px;
@@ -198,12 +188,13 @@
     }
 
     .feature-card > div {
-      flex-direction: column;
-      gap: 16px !important;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
     }
 
     .feature-card .number {
-      min-width: auto;
+      min-width: 60px;
       color: #888;
       font-size: 1rem;
     }
@@ -234,27 +225,27 @@
       margin-bottom: 40px;
     }
 
-    /* карусель – мобильная адаптация */
+    /* Карусель прототипов */
     .prototype-showcase {
       background: transparent;
       padding: 20px 0;
       width: 100%;
-      overflow: hidden; /* чтобы ничего не вылезало */
+      overflow: hidden;
     }
-    
+
     .cards-stack {
       position: relative;
       width: 100%;
-      height: 500px; /* меньше высота для мобильных */
+      height: 500px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 30px;
     }
-    
+
     .card-item {
       position: absolute;
-      width: 200px; /* базовый размер для мобильных */
+      width: 200px;
       height: 440px;
       border-radius: 32px;
       overflow: hidden;
@@ -265,29 +256,28 @@
       background: #f0f0f0;
       transform-origin: center center;
     }
-    
+
     .card-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-    
-    /* позиции для мобильных — чуть ближе друг к другу */
+
     .card-item[data-position="0"] {
       transform: translateX(-140px) scale(0.75);
       z-index: 1;
       opacity: 0.6;
       filter: brightness(0.8);
     }
-    
+
     .card-item[data-position="1"] {
       transform: translateX(-70px) scale(0.85);
       z-index: 2;
       opacity: 0.8;
       filter: brightness(0.9);
     }
-    
+
     .card-item[data-position="2"] {
       transform: translateX(0) scale(1);
       z-index: 5;
@@ -296,14 +286,14 @@
       box-shadow: 0 30px 50px -15px rgba(0,0,0,0.3);
       border-width: 4px;
     }
-    
+
     .card-item[data-position="3"] {
       transform: translateX(70px) scale(0.85);
       z-index: 2;
       opacity: 0.8;
       filter: brightness(0.9);
     }
-    
+
     .card-item[data-position="4"] {
       transform: translateX(140px) scale(0.75);
       z-index: 1;
@@ -334,7 +324,7 @@
       .card-item[data-position="3"] { transform: translateX(55px) scale(0.8); }
       .card-item[data-position="4"] { transform: translateX(110px) scale(0.7); }
     }
-    
+
     .carousel-controls {
       display: flex;
       justify-content: center;
@@ -342,7 +332,7 @@
       gap: 20px;
       margin-top: 10px;
     }
-    
+
     .carousel-arrow {
       background: white;
       border: 1px solid #ddd;
@@ -357,18 +347,18 @@
       transition: all 0.15s ease;
       color: #333;
     }
-    
+
     .carousel-arrow:hover {
       background: #111;
       color: white;
       border-color: #111;
     }
-    
+
     .carousel-dots {
       display: flex;
       gap: 6px;
     }
-    
+
     .carousel-dot {
       width: 8px;
       height: 8px;
@@ -379,12 +369,12 @@
       cursor: pointer;
       transition: all 0.2s ease;
     }
-    
+
     .carousel-dot.active {
       width: 22px;
       background: #111;
     }
-    
+
     .carousel-caption {
       text-align: center;
       margin-top: 20px;
@@ -394,16 +384,20 @@
       min-height: 50px;
     }
 
-    /* дополнительные мобильные фиксы */
     .hero-stats {
       display: flex;
       flex-wrap: wrap;
       gap: 24px;
       margin-top: 40px;
+      font-size: 0.9rem;
+      font-weight: bold;
     }
 
     .hero-stats > div {
       flex: 1 1 auto;
+      border-radius: 24px;
+      padding: 12px;
+      background: rgb(221, 228, 241);
     }
 
     .funds-block {
@@ -412,22 +406,8 @@
       border-radius: 24px;
     }
 
-    /* выравнивание feature-card */
-    .feature-card > div {
-      display: flex;
-      gap: 16px;
-      flex-direction: row !important;
-      align-items: flex-start;
-    }
-    .feature-card .number {
-      min-width: 60px;
-      font-size: 1rem;
-    }
-    @media (max-width: 480px) {
-      .feature-card > div {
-        flex-direction: column !important;
-        gap: 8px !important;
-      }
+    .funds-block span {
+      font-size: 0.7rem;
     }
 
     .scale-flex {
@@ -436,68 +416,188 @@
       gap: 40px;
       justify-content: space-between;
     }
+
+    /* Таблица конкурентов */
+    .competitor-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+    .competitor-table th {
+      background-color: #f5f5f5;
+      font-weight: 500;
+      padding: 12px;
+      text-align: left;
+    }
+    .competitor-table td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Гант */
+    .gantt {
+      margin: 2.5rem 0 1.5rem;
+      padding: 1.5rem;
+      background: #f8fafd;
+      border-radius: 24px;
+    }
+    .gantt-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .gantt-label {
+      width: 140px;
+      font-weight: 500;
+      color: #1f2c3a;
+      font-size: 0.75rem;
+    }
+    .gantt-bar-container {
+      flex: 1;
+      height: 2rem;
+      background-color: #e2e7f0;
+      border-radius: 40px;
+      overflow: hidden;
+    }
+    .gantt-bar {
+      height: 100%;
+      background-color: #111;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      padding-left: 1rem;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .gantt-milestone {
+      margin-top: 1rem;
+      padding-left: 140px;
+      display: flex;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: #2f4053;
+      flex-wrap: wrap;
+    }
+    .milestone-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #111;
+      border-radius: 50%;
+      margin-right: 0.3rem;
+    }
+    @media (max-width: 600px) {
+      .gantt-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .gantt-label {
+        width: auto;
+      }
+      .gantt-milestone {
+        padding-left: 0;
+      }
+    }
+
+    .source-ref {
+      font-style: italic;
+      color: #4a6d8c;
+      background: #f1f5f9;
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+    }
+
+    /* Модальное окно для видео */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      background: transparent;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 30px;
+      font-weight: 300;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .close-modal:hover {
+      color: #e62e2e;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      outline: none;
+    }
   </style>
 </head>
 <body>
 
-<!-- Header / навигация -->
 <div class="container">
   <div class="navbar">
-    <div class="logo">TapToProf</div>
-    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
-      <div class="nav-links">
-<!--        <span>Concept</span>-->
-<!--        <span>AI</span>-->
-<!--        <span>Metrics</span>-->
-        <a href="memo.html" style="cursor:default;">White paper</a>
-      </div>
-      <div class="lang-switch">
-        <button class="lang-btn active" id="lang-ru">РУС</button>
-        <button class="lang-btn" id="lang-en">ENG</button>
-      </div>
+    <div class="logo">TapToProfi</div>
+    <div class="nav-links">
+      <a href="eng/index.html">English</a>
     </div>
   </div>
 </div>
 
-<!-- Hero с каруселью прототипов (mobile first) -->
+<!-- Hero с каруселью -->
 <section style="padding: 10px 0 30px 0;">
   <div class="container">
     <div class="grid-2" style="align-items: center; gap: 30px;">
-      <!-- текст hero теперь сверху на мобильных, но grid сам упорядочит -->
       <div>
-        <div class="tag" style="margin-bottom: 16px;" id="hero-tag">INFRASTRUCTURE FOR BLUE-COLLAR</div>
-        <h1 id="hero-title">Tap. To Prof.<br>Done.</h1>
-        <p class="subhead" style="margin-bottom: 32px;" id="hero-subhead">AI-orchestrated marketplace. Zero UI for clients, SaaS for pros. No more commission bleed.</p>
+        <div class="tag" style="margin-bottom: 16px;">ИНФРАСТРУКТУРА ДЛЯ BLUE‑COLLAR</div>
+        <h1>Tap To Prof<br>И готово!</h1>
+        <p class="subhead" style="margin-bottom: 32px;">AI‑оркестратор. Zero UI для клиентов, SaaS для мастеров. Никаких комиссий.</p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-          <a href="memo.html" class="btn btn-primary" id="hero-whitepaper">Read white paper →</a>
-          <span class="btn btn-outline" id="hero-investor">Investor deck</span>
+          <a href="memo.html" class="btn btn-primary">Подробная аналитика →</a>
+          <button class="btn btn-video" id="videoButton"><i class="fas fa-play"></i> Смотреть видео тизер</button>
         </div>
         <div class="hero-stats">
-          <div><span style="font-weight: 500;" id="feature-1-label">100% voice/photo</span><br><span style="color: #666;" id="feature-1-desc">no forms</span></div>
-          <div><span style="font-weight: 500;" id="feature-2-label">$29.9/month</span><br><span style="color: #666;" id="feature-2-desc">pro subscription</span></div>
-          <div><span style="font-weight: 500;" id="feature-3-label">multi‑agent</span><br><span style="color: #666;" id="feature-3-desc">AI negotiation</span></div>
+          <div><span style="font-weight: 500;">100% голос/фото</span><br><span style="color: #666;">без форм</span></div>
+          <div><span style="font-weight: 500;">$30/мес</span><br><span style="color: #666;">подписка мастера</span></div>
+          <div><span style="font-weight: 500;">мультиагент</span><br><span style="color: #666;">AI переговоры</span></div>
         </div>
       </div>
-      
-      <!-- Карточная колода (stacked cards) адаптивная -->
+
+      <!-- Карусель прототипов -->
       <div class="prototype-showcase">
-        <div class="cards-stack" id="cardsStack">
-          <!-- Карточки через JS -->
-        </div>
-        
+        <div class="cards-stack" id="cardsStack"></div>
         <div class="carousel-controls">
-          <div class="carousel-arrow" id="prevSlide">
-            <i class="fas fa-chevron-left"></i>
-          </div>
+          <div class="carousel-arrow" id="prevSlide"><i class="fas fa-chevron-left"></i></div>
           <div class="carousel-dots" id="carouselDots"></div>
-          <div class="carousel-arrow" id="nextSlide">
-            <i class="fas fa-chevron-right"></i>
-          </div>
+          <div class="carousel-arrow" id="nextSlide"><i class="fas fa-chevron-right"></i></div>
         </div>
-        
-        <div class="carousel-caption" id="carouselCaption">
-          1/5 · Create order
-        </div>
+        <div class="carousel-caption" id="carouselCaption">1/5 · Создание заказа</div>
       </div>
     </div>
   </div>
@@ -507,134 +607,129 @@
 <section style="padding: 50px 0; border-top: 1px solid #eee;">
   <div class="container">
     <div class="section-header">
-      <div class="tag" id="problem-tag">legacy is broken</div>
-      <h2 id="problem-title">Current marketplaces<br>take 30% and give nothing.</h2>
+      <div class="tag">старая модель сломана</div>
+      <h2>Текущие площадки берут 30% и не дают ничего.</h2>
     </div>
     <div class="grid-2">
       <div>
-        <h3 style="margin-bottom: 16px;" id="client-title">Client side</h3>
-        <p style="margin-bottom: 16px;" id="client-desc">20‑minute forms, 10 chats, no transparency. 85% drop off before booking.</p>
+        <h3 style="margin-bottom: 16px;">Клиент</h3>
+        <p style="margin-bottom: 16px;">Формы на 20 минут, 10 чатов, никакой прозрачности. <br/>85% уходят до бронирования.</p>
         <div style="background: #f5f5f5; height: 2px; width: 100%; margin: 16px 0;"></div>
         <div style="display: flex; justify-content: space-between;">
-          <span id="client-loss-label">conversion loss</span>
+          <span>потеря конверсии</span>
           <span style="font-weight: 500;">85%</span>
         </div>
       </div>
       <div>
-        <h3 style="margin-bottom: 16px;" id="pro-title">Pro side</h3>
-        <p style="margin-bottom: 16px;" id="pro-desc">30% commission, unpaid paperwork, unstable leads. 70% of value taken by platforms.</p>
+        <h3 style="margin-bottom: 16px;">Мастер</h3>
+        <p style="margin-bottom: 16px;">Комиссия 30%, бумажная работа, нестабильные лиды. <br/>70% ценности забирают платформы.</p>
         <div style="background: #f5f5f5; height: 2px; width: 100%; margin: 16px 0;"></div>
         <div style="display: flex; justify-content: space-between;">
-          <span id="pro-cut-label">platform cut</span>
-          <span style="font-weight: 500;">70%</span>
+          <span>доля платформы</span>
+          <span style="font-weight: 500;">может достигать 70%</span>
         </div>
       </div>
     </div>
+    <p style="margin-top: 30px;font-size:0.75rem"><span class="source-ref">Angi</span> продаёт один лид 3‑8 подрядчикам, цена закрытой сделки достигает $1400. <br/><span class="source-ref">TaskRabbit</span> забирает 15‑30% комиссии + сбор с клиента 5‑9%.</p>
   </div>
 </section>
 
-<!-- AI-агенты -->
+<!-- AI‑агенты -->
 <section style="padding: 50px 0; border-top: 1px solid #eee;">
   <div class="container">
     <div class="section-header">
-      <div class="tag" id="agents-tag">multi‑agent orchestration</div>
-      <h2 id="agents-title">Five agents, one tap.</h2>
+      <div class="tag">мультиагентная оркестрация</div>
+      <h2>Одно касание - Пять агентов</h2>
     </div>
     <div style="display: flex; flex-direction: column;">
       <div class="feature-card">
-        <div>
-          <div class="number" style="color:#888;">01</div>
-          <div style="flex:1;">
-            <h3 id="agent1-title">Classifier agent</h3>
-            <p style="max-width: 600px;" id="agent1-desc">Parses photo + voice, defines job type and scope. No categories, no dropdowns.</p>
-          </div>
-        </div>
+        <div><div class="number">01</div><div><h3>Классификатор</h3><p>Анализирует фото и голос, определяет тип задачи и объём. Никаких категорий.</p></div></div>
       </div>
       <div class="feature-card">
-        <div>
-          <div class="number" style="color:#888;">02</div>
-          <div style="flex:1;">
-            <h3 id="agent2-title">Negotiator agent</h3>
-            <p style="max-width: 600px;" id="agent2-desc">Enters auction, bids, compares ratings — fully automatic, works within price corridor.</p>
-          </div>
-        </div>
+        <div><div class="number">02</div><div><h3>Переговорщик</h3><p>Участвует в аукционе, сравнивает рейтинги — полностью автоматически, в ценовом коридоре.</p></div></div>
       </div>
       <div class="feature-card">
-        <div>
-          <div class="number" style="color:#888;">03</div>
-          <div style="flex:1;">
-            <h3 id="agent3-title">Reputation agent</h3>
-            <p style="max-width: 600px;" id="agent3-desc">Synthesises open‑source reviews, gov databases, old profiles into unbiased score.</p>
-          </div>
-        </div>
+        <div><div class="number">03</div><div><h3>Рейтинг</h3><p>Собирает открытые отзывы, данные из ресурсов, старые профили и зафиксированный рейтинг в TapToProf в одну объективную оценку.</p></div></div>
       </div>
       <div class="feature-card">
-        <div>
-          <div class="number" style="color:#888;">04</div>
-          <div style="flex:1;">
-            <h3 id="agent4-title">Scheduler agent</h3>
-            <p style="max-width: 600px;" id="agent4-desc">Matches calendar slots, confirms ETA, sends reminders.</p>
-          </div>
-        </div>
+        <div><div class="number">04</div><div><h3>Планировщик</h3><p>Согласовывает время в календаре, подтверждает приезд, напоминает.</p></div></div>
+      </div>
+      <div class="feature-card">
+        <div><div class="number">05</div><div><h3>Отчёты (Summary)</h3><p>Собирает отзывы, генерирует чек и отчёт для мастера.</p></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Юнит-экономика -->
+<!-- Анализ рынка (кратко) -->
 <section style="padding: 50px 0; border-top: 1px solid #eee; background: #fafafa;">
   <div class="container">
     <div class="section-header">
-      <div class="tag" id="economics-tag">unit economics · subscription‑first</div>
-      <h2 id="economics-title">SaaS for pros, not % per job.</h2>
+      <div class="tag">конкуренты</div>
+      <h2>Кто занимает рынок США</h2>
     </div>
-    <!-- на мобильных grid-3 превращается в 1 колонку, но на планшетах 2/3 -->
-    <div class="grid-3" style="margin-bottom: 32px;">
-      <div class="metric-card">
-        <div class="metric-value">$29.9</div>
-        <div class="metric-label" id="metric-arpu">ARPU / pro / month</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">12 mo</div>
-        <div class="metric-label" id="metric-lifetime">avg. lifetime</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">$360</div>
-        <div class="metric-label" id="metric-ltv">LTV (conservative)</div>
-      </div>
-    </div>
-    <div class="grid-3" style="margin-bottom: 32px;">
-      <div class="metric-card">
-        <div class="metric-value">$100</div>
-        <div class="metric-label" id="metric-cac">CAC (supply)</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">3.6x</div>
-        <div class="metric-label" id="metric-ltv-cac">LTV/CAC</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">4 mo</div>
-        <div class="metric-label" id="metric-payback">payback</div>
-      </div>
-    </div>
+    <table class="competitor-table">
+      <thead><tr><th>Компания</th><th>Модель</th><th>Уязвимость</th></tr></thead>
+      <tbody>
+      <tr><td>Angi</td><td>Плата за лид</td><td>Мусорные лиды, продажа одного лида 3‑8 мастерам</td></tr>
+      <tr><td>TaskRabbit</td><td>Комиссия 15‑30%</td><td>Двусторонний сбор, мастер получает на руки ~$80 со $100</td></tr>
+      <tr><td>Thumbtack</td><td>Плата за лид</td><td>Клиент платит, чтобы отправить запрос</td></tr>
+      <tr><td>Google LSA</td><td>PPC</td><td>Дорого для мелких заказов</td></tr>
+      </tbody>
+    </table>
+    <p>Рынок бытовых услуг США оценивается в <span class="source-ref">$543 млрд</span> (IBISWorld 2026).</p>
+  </div>
+</section>
 
+<!-- Юнит‑экономика -->
+<section style="padding: 50px 0; border-top: 1px solid #eee;">
+  <div class="container">
+    <div class="section-header">
+      <div class="tag">юнит‑экономика · подписка</div>
+      <h2>SaaS для мастеров, а не % с заказа.</h2>
+    </div>
+    <div class="grid-3" style="margin-bottom: 32px;">
+      <div class="metric-card"><div class="metric-value">$30</div><div class="metric-label">ARPU / мастера / мес</div></div>
+      <div class="metric-card"><div class="metric-value">24 мес</div><div class="metric-label">срок жизни</div></div>
+      <div class="metric-card"><div class="metric-value">$720</div><div class="metric-label">LTV (консервативно)</div></div>
+    </div>
+    <div class="grid-3" style="margin-bottom: 32px;">
+      <div class="metric-card"><div class="metric-value">$180</div><div class="metric-label">CAC (привлечение)</div></div>
+      <div class="metric-card"><div class="metric-value">4.0</div><div class="metric-label">LTV/CAC</div></div>
+      <div class="metric-card"><div class="metric-value">6 мес</div><div class="metric-label">окупаемость</div></div>
+    </div>
     <hr>
-
-    <!-- масштабирование: адаптивный ряд -->
     <div class="scale-flex">
-      <div>
-        <div style="font-size: 2.4rem; font-weight: 450;">1k</div>
-        <span style="color: #666;" id="scale-1">pros → $25k MRR</span>
-      </div>
-      <div>
-        <div style="font-size: 2.4rem; font-weight: 450;">10k</div>
-        <span style="color: #666;" id="scale-2">pros → $250k MRR · $3M ARR</span>
-      </div>
-      <div>
-        <div style="font-size: 2.4rem; font-weight: 450;">50k</div>
-        <span style="color: #666;" id="scale-3">pros → $1.25M MRR · $15M ARR</span>
+      <div><span style="font-size:2.4rem;">1k</span> <span style="color:#666;">мастеров → $25k MRR</span></div>
+      <div><span style="font-size:2.4rem;">10k</span> <span style="color:#666;">мастеров → $250k MRR · $3M ARR</span></div>
+      <div><span style="font-size:2.4rem;">50k</span> <span style="color:#666;">мастеров → $1.25M MRR · $15M ARR</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Дорожная карта (Gantt) -->
+<section style="padding: 50px 0; border-top: 1px solid #eee;">
+  <div class="container">
+    <div class="section-header">
+      <div class="tag">roadmap</div>
+      <h2>План выхода на рынок</h2>
+    </div>
+    <div class="gantt">
+      <div class="gantt-item"><span class="gantt-label">Фаза 0:<br/> Pre‑seed</span><div class="gantt-bar-container"><div class="gantt-bar" style="width:16%">0‑3 мес</div></div></div>
+      <div class="gantt-item"><span class="gantt-label">Фаза 1:<br/> MVP ручной</span><div class="gantt-bar-container"><div class="gantt-bar" style="margin-left: 16%;width:20%; background:#3f5a75;">3‑6 мес</div></div></div>
+      <div class="gantt-item"><span class="gantt-label">Фаза 2:<br/> AI‑оркестратор</span><div class="gantt-bar-container"><div class="gantt-bar" style="margin-left: 36%;width:33%; background:#4d6b8a;">6‑12 мес</div></div></div>
+      <div class="gantt-item"><span class="gantt-label">Фаза 3:<br/> Подписка + масштаб</span><div class="gantt-bar-container"><div class="gantt-bar" style="margin-left: 69%;width:31%; background:#2c3e50;">12‑18 мес</div></div></div>
+      <div class="gantt-milestone">
+        <span><span class="milestone-dot"></span> Интервью 50+ мастеров</span>
+        <span><span class="milestone-dot"></span> PWA + ручной поиск</span>
+        <span><span class="milestone-dot"></span> Аукцион, Stripe</span>
+        <span><span class="milestone-dot"></span> 500 мастеров</span>
       </div>
     </div>
+    <p><strong>Фаза 0:</strong> интервью в пилотном городе (Остин/Денвер), поиск CTO.<br>
+      <strong>Фаза 1:</strong> PWA, ручное соединение, проверка NPS.<br>
+      <strong>Фаза 2:</strong> AI‑классификатор, аукцион, интеграция Stripe.<br>
+      <strong>Фаза 3:</strong> запуск подписки $29.99, AI‑переговорщик, партнёрства с Home Depot/Lowe’s.</p>
   </div>
 </section>
 
@@ -643,31 +738,44 @@
   <div class="container">
     <div class="grid-2" style="gap: 48px;">
       <div>
-        <div class="tag" id="invest-tag">pre‑seed · $500k</div>
-        <h2 style="margin-bottom: 20px;" id="invest-title">Looking for founding team & partners</h2>
-        <p style="margin-bottom: 32px;" id="invest-desc">CTO (Python/AI), AI/ML engineer, product lead, growth. Stack: LangChain, multimodal, PWA/Telegram.</p>
-        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-          <span class="btn btn-primary" id="invest-partner">Partner with us →</span>
-          <span class="btn btn-outline" id="invest-memo">Download memo</span>
-        </div>
+        <div class="tag">pre‑seed · $500k</div>
+        <h2 style="margin-bottom: 20px;">Собираем команду и партнёров</h2>
+        <ul style="margin-bottom: 32px;margin-left: 30px;">
+          <li>TechLead</li>
+          <li>AI/ML инженер</li>
+          <li>продакт</li>
+          <li>growth</li>
+        </ul>
+        Стек: LangChain, мультимодальные модели, PWA/Telegram, Python, Java.
+        <!--<div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <span class="btn btn-primary">Стать партнёром →</span>
+          <span class="btn btn-outline">Скачать меморандум</span>
+        </div>-->
       </div>
       <div class="funds-block">
-        <div style="font-weight: 500; margin-bottom: 24px;" id="funds-title">Use of funds</div>
-        <div style="margin-bottom: 16px;">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span id="funds-supply">Supply acquisition</span><span>40%</span></div>
-          <div style="background: #ddd; height: 4px; width: 100%;"><div style="width:40%; background:#111; height:4px;"></div></div>
-        </div>
-        <div style="margin-bottom: 16px;">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span id="funds-ai">AI dev / R&D</span><span>30%</span></div>
-          <div style="background: #ddd; height: 4px; width: 100%;"><div style="width:30%; background:#111; height:4px;"></div></div>
-        </div>
-        <div style="margin-bottom: 16px;">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span id="funds-demand">Demand marketing</span><span>20%</span></div>
-          <div style="background: #ddd; height: 4px; width: 100%;"><div style="width:20%; background:#111; height:4px;"></div></div>
-        </div>
-        <div>
-          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span id="funds-ops">Ops & legal</span><span>10%</span></div>
-          <div style="background: #ddd; height: 4px; width: 100%;"><div style="width:10%; background:#111; height:4px;"></div></div>
+        <div style="font-weight: 500; margin-bottom: 24px;">Использование средств</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+          <!-- Круговая диаграмма -->
+          <div class="pie-chart" style="width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(#2b5aa1 0deg 144deg, #5d7cb3 144deg 252deg, #a0b4d5 252deg 324deg, #d8e0ec 324deg 360deg); box-shadow: 0 4px 10px rgba(0,0,0,0.05);"></div>
+          <!-- Легенда -->
+          <div style="flex:1; min-width: 200px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <span style="width: 16px; height: 16px; background: #2b5aa1; border-radius: 4px;"></span>
+              <span>Привлечение мастеров <strong>40%</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <span style="width: 16px; height: 16px; background: #5d7cb3; border-radius: 4px;"></span>
+              <span>AI разработка / R&D <strong>30%</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <span style="width: 16px; height: 16px; background: #a0b4d5; border-radius: 4px;"></span>
+              <span>Маркетинг (спрос) <strong>20%</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <span style="width: 16px; height: 16px; background: #D8E0ECFF; border-radius: 4px;"></span>
+              <span>Операции и юр. вопросы <strong>10%</strong></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -678,23 +786,34 @@
 <footer style="border-top: 1px solid #eee; padding: 30px 0;">
   <div class="container">
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: #888; font-size: 0.85rem;">
-      <span id="footer-copyright">TapToProf — AI infrastructure for blue‑collar</span>
-      <span id="footer-version">white paper v1.0 · march 2026</span>
+      <span>TapToProfi — AI инфраструктура для blue‑collar</span>
+      <span>white paper v2.0 · март 2026</span>
     </div>
   </div>
 </footer>
 
+<!-- Модальное окно для видео -->
+<div class="modal" id="videoModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModal">&times;</span>
+    <video id="tizerVideo" controls autoplay>
+      <source src="tizer.mp4" type="video/mp4">
+      Ваш браузер не поддерживает видео.
+    </video>
+  </div>
+</div>
+
 <script>
-  // Данные для слайдов
+  // Данные для карусели (русские подписи)
   const slidesData = [
-    { src: '4.png', title: { en: 'Create order', ru: 'Создание заказа' }, desc: { en: 'Photo + voice input', ru: 'Фото + голос' } },
-    { src: '5.png', title: { en: 'Searching for pro', ru: 'Поиск мастера' }, desc: { en: 'AI agents working', ru: 'AI агенты работают' } },
-    { src: '1.png', title: { en: 'New order', ru: 'Новый заказ' }, desc: { en: 'Pro notification', ru: 'Уведомление мастеру' } },
-    { src: '2.png', title: { en: 'Auction chat', ru: 'Чат аукциона' }, desc: { en: 'Real-time bidding', ru: 'Торги в реальном времени' } },
-    { src: '3.png', title: { en: 'Confirmed', ru: 'Подтверждено' }, desc: { en: 'Pro is on the way', ru: 'Мастер едет' } },
+    { src: '1.png', title: 'Создание заказа', desc: 'Фото + голос' },
+    { src: '2.png', title: 'Поиск мастера', desc: 'AI агенты работают' },
+    { src: '3.png', title: 'Новый заказ', desc: 'Уведомление мастеру' },
+    { src: '4.png', title: 'Чат аукциона', desc: 'Торги в реальном времени' },
+    { src: '5.png', title: 'Подтверждено', desc: 'Мастер едет' }
   ];
 
-  let currentIndex = 0; // центральный
+  let currentIndex = 0; // центральный (индекс 2)
   const totalSlides = slidesData.length;
   let autoPlayInterval;
 
@@ -712,7 +831,7 @@
       let position = slideIndex - currentIndex;
       if (position < 0) position = totalSlides + position;
       if (position > 4) position = position - totalSlides;
-      html += `<div class="card-item" data-position="${position}" data-index="${slideIndex}" style="cursor: pointer;"><img src="${slide.src}" alt="${slide.title.en}" onerror="this.src='https://via.placeholder.com/260x520?text=${slide.title.en.replace(/ /g, '+')}'"></div>`;
+      html += `<div class="card-item" data-position="${position}" data-index="${slideIndex}" style="cursor: pointer;"><img src="${slide.src}" alt="${slide.title}" onerror="this.src='https://via.placeholder.com/260x520?text=${slide.title.replace(/ /g, '+')}'"></div>`;
     }
     cardsStack.innerHTML = html;
     document.querySelectorAll('.card-item').forEach(card => {
@@ -741,8 +860,7 @@
 
   function updateCaption() {
     const currentSlide = slidesData[currentIndex];
-    const lang = document.getElementById('lang-ru').classList.contains('active') ? 'ru' : 'en';
-    captionEl.innerHTML = `${currentIndex+1}/${totalSlides} · ${currentSlide.title[lang]}<br><span style="color:#666; font-size:0.85rem;">${currentSlide.desc[lang]}</span>`;
+    captionEl.innerHTML = `${currentIndex+1}/${totalSlides} · ${currentSlide.title}<br><span style="color:#666; font-size:0.85rem;">${currentSlide.desc}</span>`;
   }
 
   function updateDots() {
@@ -774,67 +892,39 @@
   renderCards();
   startAutoPlay();
 
-  // i18n (сокращенно, основные строки, остальные аналогично)
-  const i18n = {
-    ru: {
-      'hero-tag': 'ИНФРАСТРУКТУРА ДЛЯ BLUE-COLLAR',
-      'hero-title': 'Tap. To Prof.<br>Готово.',
-      'hero-subhead': 'AI-оркестратор. Zero UI для клиентов, SaaS для мастеров. Никаких комиссий.',
-      'hero-whitepaper': 'Читать документ →',
-      'hero-investor': 'Питч-дек',
-      'feature-1-label': '100% голос/фото','feature-1-desc': 'без форм','feature-2-label': '$29.9/мес','feature-2-desc': 'подписка мастера','feature-3-label': 'мульти‑агент','feature-3-desc': 'AI переговоры',
-      'problem-tag': 'старая модель сломана','problem-title': 'Текущие площадки<br>берут 30% и не дают ничего.',
-      'client-title': 'Клиент','client-desc': 'Формы на 20 минут, 10 чатов, никакой прозрачности. 85% уходят до брони.','client-loss-label': 'потеря конверсии',
-      'pro-title': 'Мастер','pro-desc': 'Комиссия 30%, бумажная работа, нестабильные заказы. 70% дохода забирают платформы.','pro-cut-label': 'доля платформы',
-      'agents-tag': 'мультиагентная оркестрация','agents-title': 'Пять агентов, одно касание.',
-      'agent1-title': 'Классификатор','agent1-desc': 'Анализирует фото и голос, определяет тип задачи и объем. Никаких категорий и списков.',
-      'agent2-title': 'Переговорщик','agent2-desc': 'Участвует в аукционе, сравнивает рейтинги — полностью автоматически, работает в ценовом коридоре.',
-      'agent3-title': 'Рейтинг','agent3-desc': 'Собирает открытые отзывы, данные из госресурсов, старые профили в объективную оценку.',
-      'agent4-title': 'Планировщик','agent4-desc': 'Согласовывает время в календаре, подтверждает приезд, напоминает.',
-      'economics-tag': 'юнит-экономика · подписка','economics-title': 'SaaS для мастеров, а не % с заказа.',
-      'metric-arpu': 'ARPU / мастера / месяц','metric-lifetime': 'срок жизни','metric-ltv': 'LTV (консервативно)','metric-cac': 'CAC (привлечение)','metric-ltv-cac': 'LTV/CAC','metric-payback': 'окупаемость',
-      'scale-1': 'мастеров → $25k MRR','scale-2': 'мастеров → $250k MRR · $3M ARR','scale-3': 'мастеров → $1.25M MRR · $15M ARR',
-      'invest-tag': 'pre‑seed · $500k','invest-title': 'Ищем команду и партнеров','invest-desc': 'CTO (Python/AI), AI/ML инженер, продакт, growth. Стек: LangChain, мультимодальные модели, PWA/Telegram.','invest-partner': 'Стать партнером →','invest-memo': 'Скачать меморандум',
-      'funds-title': 'Использование средств','funds-supply': 'Привлечение мастеров','funds-ai': 'AI разработка / R&D','funds-demand': 'Маркетинг (спрос)','funds-ops': 'Операции и юр. вопросы',
-      'footer-copyright': 'TapToProf — AI инфраструктура для blue‑collar','footer-version': 'white paper v1.0 · март 2026'
-    },
-    en: {
-      'hero-tag': 'INFRASTRUCTURE FOR BLUE-COLLAR','hero-title': 'Tap. To Prof.<br>Done.','hero-subhead': 'AI-orchestrated marketplace. Zero UI for clients, SaaS for pros. No more commission bleed.','hero-whitepaper': 'Read white paper →','hero-investor': 'Investor deck',
-      'feature-1-label': '100% voice/photo','feature-1-desc': 'no forms','feature-2-label': '$29.9/month','feature-2-desc': 'pro subscription','feature-3-label': 'multi‑agent','feature-3-desc': 'AI negotiation',
-      'problem-tag': 'legacy is broken','problem-title': 'Current marketplaces<br>take 30% and give nothing.',
-      'client-title': 'Client side','client-desc': '20‑minute forms, 10 chats, no transparency. 85% drop off before booking.','client-loss-label': 'conversion loss',
-      'pro-title': 'Pro side','pro-desc': '30% commission, unpaid paperwork, unstable leads. 70% of value taken by platforms.','pro-cut-label': 'platform cut',
-      'agents-tag': 'multi‑agent orchestration','agents-title': 'Five agents, one tap.',
-      'agent1-title': 'Classifier agent','agent1-desc': 'Parses photo + voice, defines job type and scope. No categories, no dropdowns.',
-      'agent2-title': 'Negotiator agent','agent2-desc': 'Enters auction, bids, compares ratings — fully automatic, works within price corridor.',
-      'agent3-title': 'Reputation agent','agent3-desc': 'Synthesises open‑source reviews, gov databases, old profiles into unbiased score.',
-      'agent4-title': 'Scheduler agent','agent4-desc': 'Matches calendar slots, confirms ETA, sends reminders.',
-      'economics-tag': 'unit economics · subscription‑first','economics-title': 'SaaS for pros, not % per job.',
-      'metric-arpu': 'ARPU / pro / month','metric-lifetime': 'avg. lifetime','metric-ltv': 'LTV (conservative)','metric-cac': 'CAC (supply)','metric-ltv-cac': 'LTV/CAC','metric-payback': 'payback',
-      'scale-1': 'pros → $25k MRR','scale-2': 'pros → $250k MRR · $3M ARR','scale-3': 'pros → $1.25M MRR · $15M ARR',
-      'invest-tag': 'pre‑seed · $500k','invest-title': 'Looking for founding team & partners','invest-desc': 'CTO (Python/AI), AI/ML engineer, product lead, growth. Stack: LangChain, multimodal, PWA/Telegram.','invest-partner': 'Partner with us →','invest-memo': 'Download memo',
-      'funds-title': 'Use of funds','funds-supply': 'Supply acquisition','funds-ai': 'AI dev / R&D','funds-demand': 'Demand marketing','funds-ops': 'Ops & legal',
-      'footer-copyright': 'TapToProf — AI infrastructure for blue‑collar','footer-version': 'white paper v1.0 · march 2026'
-    }
-  };
+  // Видео модальное окно
+  const modal = document.getElementById('videoModal');
+  const videoButton = document.getElementById('videoButton');
+  const closeModal = document.getElementById('closeModal');
+  const video = document.getElementById('tizerVideo');
 
-  function setLanguage(lang) {
-    const translations = i18n[lang];
-    for (const [key, value] of Object.entries(translations)) {
-      const el = document.getElementById(key);
-      if (el) {
-        if (key.includes('title') || key.includes('hero-title') || key.includes('problem-title') || key.includes('agents-title') || key.includes('economics-title')) el.innerHTML = value;
-        else el.textContent = value;
-      }
-    }
-    document.getElementById('lang-ru').classList.toggle('active', lang === 'ru');
-    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-    updateCaption();
-  }
+  videoButton.addEventListener('click', () => {
+    modal.classList.add('active');
+    video.play();
+  });
 
-  document.getElementById('lang-ru').addEventListener('click', () => setLanguage('ru'));
-  document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
-  setLanguage('en');
+  closeModal.addEventListener('click', () => {
+    modal.classList.remove('active');
+    video.pause();
+    video.currentTime = 0;
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+      video.pause();
+      video.currentTime = 0;
+    }
+  });
+
+  // Остановка видео при закрытии через ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      modal.classList.remove('active');
+      video.pause();
+      video.currentTime = 0;
+    }
+  });
 </script>
 
 </body>

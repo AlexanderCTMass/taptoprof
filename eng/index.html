@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>TapToProfi · AI infrastructure for blue‑collar</title>
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+          rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            line-height: 1.1;
+            font-weight: 500;
+            margin-bottom: 1.25rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #555555;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .subhead {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+        }
+
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eaeaea;
+            margin-bottom: 40px;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            color: #555;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            background: transparent;
+            border: 1px solid #222;
+            color: #222;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #111;
+            color: white;
+            border: 1px solid #111;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+        }
+
+        .btn-outline {
+            border: 1px solid #ddd;
+            color: #333;
+        }
+
+        .btn-video {
+            background: #e62e2e;
+            color: white;
+            border: 1px solid #e62e2e;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-video:hover {
+            background: #c41e1e;
+        }
+
+        .btn-video i {
+            font-size: 0.9rem;
+        }
+
+        .grid-2, .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 640px) {
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .container {
+                padding: 0 48px;
+            }
+
+            h1 {
+                font-size: 4.2rem;
+            }
+
+            h2 {
+                font-size: 2.8rem;
+            }
+        }
+
+        .metric-card {
+            border-top: 1px solid #eee;
+            padding-top: 24px;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 450;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .feature-card {
+            padding: 28px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .feature-card > div {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .feature-card .number {
+            min-width: 60px;
+            color: #888;
+            font-size: 1rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #f5f5f5;
+            color: #333;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 16px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eaeaea;
+            margin: 40px 0;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        /* prototype carousel */
+        .prototype-showcase {
+            background: transparent;
+            padding: 20px 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .cards-stack {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .card-item {
+            position: absolute;
+            width: 200px;
+            height: 440px;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+            cursor: pointer;
+            border: 3px solid white;
+            background: #f0f0f0;
+            transform-origin: center center;
+        }
+
+        .card-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-item[data-position="0"] {
+            transform: translateX(-140px) scale(0.75);
+            z-index: 1;
+            opacity: 0.6;
+            filter: brightness(0.8);
+        }
+
+        .card-item[data-position="1"] {
+            transform: translateX(-70px) scale(0.85);
+            z-index: 2;
+            opacity: 0.8;
+            filter: brightness(0.9);
+        }
+
+        .card-item[data-position="2"] {
+            transform: translateX(0) scale(1);
+            z-index: 5;
+            opacity: 1;
+            filter: brightness(1);
+            box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.3);
+            border-width: 4px;
+        }
+
+        .card-item[data-position="3"] {
+            transform: translateX(70px) scale(0.85);
+            z-index: 2;
+            opacity: 0.8;
+            filter: brightness(0.9);
+        }
+
+        .card-item[data-position="4"] {
+            transform: translateX(140px) scale(0.75);
+            z-index: 1;
+            opacity: 0.6;
+            filter: brightness(0.8);
+        }
+
+        @media (min-width: 640px) {
+            .card-item {
+                width: 230px;
+                height: 520px;
+            }
+
+            .card-item[data-position="0"] {
+                transform: translateX(-180px) scale(0.8);
+            }
+
+            .card-item[data-position="1"] {
+                transform: translateX(-90px) scale(0.9);
+            }
+
+            .card-item[data-position="2"] {
+                transform: translateX(0) scale(1);
+            }
+
+            .card-item[data-position="3"] {
+                transform: translateX(90px) scale(0.9);
+            }
+
+            .card-item[data-position="4"] {
+                transform: translateX(180px) scale(0.8);
+            }
+        }
+
+        @media (max-width: 440px) {
+            .card-item {
+                width: 160px;
+                height: 360px;
+            }
+
+            .card-item[data-position="0"] {
+                transform: translateX(-110px) scale(0.7);
+            }
+
+            .card-item[data-position="1"] {
+                transform: translateX(-55px) scale(0.8);
+            }
+
+            .card-item[data-position="2"] {
+                transform: translateX(0) scale(1);
+            }
+
+            .card-item[data-position="3"] {
+                transform: translateX(55px) scale(0.8);
+            }
+
+            .card-item[data-position="4"] {
+                transform: translateX(110px) scale(0.7);
+            }
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .carousel-arrow {
+            background: white;
+            border: 1px solid #ddd;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: #333;
+        }
+
+        .carousel-arrow:hover {
+            background: #111;
+            color: white;
+            border-color: #111;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 20px;
+            background: #ccc;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .carousel-dot.active {
+            width: 22px;
+            background: #111;
+        }
+
+        .carousel-caption {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 500;
+            color: #444;
+            font-size: 0.95rem;
+            min-height: 50px;
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .hero-stats > div {
+            flex: 1 1 auto;
+            border-radius: 24px;
+            padding: 12px;
+            background: rgb(221, 228, 241);
+        }
+
+        .funds-block {
+            background: #f5f5f5;
+            padding: 32px 24px;
+            border-radius: 24px;
+        }
+
+        .funds-block span {
+            font-size: 0.7rem;
+        }
+
+        .scale-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+        }
+
+        /* competitor table */
+        .competitor-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .competitor-table th {
+            background-color: #f5f5f5;
+            font-weight: 500;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .competitor-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Gantt */
+        .gantt {
+            margin: 2.5rem 0 1.5rem;
+            padding: 1.5rem;
+            background: #f8fafd;
+            border-radius: 24px;
+        }
+
+        .gantt-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .gantt-label {
+            width: 140px;
+            font-weight: 500;
+            color: #1f2c3a;
+            font-size: 0.75rem;
+        }
+
+        .gantt-bar-container {
+            flex: 1;
+            height: 2rem;
+            background-color: #e2e7f0;
+            border-radius: 40px;
+            overflow: hidden;
+        }
+
+        .gantt-bar {
+            height: 100%;
+            background-color: #111;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            padding-left: 1rem;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .gantt-milestone {
+            margin-top: 1rem;
+            padding-left: 140px;
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #2f4053;
+            flex-wrap: wrap;
+        }
+
+        .milestone-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #111;
+            border-radius: 50%;
+            margin-right: 0.3rem;
+        }
+
+        @media (max-width: 600px) {
+            .gantt-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .gantt-label {
+                width: auto;
+            }
+
+            .gantt-milestone {
+                padding-left: 0;
+            }
+        }
+
+        .source-ref {
+            font-style: italic;
+            color: #4a6d8c;
+            background: #f1f5f9;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+        }
+
+        /* Модальное окно для видео */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            background: transparent;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            font-weight: 300;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close-modal:hover {
+            color: #e62e2e;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="navbar">
+        <div class="logo">TapToProfi</div>
+        <div class="nav-links">
+            <a href="../index.html">Русский</a>
+        </div>
+    </div>
+</div>
+
+<!-- Hero with carousel -->
+<section style="padding: 10px 0 30px 0;">
+    <div class="container">
+        <div class="grid-2" style="align-items: center; gap: 30px;">
+            <div>
+                <div class="tag" style="margin-bottom: 16px;">INFRASTRUCTURE FOR BLUE‑COLLAR</div>
+                <h1>Tap To Prof<br>and it's done!</h1>
+                <p class="subhead" style="margin-bottom: 32px;">AI orchestrator. Zero UI for clients, SaaS for pros. No
+                    commissions.</p>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <a href="memo.html" class="btn btn-primary">Full analysis →</a>
+                    <button class="btn btn-video" id="videoButton"><i class="fas fa-play"></i> View Video Ad
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div><span style="font-weight: 500;">100% voice/photo</span><br><span
+                            style="color: #666;">no forms</span></div>
+                    <div><span style="font-weight: 500;">$30/month</span><br><span
+                            style="color: #666;">pro subscription</span></div>
+                    <div><span style="font-weight: 500;">multi‑agent</span><br><span
+                            style="color: #666;">AI negotiation</span></div>
+                </div>
+            </div>
+
+            <!-- prototype carousel -->
+            <div class="prototype-showcase">
+                <div class="cards-stack" id="cardsStack"></div>
+                <div class="carousel-controls">
+                    <div class="carousel-arrow" id="prevSlide"><i class="fas fa-chevron-left"></i></div>
+                    <div class="carousel-dots" id="carouselDots"></div>
+                    <div class="carousel-arrow" id="nextSlide"><i class="fas fa-chevron-right"></i></div>
+                </div>
+                <div class="carousel-caption" id="carouselCaption">1/5 · Create request</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Problem -->
+<section style="padding: 50px 0; border-top: 1px solid #eee;">
+    <div class="container">
+        <div class="section-header">
+            <div class="tag">old model is broken</div>
+            <h2>Current platforms take 30% and give nothing.</h2>
+        </div>
+        <div class="grid-2">
+            <div>
+                <h3 style="margin-bottom: 16px;">Client</h3>
+                <p style="margin-bottom: 16px;">20‑minute forms, 10 chats, zero transparency. <br/>85% drop off before
+                    booking.</p>
+                <div style="background: #f5f5f5; height: 2px; width: 100%; margin: 16px 0;"></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>conversion loss</span>
+                    <span style="font-weight: 500;">85%</span>
+                </div>
+            </div>
+            <div>
+                <h3 style="margin-bottom: 16px;">Pro</h3>
+                <p style="margin-bottom: 16px;">30% commission, paperwork, unstable leads. <br/>Platforms capture 70% of
+                    value.</p>
+                <div style="background: #f5f5f5; height: 2px; width: 100%; margin: 16px 0;"></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>platform take rate</span>
+                    <span style="font-weight: 500;">can reach 70%</span>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 30px;font-size:0.75rem"><span class="source-ref">Angi</span> sells one lead to 3‑8
+            contractors, closed‑deal cost up to $1400. <br/><span class="source-ref">TaskRabbit</span> takes 15‑30%
+            commission + client fee 5‑9%.</p>
+    </div>
+</section>
+
+<!-- AI agents -->
+<section style="padding: 50px 0; border-top: 1px solid #eee;">
+    <div class="container">
+        <div class="section-header">
+            <div class="tag">multi‑agent orchestration</div>
+            <h2>One tap — five agents</h2>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <div class="feature-card">
+                <div>
+                    <div class="number">01</div>
+                    <div><h3>Classifier</h3>
+                        <p>Analyzes photo & voice, determines task type & scope. No categories.</p></div>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div>
+                    <div class="number">02</div>
+                    <div><h3>Negotiator</h3>
+                        <p>Joins auction, compares ratings — fully automated, within a price range.</p></div>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div>
+                    <div class="number">03</div>
+                    <div><h3>Reputation</h3>
+                        <p>Scrapes public reviews, data from other sources, old profiles, and combines into one
+                            objective score.</p></div>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div>
+                    <div class="number">04</div>
+                    <div><h3>Scheduler</h3>
+                        <p>Coordinates calendar availability, confirms arrival, sends reminders.</p></div>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div>
+                    <div class="number">05</div>
+                    <div><h3>Summary</h3>
+                        <p>Collects feedback, generates receipt & report for the pro.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Market analysis (brief) -->
+<section style="padding: 50px 0; border-top: 1px solid #eee; background: #fafafa;">
+    <div class="container">
+        <div class="section-header">
+            <div class="tag">competitors</div>
+            <h2>Who owns the US market</h2>
+        </div>
+        <table class="competitor-table">
+            <thead>
+            <tr>
+                <th>Company</th>
+                <th>Model</th>
+                <th>Weakness</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Angi</td>
+                <td>Pay‑per‑lead</td>
+                <td>Junk leads, same lead sold to 3‑8 pros</td>
+            </tr>
+            <tr>
+                <td>TaskRabbit</td>
+                <td>15‑30% commission</td>
+                <td>Double‑sided fee, pro nets ~$80 from $100</td>
+            </tr>
+            <tr>
+                <td>Thumbtack</td>
+                <td>Pay‑per‑lead</td>
+                <td>Client pays to send request</td>
+            </tr>
+            <tr>
+                <td>Google LSA</td>
+                <td>PPC</td>
+                <td>Expensive for small jobs</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>US home services market is <span class="source-ref">$543B</span> (IBISWorld 2026).</p>
+    </div>
+</section>
+
+<!-- Unit economics -->
+<section style="padding: 50px 0; border-top: 1px solid #eee;">
+    <div class="container">
+        <div class="section-header">
+            <div class="tag">unit economics · subscription</div>
+            <h2>SaaS for pros, not a % of job.</h2>
+        </div>
+        <div class="grid-3" style="margin-bottom: 32px;">
+            <div class="metric-card">
+                <div class="metric-value">$30</div>
+                <div class="metric-label">ARPU / pro / month</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">24 mo</div>
+                <div class="metric-label">lifetime</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">$720</div>
+                <div class="metric-label">LTV (conservative)</div>
+            </div>
+        </div>
+        <div class="grid-3" style="margin-bottom: 32px;">
+            <div class="metric-card">
+                <div class="metric-value">$180</div>
+                <div class="metric-label">CAC</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">4.0</div>
+                <div class="metric-label">LTV/CAC</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">6 mo</div>
+                <div class="metric-label">payback</div>
+            </div>
+        </div>
+        <hr>
+        <div class="scale-flex">
+            <div><span style="font-size:2.4rem;">1k</span> <span style="color:#666;">pros → $25k MRR</span></div>
+            <div><span style="font-size:2.4rem;">10k</span> <span style="color:#666;">pros → $250k MRR · $3M ARR</span>
+            </div>
+            <div><span style="font-size:2.4rem;">50k</span> <span
+                    style="color:#666;">pros → $1.25M MRR · $15M ARR</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- Roadmap (Gantt) -->
+<section style="padding: 50px 0; border-top: 1px solid #eee;">
+    <div class="container">
+        <div class="section-header">
+            <div class="tag">roadmap</div>
+            <h2>Go‑to‑market plan</h2>
+        </div>
+        <div class="gantt">
+            <div class="gantt-item"><span class="gantt-label">Phase 0:<br/> Pre‑seed</span>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar" style="width:16%">0‑3 mo</div>
+                </div>
+            </div>
+            <div class="gantt-item"><span class="gantt-label">Phase 1:<br/> Manual MVP</span>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar" style="margin-left: 16%;width:20%; background:#3f5a75;">3‑6 mo</div>
+                </div>
+            </div>
+            <div class="gantt-item"><span class="gantt-label">Phase 2:<br/> AI orchestrator</span>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar" style="margin-left: 36%;width:33%; background:#4d6b8a;">6‑12 mo</div>
+                </div>
+            </div>
+            <div class="gantt-item"><span class="gantt-label">Phase 3:<br/> Subscription + scale</span>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar" style="margin-left: 69%;width:31%; background:#2c3e50;">12‑18 mo</div>
+                </div>
+            </div>
+            <div class="gantt-milestone">
+                <span><span class="milestone-dot"></span> 50+ pro interviews</span>
+                <span><span class="milestone-dot"></span> PWA + manual matching</span>
+                <span><span class="milestone-dot"></span> Auction, Stripe</span>
+                <span><span class="milestone-dot"></span> 500 pros</span>
+            </div>
+        </div>
+        <p><strong>Phase 0:</strong> interviews in pilot city (Austin/Denver), find CTO.<br>
+            <strong>Phase 1:</strong> PWA, manual matching, NPS validation.<br>
+            <strong>Phase 2:</strong> AI classifier, auction, Stripe integration.<br>
+            <strong>Phase 3:</strong> launch $29.99 subscription, AI negotiator, Home Depot/Lowe’s partnerships.</p>
+    </div>
+</section>
+
+<!-- Team / investment -->
+<section style="padding: 60px 0;">
+    <div class="container">
+        <div class="grid-2" style="gap: 48px;">
+            <div>
+                <div class="tag">pre‑seed · $500k</div>
+                <h2 style="margin-bottom: 20px;">Building the team & partners</h2>
+                <ul style="margin-bottom: 32px;margin-left: 30px;">
+                    <li>Tech Lead</li>
+                    <li>AI/ML engineer</li>
+                    <li>Product manager</li>
+                    <li>Growth lead</li>
+                </ul>
+                Stack: LangChain, multimodal models, PWA/Telegram, Python, Java.
+            </div>
+            <div class="funds-block">
+                <div style="font-weight: 500; margin-bottom: 24px;">Use of funds</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+                    <!-- pie chart -->
+                    <div class="pie-chart"
+                         style="width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(#2b5aa1 0deg 144deg, #5d7cb3 144deg 252deg, #a0b4d5 252deg 324deg, #d8e0ec 324deg 360deg); box-shadow: 0 4px 10px rgba(0,0,0,0.05);"></div>
+                    <!-- legend -->
+                    <div style="flex:1; min-width: 200px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <span style="width: 16px; height: 16px; background: #2b5aa1; border-radius: 4px;"></span>
+                            <span>Pro acquisition <strong>40%</strong></span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <span style="width: 16px; height: 16px; background: #5d7cb3; border-radius: 4px;"></span>
+                            <span>AI dev / R&D <strong>30%</strong></span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <span style="width: 16px; height: 16px; background: #a0b4d5; border-radius: 4px;"></span>
+                            <span>Demand marketing <strong>20%</strong></span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <span style="width: 16px; height: 16px; background: #D8E0ECFF; border-radius: 4px;"></span>
+                            <span>Ops & legal <strong>10%</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer style="border-top: 1px solid #eee; padding: 30px 0;">
+    <div class="container">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: #888; font-size: 0.85rem;">
+            <span>TapToProfi — AI infrastructure for blue‑collar</span>
+            <span>white paper v2.0 · March 2026</span>
+        </div>
+    </div>
+</footer>
+
+<!-- Модальное окно для видео -->
+<div class="modal" id="videoModal">
+    <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <video id="tizerVideo" controls autoplay>
+            <source src="../tizer.mp4" type="video/mp4">
+            not supported
+        </video>
+    </div>
+</div>
+
+<script>
+    // Carousel data (English captions)
+    const slidesData = [
+        {src: '1.png', title: 'Create request', desc: 'Photo + voice'},
+        {src: '2.png', title: 'Finding pro', desc: 'AI agents working'},
+        {src: '3.png', title: 'New order', desc: 'Notification to pro'},
+        {src: '4.png', title: 'Auction chat', desc: 'Real‑time bidding'},
+        {src: '5.png', title: 'Confirmed', desc: 'Pro en route'}
+    ];
+
+    let currentIndex = 0; // center index
+    const totalSlides = slidesData.length;
+    let autoPlayInterval;
+
+    const cardsStack = document.getElementById('cardsStack');
+    const carouselDots = document.getElementById('carouselDots');
+    const captionEl = document.getElementById('carouselCaption');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
+
+    function renderCards() {
+        let html = '';
+        for (let i = 0; i < totalSlides; i++) {
+            const slideIndex = i;
+            const slide = slidesData[slideIndex];
+            let position = slideIndex - currentIndex;
+            if (position < 0) position = totalSlides + position;
+            if (position > 4) position = position - totalSlides;
+            html += `<div class="card-item" data-position="${position}" data-index="${slideIndex}" style="cursor: pointer;"><img src="${slide.src}" alt="${slide.title}" onerror="this.src='https://via.placeholder.com/260x520?text=${slide.title.replace(/ /g, '+')}'"></div>`;
+        }
+        cardsStack.innerHTML = html;
+        document.querySelectorAll('.card-item').forEach(card => {
+            card.addEventListener('click', () => {
+                const index = parseInt(card.getAttribute('data-index'));
+                if (index !== currentIndex) {
+                    updatePositions(index);
+                    resetAutoPlay();
+                }
+            });
+        });
+        updateCaption();
+        updateDots();
+    }
+
+    function updatePositions(newIndex) {
+        currentIndex = newIndex;
+        const cards = document.querySelectorAll('.card-item');
+        cards.forEach(card => {
+            const index = parseInt(card.getAttribute('data-index'));
+            let position = index - currentIndex;
+            if (position < 0) position = totalSlides + position;
+            if (position > 4) position = position - totalSlides;
+            card.setAttribute('data-position', position);
+        });
+        updateCaption();
+        updateDots();
+    }
+
+    function updateCaption() {
+        const currentSlide = slidesData[currentIndex];
+        captionEl.innerHTML = `${currentIndex + 1}/${totalSlides} · ${currentSlide.title}<br><span style="color:#666; font-size:0.85rem;">${currentSlide.desc}</span>`;
+    }
+
+    function updateDots() {
+        let dotsHtml = '';
+        for (let i = 0; i < totalSlides; i++) {
+            dotsHtml += `<span class="carousel-dot ${i === currentIndex ? 'active' : ''}" data-index="${i}"></span>`;
+        }
+        carouselDots.innerHTML = dotsHtml;
+        document.querySelectorAll('.carousel-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                updatePositions(parseInt(dot.getAttribute('data-index')));
+                resetAutoPlay();
+            });
+        });
+    }
+
+    function nextSlide() {
+        updatePositions((currentIndex + 1) % totalSlides);
+    }
+
+    function prevSlide() {
+        updatePositions((currentIndex - 1 + totalSlides) % totalSlides);
+    }
+
+    function startAutoPlay() {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(nextSlide, 4000);
+    }
+
+    function resetAutoPlay() {
+        clearInterval(autoPlayInterval);
+        startAutoPlay();
+    }
+
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetAutoPlay();
+    });
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetAutoPlay();
+    });
+
+    cardsStack.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+    cardsStack.addEventListener('mouseleave', () => startAutoPlay());
+
+    renderCards();
+    startAutoPlay();
+
+    // Видео модальное окно
+    const modal = document.getElementById('videoModal');
+    const videoButton = document.getElementById('videoButton');
+    const closeModal = document.getElementById('closeModal');
+    const video = document.getElementById('tizerVideo');
+
+    videoButton.addEventListener('click', () => {
+        modal.classList.add('active');
+        video.play();
+    });
+
+    closeModal.addEventListener('click', () => {
+        modal.classList.remove('active');
+        video.pause();
+        video.currentTime = 0;
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            video.pause();
+            video.currentTime = 0;
+        }
+    });
+
+    // Остановка видео при закрытии через ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+            video.pause();
+            video.currentTime = 0;
+        }
+    });
+</script>
+
+</body>
+</html>
