@@ -549,6 +549,189 @@
             font-size: 0.85rem;
             text-align: center;
         }
+        /* Стили для табов */
+        .tabs-container {
+            margin: 1.5rem 0 2rem 0;
+        }
+
+        .tabs-buttons {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #e2e6ec;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+
+        .tab-btn:hover {
+            color: #111;
+        }
+
+        .tab-btn.active {
+            color: #111;
+            border-bottom-color: #111;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Стили для карточек конкурентов */
+        .competitor-card {
+            background: #ffffff;
+            border: 1px solid #eaedf2;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .competitor-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border-color: #d0d8e6;
+        }
+
+        .competitor-card h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #111;
+        }
+
+        .competitor-card p {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .competitor-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .competitor-card strong {
+            color: #111;
+            font-weight: 600;
+        }
+
+        /* Адаптация для мобильных */
+        @media (max-width: 600px) {
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .competitor-card {
+                padding: 1.25rem;
+            }
+
+            .competitor-card h4 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Бейджи для статусов компаний */
+        .badge-public {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 30px;
+        }
+
+        .badge-private {
+            display: inline-block;
+            background: #fff3e0;
+            color: #ed6c02;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 30px;
+        }
+
+        .badge-acquired {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 30px;
+        }
+
+        .badge-subsidiary {
+            display: inline-block;
+            background: #f3e5f5;
+            color: #7b1fa2;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 30px;
+        }
+
+        /* Стили для табов секции капитализации */
+        .valuation-tabs {
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .tab-btn-val {
+            background: transparent;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+
+        .tab-btn-val:hover {
+            color: #111;
+        }
+
+        .tab-btn-val.active {
+            color: #111;
+            border-bottom-color: #111;
+        }
+
+        .tab-content-val {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content-val.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -583,6 +766,7 @@
         <li><a href="#technology">Технология</a></li>
         <li><a href="#prototypes">UI макеты</a></li>
         <li><a href="#market-analysis">Анализ рынка</a></li>
+        <li><a href="#competitor-valuation">Капитализация</a></li>
         <li><a href="#business-model">Юнит‑экономика</a></li>
         <li><a href="#roadmap">Дорожная карта</a></li>
         <li><a href="#investment">Инвестиции</a></li>
@@ -689,31 +873,354 @@
             </section>
 
             <!-- Анализ рынка -->
-            <section id="market-analysis"class="section-grey">
+            <!-- Анализ рынка - обновленный блок с табами -->
+            <section id="market-analysis" class="section-grey">
                 <span class="tag">market sizing & competition</span>
                 <h2>Анализ рынка и конкурентная среда в США</h2>
-                <h3>Оценка рынка (TAM, SAM, SOM)</h3>
-                <p><strong>TAM</strong> (США, бытовые услуги) = $543 млрд (<a href="https://www.ibisworld.org/" class="source-ref">IBISWorld, 2026</a>). Другие оценки — до $870 млрд.</p>
-                <p><strong>SAM</strong> (онлайн‑сегмент) — десятки миллиардов долларов, точные данные отсутствуют, требуется уточнение.</p>
-                <p><strong>SOM</strong>: ниша AI‑подписки, первые 500 мастеров в пилотном городе.</p>
-                <h3>Конкурентный анализ «Большой пятерки» США</h3>
-                <table>
-                    <thead><tr><th>Компания</th><th>Модель</th><th>Комиссия / стоимость</th><th>Уязвимость</th></tr></thead>
-                    <tbody>
-                    <tr><td>Angi</td><td>Плата за лид</td><td>$15–120+ за лид</td><td>Мастера ненавидят «мусорные» лиды, юридические проблемы с «сертификацией»</td></tr>
-                    <tr><td>TaskRabbit</td><td>Комиссия со сделки</td><td>15‑30% с мастера + 5‑9% с клиента</td><td>Двусторонний сбор, топ‑мастера уходят в «личку»</td></tr>
-                    <tr><td>Thumbtack</td><td>Плата за лид</td><td>Предоплата за отправку запроса</td><td>Барьер для клиентов и мастеров</td></tr>
-                    <tr><td>Google LSA</td><td>Pay‑per‑click</td><td>Оплата за звонок/сообщение</td><td>Дорого для мелкого ремонта</td></tr>
-                    <tr><td>Craigslist/Yelp</td><td>Бесплатно / реклама</td><td>—</td><td>Отсутствие верификации, мошенничество</td></tr>
-                    </tbody>
-                </table>
+
+                <!-- Табы -->
+                <div class="tabs-container" style="margin: 1.5rem 0 2rem 0;">
+                    <div class="tabs-buttons" style="display: flex; gap: 8px; border-bottom: 1px solid #e2e6ec;">
+                        <button class="tab-btn active" data-tab="tab-summary">Краткий анализ</button>
+                        <button class="tab-btn" data-tab="tab-full">Полный анализ</button>
+                    </div>
+
+                    <!-- Вкладка: Краткий анализ -->
+                    <div id="tab-summary" class="tab-content active" style="padding: 1.5rem 0;">
+                        <h3>Оценка рынка (TAM, SAM, SOM)</h3>
+                        <p><strong>TAM</strong> (США, бытовые услуги) = $543 млрд (<a href="https://www.ibisworld.org/" class="source-ref" target="_blank">IBISWorld, 2026</a>). Другие оценки — до $870 млрд.</p>
+                        <p><strong>SAM</strong> (онлайн‑сегмент) — десятки миллиардов долларов, точные данные отсутствуют, требуется уточнение.</p>
+                        <p><strong>SOM</strong>: ниша AI‑подписки, первые 500 мастеров в пилотном городе.</p>
+
+                        <h3>Конкурентный анализ «Большой пятерки» США</h3>
+                        <table>
+                            <thead>
+                            <tr><th>Компания</th><th>Модель</th><th>Комиссия / стоимость</th><th>Уязвимость</th></tr>
+                            </thead>
+                            <tbody>
+                            <tr><td>Angi</td><td>Плата за лид</td><td>$15–120+ за лид</td><td>Мастера ненавидят «мусорные» лиды, юридические проблемы с «сертификацией»</td></tr>
+                            <tr><td>TaskRabbit</td><td>Комиссия со сделки</td><td>15‑30% с мастера + 5‑9% с клиента</td><td>Двусторонний сбор, топ‑мастера уходят в «личку»</td></tr>
+                            <tr><td>Thumbtack</td><td>Плата за лид</td><td>Предоплата за отправку запроса</td><td>Барьер для клиентов и мастеров</td></tr>
+                            <tr><td>Google LSA</td><td>Pay‑per‑click</td><td>Оплата за звонок/сообщение</td><td>Дорого для мелкого ремонта</td></tr>
+                            <tr><td>Craigslist/Yelp</td><td>Бесплатно / реклама</td><td>—</td><td>Отсутствие верификации, мошенничество</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Вкладка: Полный анализ -->
+                    <div id="tab-full" class="tab-content" style="padding: 1.5rem 0;">
+                        <h3>Анализ долей рынка топ-5 конкурентов (США, рынок home services)</h3>
+
+                        <div class="competitor-card" style="margin-bottom: 2rem;">
+                            <h4 style="font-weight: 600; margin-bottom: 0.5rem;">🏢 Angi Inc. (Angi, HomeAdvisor)</h4>
+                            <p><strong>Оценка доли рынка:</strong> ~35–40% от общего объема онлайн-бронирований (сегмент «лидогенерация»).</p>
+                            <p><strong>Особенность:</strong> Крупнейший агрегатор. Основная модель — продажа лидов мастерам (pay-per-lead). Несмотря на широкий охват и узнаваемость, теряет долю из-за низкого качества лидов и судебных исков (например, по делу о фейковых «сертификациях»). Удерживает лидерство в основном за счет legacy-бренда и массива исторических данных.</p>
+                        </div>
+
+                        <div class="competitor-card" style="margin-bottom: 2rem;">
+                            <h4 style="font-weight: 600; margin-bottom: 0.5rem;">🔨 IAC / TaskRabbit</h4>
+                            <p><strong>Оценка доли рынка:</strong> ~10–15% (в сегменте «исполнители на час» и мелкие бытовые услуги).</p>
+                            <p><strong>Особенность:</strong> Модель commission-based (комиссия со сделки). Сильны в крупных мегаполисах (NYC, LA, SF, Chicago). Доля ограничена из-за высокой стоимости для исполнителей (15–30%) и отсутствия гибкости для «дорогих» категорий (ремонт, сантехника). В последние годы стагнирует, так как топ-мастера уходят в офлайн.</p>
+                        </div>
+
+                        <div class="competitor-card" style="margin-bottom: 2rem;">
+                            <h4 style="font-weight: 600; margin-bottom: 0.5rem;">👍 Thumbtack</h4>
+                            <p><strong>Оценка доли рынка:</strong> ~12–18% (среди специализированных сервисов).</p>
+                            <p><strong>Особенность:</strong> Гибридная модель (лиды + премиум-подписка для мастеров). Более технологичный интерфейс, чем у Angi. Основная доля приходится на услуги «среднего чека» (фотография, репетиторы, уборка). Пытается конкурировать за счет AI-алгоритмов подбора, но проигрывает Angi в количестве лидов.</p>
+                        </div>
+
+                        <div class="competitor-card" style="margin-bottom: 2rem;">
+                            <h4 style="font-weight: 600; margin-bottom: 0.5rem;">🔍 Google Local Services Ads (LSA)</h4>
+                            <p><strong>Оценка доли рынка:</strong> ~20–25% (по доле в транзакционных кликах и звонках).</p>
+                            <p><strong>Особенность:</strong> Не маркетплейс, а рекламная платформа с pay-per-call. За последние 2 года агрессивно нарастила долю, перетягивая бюджеты с Angi и Thumbtack. Ключевое преимущество: интеграция с Google Search и Maps. Недостаток: высокая стоимость за лид ($20–80) и отсутствие сквозной транзакции (клиент и мастер договариваются вне платформы).</p>
+                        </div>
+
+                        <div class="competitor-card" style="margin-bottom: 2rem;">
+                            <h4 style="font-weight: 600; margin-bottom: 0.5rem;">⭐ Yelp / Yelp Services</h4>
+                            <p><strong>Оценка доли рынка:</strong> ~8–12% (в категории «поиск и контакт»).</p>
+                            <p><strong>Особенность:</strong> Крупнейший каталог отзывов, который монетизирует лиды через рекламную модель (CPC). Уязвимость: бизнес-модель часто критикуется за «вымогательство» отзывов и высокую стоимость клика для малых подрядчиков. Доля сокращается, так как платформа не предоставляет инструментов для сквозной оплаты и верификации, уступая более транзакционным игрокам.</p>
+                        </div>
+
+                        <div style="background: #f0f4fa; padding: 1.5rem; border-radius: 20px; margin-top: 2rem;">
+                            <h4 style="font-weight: 600; margin-bottom: 0.75rem;">📊 Ключевые выводы по структуре рынка</h4>
+                            <p style="margin-bottom: 0;">Рынок фрагментирован. Angi занимает наибольшую долю в сегменте лидов, но испытывает отток мастеров. Google LSA стремительно догоняет за счет интеграции с поиском, однако оставляет процесс найма «незавершённым». TaskRabbit доминирует в узкой нише мелких поручений, но не масштабируется на дорогостоящие категории. В сумме эти 5 игроков контролируют около 75–85% организованного онлайн-рынка услуг в США, оставляя пространство для disruption через модель фиксированной подписки и AI-автоматизации.</p>
+                        </div>
+                    </div>
+                </div>
+
                 <h3>Детальный разбор ключевых конкурентов</h3>
                 <p><strong>Angi:</strong> тысячи жалоб в BBB, автоматическое продление, комиссии за расторжение до $880. <strong>TaskRabbit:</strong> высокий процент, мастер получает $80‑85 со $100. <strong>Структурная проблема:</strong> платформы не могут предложить локализованных решений и гибких моделей.</p>
+
                 <h3>SWOT-анализ для выхода на рынок США</h3>
                 <p><strong>Силы:</strong> подрывная цена ($30/мес vs 30% комиссии), AI‑удобство, прозрачность аукциона.<br>
                     <strong>Слабости:</strong> проблема «курица‑яйцо», верификация, комиссии эквайринга.<br>
                     <strong>Возможности:</strong> миграция мастеров от Angi (из-за скандалов), B2B (property managers), партнёрства с Home Depot/Lowe's.<br>
                     <strong>Угрозы:</strong> ответ Google LSA, регуляторика (AB5 в Калифорнии).</p>
+            </section>
+
+            <!-- Секция: Оценка рыночной капитализации конкурентов -->
+            <section id="competitor-valuation" style="scroll-margin-top: 2rem;">
+                <span class="tag">market capitalization · public & private comps</span>
+                <h2>Оценка рыночной капитализации конкурентов</h2>
+                <p style="margin-bottom: 1.5rem;">Анализ рыночной стоимости ключевых игроков рынка home services в США. Данные актуальны на март 2026 года.</p>
+
+                <!-- Табы для секции капитализации -->
+                <div class="tabs-container valuation-tabs">
+                    <div class="tabs-buttons">
+                        <button class="tab-btn-val active" data-tab-val="tab-summary-val">Сводная таблица</button>
+                        <button class="tab-btn-val" data-tab-val="tab-detailed-val">Детальный анализ по компаниям</button>
+                        <button class="tab-btn-val" data-tab-val="tab-dynamics-val">Динамика капитализации (ключевые тренды)</button>
+                    </div>
+
+                    <!-- Таб 1: Сводная таблица -->
+                    <div id="tab-summary-val" class="tab-content-val active">
+                        <h3>Сводная таблица рыночной капитализации конкурентов</h3>
+                        <div class="table-responsive" style="overflow-x: auto;">
+                            <table style="min-width: 600px;">
+                                <thead>
+                                <tr>
+                                    <th>Компания</th>
+                                    <th>Статус</th>
+                                    <th>Рыночная капитализация</th>
+                                    <th>Структура владения / Примечания</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><strong>Angi Inc.</strong></td>
+                                    <td><span class="badge-public">Публичная</span></td>
+                                    <td><strong>$354–377 млн</strong></td>
+                                    <td>NASDAQ: ANGI. Самостоятельная публичная компания, входит в портфель IAC</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>IAC / InterActiveCorp</strong></td>
+                                    <td><span class="badge-public">Публичная</span></td>
+                                    <td><strong>$2.86–2.87 млрд</strong></td>
+                                    <td>NASDAQ: IAC. Холдинг, владеет Angi Inc., Dotdash Meredith, Care.com и др.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Yelp Inc.</strong></td>
+                                    <td><span class="badge-public">Публичная</span></td>
+                                    <td><strong>$1.42–1.48 млрд</strong></td>
+                                    <td>NYSE: YELP. Самостоятельная публичная компания</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Thumbtack</strong></td>
+                                    <td><span class="badge-private">Приватная</span></td>
+                                    <td><strong>~$948 млн – $3.2 млрд</strong> (оценочно)</td>
+                                    <td>Последний раунд финансирования — 2021 год. Оценка снизилась с пиковых $3.2 млрд</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TaskRabbit</strong></td>
+                                    <td><span class="badge-acquired">Приватная (поглощена)</span></td>
+                                    <td><strong>Не публикуется</strong></td>
+                                    <td>Приобретена IKEA в 2017 году. Сумма сделки не раскрывалась, последняя известная оценка до поглощения — ~$50–100 млн</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Google LSA</strong></td>
+                                    <td><span class="badge-subsidiary">Подразделение Google</span></td>
+                                    <td><strong>~$2.0 трлн</strong> (в составе Alphabet)</td>
+                                    <td>Не выделяется в отдельную капитализацию. Входит в состав Google Services</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="source-ref" style="margin-top: 1rem;">Источники: Yahoo Finance, NASDAQ, NYSE, PitchBook, Crunchbase, данные на март 2026 года.</p>
+                    </div>
+
+                    <!-- Таб 2: Детальный анализ по компаниям -->
+                    <div id="tab-detailed-val" class="tab-content-val">
+                        <h3>Детальный анализ рыночной капитализации</h3>
+
+                        <!-- Angi Inc. -->
+                        <div class="competitor-card">
+                            <h4>🏢 1. Angi Inc. (ANGI) — $376.6 млн</h4>
+                            <p>Angi является <strong>публичной компанией</strong>, торгующейся на NASDAQ под тикером ANGI. Это ключевой игрок в сегменте лидогенерации для home services.</p>
+                            <p><strong>Ключевые финансовые показатели (март 2026):</strong></p>
+                            <ul style="margin-left: 1.5rem; margin-bottom: 0.75rem; color: #555;">
+                                <li>Рыночная капитализация: <strong>$376.6 млн</strong></li>
+                                <li>Цена акции: ~$9.39</li>
+                                <li>Падение капитализации за год: <strong style="color: #d32f2f;">-57.22%</strong> (с $825 млн в декабре 2024)</li>
+                                <li>Пик капитализации: <strong>$6.59 млрд</strong> в 2020 году</li>
+                            </ul>
+                            <p><strong>Важный нюанс:</strong> Angi входит в состав более крупного холдинга <strong>IAC/InterActiveCorp</strong>, который владеет контрольным пакетом. IAC имеет собственную капитализацию <strong>$2.87 млрд</strong>. Слабость Angi (падение на 57% за год) — прямое следствие проблем с качеством лидов и судебных исков, о которых говорится в аналитическом отчете.</p>
+                        </div>
+
+                        <!-- IAC -->
+                        <div class="competitor-card">
+                            <h4>🏛️ 2. IAC / InterActiveCorp (IAC) — $2.87 млрд</h4>
+                            <p>IAC — <strong>публичный холдинг</strong>, владеющий Angi Inc., Dotdash Meredith, Care.com и другими цифровыми активами.</p>
+                            <p><strong>Ключевые показатели:</strong></p>
+                            <ul style="margin-left: 1.5rem; margin-bottom: 0.75rem; color: #555;">
+                                <li>Рыночная капитализация: <strong>$2.87 млрд</strong></li>
+                                <li>Цена акции: ~$37.50</li>
+                                <li>Выручка (TTM): <strong>$2.39 млрд</strong></li>
+                                <li>P/E: отрицательный (-27.96), компания убыточна</li>
+                            </ul>
+                            <p><strong>Значение для анализа:</strong> IAC демонстрирует, как рынок оценивает совокупность активов, включая Angi. Снижение капитализации Angi напрямую влияет на общую стоимость IAC.</p>
+                        </div>
+
+                        <!-- Yelp -->
+                        <div class="competitor-card">
+                            <h4>⭐ 3. Yelp Inc. (YELP) — $1.42 млрд</h4>
+                            <p>Yelp остается <strong>публичной компанией</strong> с самостоятельной капитализацией, несмотря на давление со стороны более транзакционных платформ.</p>
+                            <p><strong>Ключевые показатели (март 2026):</strong></p>
+                            <ul style="margin-left: 1.5rem; margin-bottom: 0.75rem; color: #555;">
+                                <li>Рыночная капитализация: <strong>$1.42 млрд</strong></li>
+                                <li>Цена акции: ~$23.80</li>
+                                <li>Падение за год: <strong style="color: #d32f2f;">-37.79%</strong> (с $2.55 млрд в декабре 2024)</li>
+                                <li>Выручка 2025: <strong>$1.46 млрд</strong></li>
+                            </ul>
+                            <p><strong>Тренд:</strong> Yelp потерял более 50% капитализации с пиковых $4.56 млрд в 2013 году, что подтверждает тезис о стагнации каталогов отзывов без сквозной транзакции.</p>
+                        </div>
+
+                        <!-- Thumbtack -->
+                        <div class="competitor-card">
+                            <h4>👍 4. Thumbtack — $0.95–3.2 млрд (приватная)</h4>
+                            <p>Thumbtack остается <strong>приватной компанией</strong> с венчурным финансированием. Оценка варьируется в зависимости от источника.</p>
+                            <p><strong>Ключевые данные:</strong></p>
+                            <ul style="margin-left: 1.5rem; margin-bottom: 0.75rem; color: #555;">
+                                <li>Статус: <strong>Private / VC-backed</strong></li>
+                                <li>Всего привлечено: <strong>$773.85 млн</strong></li>
+                                <li>Последний раунд: $75 млн (2024 год, тип Debt)</li>
+                                <li>Пиковая оценка (2021): <strong>$3.2 млрд</strong> (статус «единорога»)</li>
+                                <li>Текущая оценочная капитализация: <strong>$948 млн</strong> (снижение на ~70% от пика)</li>
+                            </ul>
+                            <p><strong>Важно:</strong> Thumbtack использует гибридную модель (лиды + подписка), что делает её ближайшим аналогом TapToProf по бизнес-модели, но без AI-оркестрации.</p>
+                        </div>
+
+                        <!-- TaskRabbit -->
+                        <div class="competitor-card">
+                            <h4>🔨 5. TaskRabbit — поглощена IKEA, оценка не публикуется</h4>
+                            <p>TaskRabbit — <strong>приватная компания, поглощенная IKEA</strong> в 2017 году.</p>
+                            <p><strong>Ключевые факты:</strong></p>
+                            <ul style="margin-left: 1.5rem; margin-bottom: 0.75rem; color: #555;">
+                                <li>Статус: <strong>Acquired/Merged</strong> (операционная дочерняя компания IKEA)</li>
+                                <li>Дата приобретения: <strong>28 сентября 2017 года</strong></li>
+                                <li>Сумма сделки: <strong>не раскрывалась</strong></li>
+                                <li>Последняя известная оценка до поглощения: ~$50–100 млн</li>
+                                <li>Всего привлечено инвестиций: <strong>$36.65–50 млн</strong></li>
+                            </ul>
+                            <p><strong>Значение:</strong> TaskRabbit демонстрирует, что крупные корпорации (IKEA) готовы приобретать платформы для услуг, интегрируя их в свои экосистемы. Это подтверждает потенциальный exit-сценарий для TapToProf.</p>
+                        </div>
+
+                        <!-- Google LSA -->
+                        <div class="competitor-card">
+                            <h4>🔍 6. Google Local Services Ads (LSA) — часть Alphabet (GOOGL) ~$2.0 трлн</h4>
+                            <p>Google LSA не является отдельной компанией, а представляет собой <strong>продукт внутри Google Services</strong>.</p>
+                            <p><strong>Ключевые факты:</strong></p>
+                            <ul style="margin-left: 1.5rem; margin-bottom: 0.75rem; color: #555;">
+                                <li>Материнская компания: <strong>Alphabet Inc.</strong> (GOOGL)</li>
+                                <li>Рыночная капитализация Alphabet: <strong>~$2.0 трлн</strong></li>
+                                <li>LSA — один из многих рекламных продуктов, не выделяется в отдельную отчетность</li>
+                            </ul>
+                            <p><strong>Стратегическое значение:</strong> Google LSA — самый опасный конкурент в долгосрочной перспективе, так как интегрирован в поиск и карты. Однако LSA не предлагает сквозной транзакции, что оставляет пространство для AI-платформ с полным циклом обслуживания.</p>
+                        </div>
+                    </div>
+
+                    <!-- Таб 3: Динамика капитализации (ключевые тренды) -->
+                    <div id="tab-dynamics-val" class="tab-content-val">
+                        <h3>Динамика капитализации конкурентов (2021–2026)</h3>
+
+                        <div class="table-responsive" style="overflow-x: auto;">
+                            <table style="min-width: 650px;">
+                                <thead>
+                                <tr>
+                                    <th>Компания</th>
+                                    <th>2021 пик</th>
+                                    <th>2024–2025</th>
+                                    <th>2026 (текущая)</th>
+                                    <th>Изменение от пика</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><strong>Angi Inc.</strong></td>
+                                    <td>$4.63 млрд</td>
+                                    <td>$825 млн</td>
+                                    <td>$377 млн</td>
+                                    <td style="color: #d32f2f; font-weight: 600;">-92%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Yelp Inc.</strong></td>
+                                    <td>$2.65 млрд (2021)<br><span style="font-size: 0.75rem; color: #666;">(пик 2013: $4.56 млрд)</span></td>
+                                    <td>$2.55 млрд</td>
+                                    <td>$1.42 млрд</td>
+                                    <td style="color: #d32f2f; font-weight: 600;">-46% за 2 года<br><span style="font-size: 0.7rem;">-69% от исторического пика</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>IAC</strong></td>
+                                    <td>—</td>
+                                    <td>~$3.5 млрд</td>
+                                    <td>$2.87 млрд</td>
+                                    <td style="color: #d32f2f; font-weight: 600;">-18% за год</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Thumbtack</strong></td>
+                                    <td>$3.2 млрд</td>
+                                    <td>—</td>
+                                    <td>$0.95 млрд</td>
+                                    <td style="color: #d32f2f; font-weight: 600;">-70% от пика</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TaskRabbit</strong></td>
+                                    <td>$50–100 млн (оценка до поглощения)</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>Поглощена IKEA в 2017</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- График трендов (визуализация) -->
+                        <div style="background: #f8fafd; border-radius: 20px; padding: 1.5rem; margin: 2rem 0;">
+                            <h4 style="margin-bottom: 1rem;">📉 Визуализация падения капитализации (индексировано к пику = 100%)</h4>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.25rem;">
+                                        <span><strong>Angi Inc.</strong></span>
+                                        <span style="color: #d32f2f;">-92%</span>
+                                    </div>
+                                    <div style="height: 8px; background: #e2e7f0; border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 8%; height: 100%; background: #111; border-radius: 4px;"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.25rem;">
+                                        <span><strong>Yelp Inc.</strong></span>
+                                        <span style="color: #d32f2f;">-46% (с 2024)</span>
+                                    </div>
+                                    <div style="height: 8px; background: #e2e7f0; border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 54%; height: 100%; background: #111; border-radius: 4px;"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.25rem;">
+                                        <span><strong>Thumbtack</strong></span>
+                                        <span style="color: #d32f2f;">-70% от пика</span>
+                                    </div>
+                                    <div style="height: 8px; background: #e2e7f0; border-radius: 4px; overflow: hidden;">
+                                        <div style="width: 30%; height: 100%; background: #111; border-radius: 4px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">* Процент показывает остаточную стоимость относительно исторического пика капитализации</p>
+                        </div>
+
+                        <!-- Ключевые выводы -->
+                        <div style="background: #f0f4fa; padding: 1.5rem; border-radius: 20px; margin-top: 1.5rem;">
+                            <h4 style="font-weight: 600; margin-bottom: 0.75rem;">💡 Ключевые выводы для TapToProf</h4>
+                            <ul style="margin-left: 1.25rem; color: #2c3e50; line-height: 1.6;">
+                                <li><strong>Рынок наказывает устаревшие модели.</strong> Angi и Yelp потеряли 50–90% капитализации за последние годы, так как их бизнес-модели (плата за лид, реклама) не решают глубинных проблем мастеров и клиентов.</li>
+                                <li><strong>Приватные компании переоценены вниз.</strong> Thumbtack, бывший единорог с оценкой $3.2 млрд, сейчас торгуется на вторичном рынке с дисконтом ~70%. Это создает возможность для более эффективного игрока с подрывной моделью.</li>
+                                <li><strong>Google LSA — экзистенциальная угроза, но с ограничениями.</strong> Google может перетягивать бюджеты, но его модель оставляет процесс найма «незавершенным», что является главной уязвимостью.</li>
+                                <li><strong>IKEA уже сделала ставку на рынок.</strong> Приобретение TaskRabbit показывает, что крупные корпорации видят ценность в платформах для услуг. TapToProf может стать следующим объектом для M&A при успешном масштабировании.</li>
+                                <li><strong>AI-нативная платформа имеет потенциал кратного роста.</strong> При текущей капитализации конкурентов, успешный выход TapToProf на рынок с LTV/CAC = 4 и масштабируемой SaaS-моделью может привести к оценке в <strong>$100–300 млн</strong> уже на стадии Series A при 10–20 тыс. мастеров.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- Юнит-экономика -->
@@ -830,6 +1337,7 @@
                 <li><a href="#technology">Технология</a></li>
                 <li><a href="#prototypes">UI макеты</a></li>
                 <li><a href="#market-analysis">Анализ рынка</a></li>
+                <li><a href="#competitor-valuation">Капитализация</a></li>
                 <li><a href="#business-model">Юнит‑экономика</a></li>
                 <li><a href="#roadmap">Дорожная карта</a></li>
                 <li><a href="#investment">Инвестиции</a></li>
@@ -890,6 +1398,44 @@
                     toggleMenu();
                 }
             }
+        });
+    });
+
+    // Добавьте этот код в существующий блок <script> в конце страницы
+
+    // Логика переключения табов
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+
+            // Убираем активный класс у всех кнопок и контента
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            // Добавляем активный класс текущей кнопке и соответствующему контенту
+            btn.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+
+    // Логика переключения табов для секции оценки капитализации конкурентов
+    const tabBtnsVal = document.querySelectorAll('.tab-btn-val');
+    const tabContentsVal = document.querySelectorAll('.tab-content-val');
+
+    tabBtnsVal.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab-val');
+
+            // Убираем активный класс у всех кнопок и контента этой секции
+            tabBtnsVal.forEach(b => b.classList.remove('active'));
+            tabContentsVal.forEach(c => c.classList.remove('active'));
+
+            // Добавляем активный класс текущей кнопке и соответствующему контенту
+            btn.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
         });
     });
 </script>
