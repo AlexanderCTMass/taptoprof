@@ -75,9 +75,75 @@
       background: #e2e8f0;
       border-radius: 10px;
     }
+
+
+    /* === FIXED MOBILE LAYOUT: header + bottom nav fixed, main scrollable === */
+    @media (max-width: 1023px) {
+      /* Make main container a column flex with fixed header and bottom nav */
+      .mobile-fixed-layout {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Fixed header stays at top */
+      .mobile-header-fixed {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        flex-shrink: 0;
+        background-color: #F9FAFB;
+      }
+
+      /* Scrollable content area */
+      .mobile-scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Fixed bottom navigation */
+      .mobile-bottom-fixed {
+        flex-shrink: 0;
+        position: sticky;
+        bottom: 0;
+        z-index: 50;
+        background-color: white;
+      }
+
+      /* Remove default sticky from header on mobile to avoid double sticky */
+      header.lg\\:hidden {
+        position: relative;
+      }
+
+      .text-sm-mobile{
+        font-size: 12px !important;
+        line-height: 1.5 !important;
+      }
+    }
+
+    /* Ensure desktop layout remains unchanged */
+    @media (min-width: 1024px) {
+      .mobile-fixed-layout {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .mobile-scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+      }
+
+      .mobile-header-fixed, .mobile-bottom-fixed {
+        position: relative;
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col lg:flex-row overflow-hidden bg-[#F9FAFB]">
+<body class="min-h-screen flex flex-col lg:flex-row  bg-[#F9FAFB]">
 
 <!-- Desktop Sidebar (как в index.html) -->
 <aside class="hidden lg:flex flex-col w-72 bg-white border-r border-gray-100 h-screen sticky top-0">
@@ -122,31 +188,47 @@
   </div>
 </aside>
 
-<!-- Main Content Area -->
-<div class="flex-1 flex flex-col h-screen relative overflow-hidden">
-
-  <!-- Mobile Header -->
-  <header class="lg:hidden flex flex-col w-full bg-[#F9FAFB] z-50">
-    <div class="h-10 flex justify-between items-center px-6 sm:hidden">
-      <svg class="w-[70px] h-[40px]"><path fill="#171a1f" d="M33.7866 16.7856C31.5754 16.7856 30 18.2974 30 20.3673v.0142c0 1.9356 1.3705 3.3627 3.3274 3.3627 1.3987 0 2.2889-.7135 2.6633-1.5189h.1413c0 .0777-.0071.1554-.0071.2331-.0777 1.9498-.7629 3.5323-2.3807 3.5323-.8972 0-1.5259-.4663-1.7944-1.1798l-.0212-.0706h-1.7944l.0142.0777c.3249 1.5612 1.7237 2.6704 3.5958 2.6704 2.5644 0 4.1115-2.0346 4.1115-5.468v-.0141c0-3.6735-1.8933-5.2207-4.0691-5.2207zm-.0071 5.5598c-1.1586 0-1.9992-.8477-1.9992-2.0275v-.0141c0-1.1374.8971-2.0346 2.0204-2.0346 1.1303 0 2.0134.9113 2.0134 2.0769v.0142c0 1.1515-.8831 1.9851-2.0346 1.9851z"/><path fill="#171a1f" d="M40.7158 20.6287c.6499 0 1.1232-.4945 1.1232-1.1162 0-.6287-.4733-1.1162-1.1232-1.1162-.6429 0-1.1233.4875-1.1233 1.1162 0 .6217.4804 1.1162 1.1233 1.1162zm0 5.2419c.6499 0 1.1232-.4875 1.1232-1.1162 0-.6287-.4733-1.1162-1.1232-1.1162-.6429 0-1.1233.4875-1.1233 1.1162 0 .6287.4804 1.1162 1.1233 1.1162z"/></svg>
-      <svg class="w-[96px] h-[40px]"><path fill="#171a1f" d="M56.2553 19.8723c0-1.1046.8955-2 2-2h13.8724c1.1045 0 2 .8954 2 2v3.6596c0 1.1045-.8955 2-2 2H58.2553c-1.1045 0-2-.8955-2-2v-3.6596z"/></svg>
-    </div>
+<!-- Mobile Header (как в index.html) -->
+<div class="mobile-header-fixed">
+  <header class="lg:hidden flex flex-col w-full bg-[#F9FAFB]">
+    <!-- App Header -->
     <div class="h-[53px] flex items-center px-4 border-b border-[#f3f4f6]">
-      <div class="flex items-center gap-3">
-        <div class="w-[30px] h-[30px] flex items-center justify-center border border-[#181B20] rounded-[5px]">
-          <svg class="w-[18px] h-[18px]" viewBox="0 0 18 18"><path fill="#181B20" d="M13.3511 1.00426c.2524-.024826.5073.0149.7402.11523l.1143.05567.1094.06445c.2126.13812.3864.32807.5058.55176l.0557.11426.0449.11914c.0798.24034.0979.49709.0518.74609l-.0293.12402c-.0036.01294-.0067.02628-.0108.03907l-1.9199 6.01953-.0166.04687h7.0029c.3775-.00073.7477.10498 1.0674.30567.3205.2012.5769.4897.7403.8311.1633.3413.227.7218.1826 1.0976-.0389.3288-.1587.6421-.3477.9121l-.0859.1133-.0586.0664-9.9004 10.2002-.001-.001c-.2187.2339-.5054.3938-.8213.4522-.3345.0619-.6804.0081-.9805-.1524-.3-.1604-.5366-.4188-.6709-.7314-.1341-.3125-.1575-.6613-.0674-.9893l.0107-.039 1.9199-6.0195.0166-.0459H3.99954v-.001c-.37712.0005-.74695-.1052-1.06641-.3057-.32031-.2011-.5769-.4889-.74023-.8301-.16337-.3414-.22703-.7227-.18262-1.0986.04446-.3757.19522-.7316.4336-1.0254l.05859-.0664L12.4029 1.47399c.2187-.23405.5063-.39272.8222-.45118l.126-.01865zM4.00247 13.0004h6.99703c.3226-.0006.6406.0767.9268.2255.2869.1493.5339.3655.7187.6309.1849.2655.3024.5726.3428.8936.0383.3046.0026.6126-.0976.9023l.003.001-1.2666 3.9707 8.3711-8.624-6.9981.001v-.001c-.3221.0004-.6399-.076-.9257-.2246-.287-.1493-.5339-.3664-.7188-.6319-.1847-.26534-.3023-.57175-.3428-.89255-.0384-.30502-.0038-.61421.0967-.90429l-.0019.001 1.2656-3.97168-8.3701 8.626z"/></svg>
+      <div class="flex items-center gap-3 justify-between w-[100%]">
+        <div class="flex items-center gap-3 ">
+          <div class="w-[30px] h-[30px] flex items-center justify-center border border-[#181B20] rounded-[5px]">
+            <svg class="w-[18px] h-[18px] text-[#181B20]" viewBox="0 0 18 18">
+              <g transform="matrix(1 0 0 1 0 0)">
+                <g>
+                  <g transform="matrix(0.75 0 0 0.75 9 9)">
+                    <path style="fill: rgb(24,27,32);" transform=" translate(-12, -12)"
+                          d="M 13.3511 1.00426 C 13.6035 0.979434 13.8584 1.01916 14.0913 1.11949 L 14.2056 1.17516 L 14.315 1.23961 C 14.5276 1.37773 14.7014 1.56768 14.8208 1.79137 L 14.8765 1.90563 L 14.9214 2.02477 C 15.0012 2.26511 15.0193 2.52186 14.9732 2.77086 L 14.9439 2.89488 C 14.9403 2.90782 14.9372 2.92116 14.9331 2.93395 L 13.0132 8.95348 L 12.9966 9.00035 L 19.9995 9.00035 C 20.377 8.99962 20.7472 9.10533 21.0669 9.30602 C 21.3874 9.50722 21.6438 9.79572 21.8072 10.1371 C 21.9705 10.4784 22.0342 10.8589 21.9898 11.2347 C 21.9509 11.5635 21.8311 11.8768 21.6421 12.1468 L 21.5562 12.2601 L 21.4976 12.3265 L 11.5972 22.5267 L 11.5962 22.5257 C 11.3775 22.7596 11.0908 22.9195 10.7749 22.9779 C 10.4404 23.0398 10.0945 22.986 9.79446 22.8255 C 9.49446 22.6651 9.25781 22.4067 9.12356 22.0941 C 8.98947 21.7816 8.96599 21.4328 9.05618 21.1048 L 9.06692 21.0658 L 10.9868 15.0463 L 11.0034 15.0004 L 3.99954 15.0004 L 3.99954 14.9994 C 3.62242 14.9999 3.25259 14.8942 2.93313 14.6937 C 2.61282 14.4926 2.35623 14.2048 2.1929 13.8636 C 2.02953 13.5222 1.96587 13.1409 2.01028 12.765 C 2.05474 12.3893 2.2055 12.0334 2.44388 11.7396 L 2.50247 11.6732 L 12.4029 1.47399 C 12.6216 1.23994 12.9092 1.08127 13.2251 1.02281 L 13.3511 1.00426 Z M 4.00247 13.0004 L 10.9995 13.0004 C 11.3221 12.9998 11.6401 13.0771 11.9263 13.2259 C 12.2132 13.3752 12.4602 13.5914 12.645 13.8568 C 12.8299 14.1223 12.9474 14.4294 12.9878 14.7504 C 13.0261 15.055 12.9904 15.363 12.8902 15.6527 L 12.8931 15.6537 L 11.6265 19.6244 L 19.9976 11.0004 L 12.9995 11.0004 L 12.9995 10.9994 C 12.6774 10.9998 12.3596 10.9234 12.0738 10.7748 C 11.7868 10.6255 11.5399 10.4084 11.355 10.1429 C 11.1703 9.87756 11.0527 9.57115 11.0122 9.25035 C 10.9738 8.94533 11.0084 8.63614 11.1089 8.34606 L 11.107 8.34606 L 12.3726 4.37438 L 4.00247 13.0004 Z"/>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <span class="text-[18px] font-bold tracking-tight">TapToProfi</span>
         </div>
-        <span class="text-[18px] font-bold tracking-tight">TapToProfi</span>
+        <div class="border-t border-gray-50 flex items-center gap-3 flex-row-reverse">
+          <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+            <img src="../IMG_2.png" alt="User" class="w-full h-full object-cover">
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-semibold truncate">Александр</p>
+            <p class="text-xs text-gray-500 truncate">Pro Account</p>
+          </div>
+        </div>
       </div>
     </div>
   </header>
+</div>
 
   <!-- Main Content -->
-  <main class="flex-1 overflow-y-auto p-4 lg:p-8">
+  <main class="flex-1 overflow-y-auto p-4 lg:p-8 mobile-scrollable-content">
     <div class="max-w-2xl mx-auto">
 
       <!-- Stepper -->
-      <nav class="w-full mb-12 px-2">
+      <nav class="hidden lg:block w-full mb-12 px-2">
         <div class="relative flex items-center justify-between max-w-md mx-auto">
           <div class="absolute top-1/2 left-0 w-full h-[2px] bg-[#F3F4F6] -translate-y-1/2 z-0"></div>
           <div class="absolute top-1/2 left-0 w-[50%] h-[2px] bg-[#2563EB] -translate-y-1/2 z-0" id="stepperProgress"></div>
@@ -169,7 +251,7 @@
           </div>
         </div>
 
-        <div class="mt-8 text-center px-6">
+        <div class="mt-2 lg:mt-8 text-center px-6">
           <h2 class="text-xl font-semibold mb-2" id="statusTitle">Поиск ближайших специалистов</h2>
           <div id="messageContainer" class="text-[#8F96A3] text-sm leading-relaxed max-w-[280px] mx-auto text-balance min-h-[60px]">
             <p id="currentMessage">Ищем мастеров в вашем районе...</p>
@@ -183,7 +265,7 @@
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-2 bg-[#2563EB]/10 px-3 py-1 rounded-full" id="bestBadge">
               <iconify-icon icon="lucide:award" width="16" class="text-[#2563EB]"></iconify-icon>
-              <span class="text-[#2563EB] text-sm font-medium">Лучшее предложение</span>
+              <span class="text-[#2563EB] text-sm font-medium text-sm-mobile">Лучший</span>
             </div>
             <div class="flex items-center gap-1.5 bg-[#F3F4F6] px-3 py-1 rounded-full">
               <iconify-icon icon="lucide:shield-check" width="14" class="text-[#8F96A3]"></iconify-icon>
@@ -212,7 +294,7 @@
               <span class="text-[10px] uppercase tracking-wider font-semibold text-[#8F96A3]">Ориентировочно</span>
               <div class="flex items-center gap-1.5 text-[#181B20] font-medium">
                 <iconify-icon icon="lucide:clock" width="16" class="text-[#8F96A3]"></iconify-icon>
-                <span>через 15 мин</span>
+                <span class="text-sm-mobile">через 15 мин</span>
               </div>
             </div>
             <div class="flex flex-col gap-1 text-right">
@@ -231,12 +313,22 @@
     </div>
   </main>
 
-  <!-- Mobile Bottom Navigation -->
+
+<!-- Mobile Bottom Navigation (Fixed on mobile, static on desktop) -->
+<div class="mobile-bottom-fixed">
   <nav class="lg:hidden flex justify-around items-center h-16 bg-white border-t border-gray-100 safe-area-bottom">
-    <button class="flex flex-col items-center gap-1 text-blue-600"><iconify-icon icon="ri:home-line" width="24"></iconify-icon><span class="text-[10px] font-medium">Главная</span></button>
-    <button class="flex flex-col items-center gap-1 text-gray-400"><iconify-icon icon="ri:search-line" width="24"></iconify-icon><span class="text-[10px] font-medium">Поиск</span></button>
-    <button class="flex flex-col items-center gap-1 text-gray-400"><iconify-icon icon="ri:clipboard-line" width="24"></iconify-icon><span class="text-[10px] font-medium">Заказы</span></button>
-    <button class="flex flex-col items-center gap-1 text-gray-400"><iconify-icon icon="ri:user-line" width="24"></iconify-icon><span class="text-[10px] font-medium">Профиль</span></button>
+    <button class="flex flex-col items-center gap-1 text-blue-600">
+      <iconify-icon icon="ri:home-fill" width="24"></iconify-icon>
+      <span class="text-[10px] font-medium">Главная</span>
+    </button>
+    <button class="flex flex-col items-center gap-1 text-gray-400">
+      <iconify-icon icon="ri:history-line" width="24"></iconify-icon>
+      <span class="text-[10px] font-medium">История</span>
+    </button>
+    <button class="flex flex-col items-center gap-1 text-gray-400">
+      <iconify-icon icon="ri:user-line" width="24"></iconify-icon>
+      <span class="text-[10px] font-medium">Профиль</span>
+    </button>
   </nav>
 </div>
 
