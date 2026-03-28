@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Съемка объекта - Camera Interface</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@3.0.2/dist/iconify-icon.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" type="text/css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" type="text/css" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #020617;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .glass-button {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+    }
+    
+    .glass-button:active {
+      transform: scale(0.95);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .instruction-pill {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .focus-corner {
+      width: 32px;
+      height: 32px;
+      border-color: #2563EB;
+      border-width: 2px;
+    }
+
+    .focus-corner-tl { border-right: 0; border-bottom: 0; }
+    .focus-corner-tr { border-left: 0; border-bottom: 0; }
+    .focus-corner-bl { border-right: 0; border-top: 0; }
+    .focus-corner-br { border-left: 0; border-top: 0; }
+
+    .shutter-ring {
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      padding: 4px;
+      border-radius: 9999px;
+      transition: transform 0.1s ease;
+    }
+    
+    .shutter-ring:active {
+      transform: scale(0.92);
+    }
+
+    .camera-overlay {
+      background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 15%, rgba(0,0,0,0) 85%, rgba(0,0,0,0.4) 100%);
+    }
+
+    .safe-area-bottom {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .safe-area-top {
+      padding-top: env(safe-area-inset-top);
+    }
+
+    /* Custom scrollbar for desktop sidebars */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen overflow-hidden lg:bg-slate-900">
+
+  <!-- Main Layout Container -->
+  <div class="relative flex w-full h-screen max-w-[1440px] mx-auto overflow-hidden lg:shadow-2xl lg:rounded-3xl lg:h-[90vh] lg:my-auto">
+    
+    <!-- Desktop Sidebar (Visible only on lg+) -->
+    <aside class="hidden lg:flex flex-col w-80 bg-slate-950 border-r border-white/10 p-6 z-20">
+      <div class="flex items-center gap-3 mb-10">
+        <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
+          <iconify-icon icon="lucide:camera" class="text-white" width="24"></iconify-icon>
+        </div>
+        <h2 class="text-xl font-bold text-white">Vision AI</h2>
+      </div>
+      
+      <nav class="space-y-2 flex-1 overflow-y-auto custom-scrollbar">
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Инструменты</p>
+        <a href="#" class="flex items-center gap-3 p-3 rounded-xl bg-blue-600/10 text-blue-400 border border-blue-600/20">
+          <iconify-icon icon="lucide:scan" width="20"></iconify-icon>
+          <span class="font-medium">Съемка объекта</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 p-3 rounded-xl text-slate-400 hover:bg-white/5 transition-colors">
+          <iconify-icon icon="lucide:history" width="20"></iconify-icon>
+          <span class="font-medium">История</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 p-3 rounded-xl text-slate-400 hover:bg-white/5 transition-colors">
+          <iconify-icon icon="lucide:settings" width="20"></iconify-icon>
+          <span class="font-medium">Настройки</span>
+        </a>
+      </nav>
+      
+      <div class="mt-auto pt-6 border-t border-white/5">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-slate-800 overflow-hidden">
+            <img src="../IMG_2.png" alt="User">
+          </div>
+          <div>
+            <p class="text-sm font-medium text-white">Александр</p>
+            <p class="text-xs text-slate-500">Pro Account</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Camera Viewport -->
+    <main class="relative flex-1 h-full bg-black overflow-hidden">
+      
+      <!-- Background Image (Camera Feed) -->
+      <div class="absolute inset-0 z-0">
+<!--        <img src="./assets/IMG_1.webp" class="w-full h-full object-cover opacity-80" alt="Camera Feed">-->
+        <video id="cameraVideo" class="absolute inset-0 w-full h-full object-cover" autoplay muted loop>
+          <source src="./assets/vide2.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 camera-overlay"></div>
+      </div>
+
+      <!-- Header / Status Bar -->
+      <header class="absolute top-0 left-0 w-full z-20 safe-area-top">
+        <!-- Mobile Status Bar -->
+        <div class="flex justify-between items-center px-6 h-10 md:hidden">
+          <img src="./assets/IMG_2.svg" class="h-5" alt="Time">
+          <img src="./assets/IMG_3.svg" class="h-5" alt="Status Icons">
+        </div>
+        
+        <!-- Navigation Bar -->
+        <div class="flex items-center justify-between px-4 py-2 md:py-6 md:px-8">
+          <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">
+            <img src="./assets/IMG_4.svg" class="w-6 h-6" alt="Back">
+          </button>
+          
+          <h1 class="text-base md:text-xl font-medium text-white tracking-tight">Съемка объекта</h1>
+          
+          <!-- Desktop Only Actions -->
+          <div class="hidden md:flex items-center gap-4">
+            <button class="glass-button px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+              <iconify-icon icon="lucide:info" width="18"></iconify-icon>
+              Справка
+            </button>
+          </div>
+          <!-- Mobile Spacer -->
+          <div class="w-10 md:hidden"></div>
+        </div>
+      </header>
+
+      <!-- Viewfinder Area -->
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="relative w-[260px] h-[260px] md:w-[400px] md:h-[400px]">
+          <!-- Corners -->
+          <div class="absolute top-0 left-0 focus-corner focus-corner-tl"></div>
+          <div class="absolute top-0 right-0 focus-corner focus-corner-tr"></div>
+          <div class="absolute bottom-0 left-0 focus-corner focus-corner-bl"></div>
+          <div class="absolute bottom-0 right-0 focus-corner focus-corner-br"></div>
+          
+          <!-- Center Focus Icon -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <img src="./assets/IMG_5.svg" class="w-8 h-8 opacity-50" alt="Focus">
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Controls & Instructions -->
+      <div class="absolute bottom-0 left-0 w-full z-20 flex flex-col items-center safe-area-bottom">
+        
+        <!-- Instruction Pill -->
+        <div class="instruction-pill px-6 py-2.5 rounded-full mb-8 md:mb-12">
+          <span class="text-sm font-medium text-white tracking-wide">Наведите камеру на поломку</span>
+        </div>
+
+        <!-- Camera Controls Bar -->
+        <div class="w-full bg-black/40 backdrop-blur-3xl border-t border-white/10 px-8 py-6 md:py-10 flex items-center justify-between md:justify-center md:gap-20">
+          
+          <!-- Flash Toggle -->
+          <button class="glass-button w-14 h-14 flex items-center justify-center rounded-full">
+            <img src="./assets/IMG_6.svg" class="w-6 h-6" alt="Flash">
+          </button>
+
+          <!-- Shutter Button -->
+          <div class="shutter-ring">
+            <a href="../request-form/index.html" class="w-[72px] h-[72px] bg-blue-600 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(37,99,235,0.4)] overflow-hidden">
+              <div class="w-full h-full bg-gradient-to-br from-white/20 to-transparent"></div>
+            </a>
+          </div>
+
+          <!-- Switch Camera -->
+          <button class="glass-button w-14 h-14 flex items-center justify-center rounded-full">
+            <img src="./assets/IMG_7.svg" class="w-6 h-6" alt="Switch Camera">
+          </button>
+          
+        </div>
+      </div>
+
+      <!-- Desktop Right Panel (Visible only on xl+) -->
+      <aside class="hidden xl:flex absolute right-0 top-0 h-full w-80 bg-slate-950/80 backdrop-blur-md border-l border-white/10 p-6 z-30 flex-col">
+        <h3 class="text-lg font-semibold mb-6">Анализ в реальном времени</h3>
+        
+        <div class="space-y-4">
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+            <p class="text-xs text-slate-400 uppercase mb-1">Освещение</p>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium">Оптимальное</span>
+              <div class="w-2 h-2 rounded-full bg-green-500"></div>
+            </div>
+          </div>
+          
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+            <p class="text-xs text-slate-400 uppercase mb-1">Стабильность</p>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full mt-2">
+              <div class="bg-blue-500 h-full w-[85%] rounded-full"></div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+            <p class="text-xs text-slate-400 uppercase mb-2">Обнаруженные объекты</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-blue-600/20 text-blue-400 text-[10px] rounded-md border border-blue-600/30">Крепеж</span>
+              <span class="px-2 py-1 bg-white/5 text-slate-400 text-[10px] rounded-md border border-white/10">Корпус</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-auto">
+          <button class="w-full py-3 bg-white text-black font-bold rounded-xl hover:bg-slate-200 transition-colors">
+            Авто-фокус
+          </button>
+        </div>
+      </aside>
+
+    </main>
+  </div>
+
+  <!-- Mobile Bottom Indicator (iOS style) -->
+  <div class="fixed bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full md:hidden z-50"></div>
+
+</body>
+</html>

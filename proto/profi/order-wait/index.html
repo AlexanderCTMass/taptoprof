@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TapToProfi - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@3.0.2/dist/iconify-icon.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" type="text/css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" type="text/css" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #181B20;
+      background-color: #F9FAFB;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Archivo", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .text-label {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      color: #8F96A3;
+    }
+
+    .card-shadow {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+    }
+
+    .card-accent-border {
+      border-left: 6px solid #105f53;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .safe-bottom {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .active-dot {
+      position: relative;
+    }
+
+    .active-dot::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 14px;
+      height: 14px;
+      background-color: #1dd75b;
+      border: 2px solid white;
+      border-radius: 50%;
+    }
+
+    @media (min-width: 1024px) {
+      .main-content {
+        margin-left: 260px;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row">
+
+  <!-- Desktop Sidebar Navigation -->
+  <aside class="hidden lg:flex flex-col w-[260px] h-screen bg-white border-r border-gray-100 fixed left-0 top-0 z-50 p-6">
+    <div class="mb-10">
+      <span class="text-xl font-bold tracking-tight">TapToProfi</span>
+    </div>
+    
+    <nav class="flex-1 space-y-2">
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-50 text-blue-600 font-semibold">
+        <iconify-icon icon="ph:house-fill" width="24"></iconify-icon>
+        <span>Главная</span>
+      </a>
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-gray-50 transition-colors">
+        <iconify-icon icon="ph:briefcase" width="24"></iconify-icon>
+        <span>Заказы</span>
+      </a>
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-gray-50 transition-colors">
+        <iconify-icon icon="ph:user" width="24"></iconify-icon>
+        <span>Профиль</span>
+      </a>
+    </nav>
+
+    <div class="mt-auto pt-6 border-t border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-100">
+          <img src="./assets/IMG_5.webp" alt="avatar" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <p class="text-sm font-bold">Алексей В.</p>
+          <p class="text-xs text-gray-400">Сантехник</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 main-content pb-24 lg:pb-10">
+    
+    <!-- Mobile Header -->
+    <header class="lg:hidden sticky top-0 z-40 bg-white/80 backdrop-blur-md px-4 pt-12 pb-4 flex justify-between items-center">
+      <h1 class="text-lg font-bold">TapToProfi</h1>
+      <div class="relative">
+        <iconify-icon icon="ph:bell" width="24" class="text-gray-400"></iconify-icon>
+        <span class="absolute top-0 right-0 w-2 h-2 bg-blue-600 border border-white rounded-full"></span>
+      </div>
+    </header>
+
+    <!-- Desktop Top Bar -->
+    <header class="hidden lg:flex items-center justify-between px-8 py-6 bg-white border-b border-gray-100 sticky top-0 z-40">
+      <h2 class="text-xl font-bold">Панель управления</h2>
+      <div class="flex items-center gap-6">
+        <div class="relative">
+          <iconify-icon icon="ph:bell" width="24" class="text-gray-400"></iconify-icon>
+          <span class="absolute top-0 right-0 w-2 h-2 bg-blue-600 border border-white rounded-full"></span>
+        </div>
+        <button class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:bg-gray-50 transition-colors">
+          <span class="text-sm font-medium">Настройки</span>
+          <iconify-icon icon="ph:gear" width="18"></iconify-icon>
+        </button>
+      </div>
+    </header>
+
+    <div class="max-w-5xl mx-auto px-4 lg:px-8 py-6">
+      
+      <!-- Profile Section -->
+      <section class="flex items-center justify-between mb-8 lg:bg-white lg:p-6 lg:rounded-2xl lg:shadow-sm">
+        <div class="flex items-center gap-4">
+          <div class="active-dot w-16 h-16 rounded-full overflow-hidden bg-[#eaf8e8]">
+            <img src="./assets/IMG_5.webp" alt="avatar" class="w-full h-full object-cover">
+          </div>
+          <div>
+            <h2 class="text-xl font-bold">Алексей В.</h2>
+            <div class="flex items-center gap-3 mt-1">
+              <div class="flex items-center gap-1 px-2 py-0.5 bg-gray-100 rounded-full text-xs font-medium text-gray-500">
+                <iconify-icon icon="ph:wrench" width="14"></iconify-icon>
+                <span>Сантехник</span>
+              </div>
+              <div class="flex items-center gap-1 text-sm font-semibold text-amber-500">
+                <iconify-icon icon="ph:star-fill" width="14"></iconify-icon>
+                <span>4.9</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md border border-gray-50 text-gray-400 hover:text-blue-600 transition-colors">
+          <iconify-icon icon="ph:caret-right" width="20"></iconify-icon>
+        </button>
+      </section>
+
+      <!-- Active Requests Section -->
+      <section class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-label text-sm">Активные заявки</h3>
+          <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-full">1 актуальная</span>
+        </div>
+
+        <!-- Request Card -->
+        <a href="../order-go/index.html" style="display: block" class="bg-white rounded-[22px] card-shadow card-accent-border overflow-hidden p-6 relative" >
+          <div class="flex justify-between items-start mb-4">
+            <div class="flex items-center gap-2 px-3 py-1 bg-[#1dd75b]/10 rounded-full">
+              <span class="w-2 h-2 bg-[#105f53] rounded-full"></span>
+              <span class="text-[10px] font-bold text-[#105f53] uppercase tracking-wider">Откликнулся</span>
+            </div>
+            <span class="text-xl font-bold">~ 2 500 ₽</span>
+          </div>
+
+          <h4 class="text-xl font-bold mb-6">Ремонт кухонного крана</h4>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full shrink-0">
+                <iconify-icon icon="ph:map-pin" width="16" class="text-gray-900"></iconify-icon>
+              </div>
+              <div>
+                <p class="text-sm font-medium">ул. Ленина, 15</p>
+                <p class="text-xs text-gray-400">3.2 км от вас</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full shrink-0">
+                <iconify-icon icon="ph:clock" width="16" class="text-gray-900"></iconify-icon>
+              </div>
+              <div>
+                <p class="text-sm font-medium">Срочно / Сегодня</p>
+                <p class="text-xs text-gray-400">Клиент ждет жеребьевку</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="../order-chat/index.html" class="w-full py-4 bg-[#effcfa] text-[#147567] font-semibold rounded-full flex items-center justify-center gap-2 shadow-sm hover:bg-[#e2f7f4] transition-colors">
+            <iconify-icon icon="ph:chat-circle-dots" width="20"></iconify-icon>
+            <span>Перейти в чат</span>
+          </a>
+        </a>
+      </section>
+
+      <!-- Statistics Section -->
+      <section>
+        <h3 class="text-label text-sm mb-4">Статистика за неделю</h3>
+        <div class="grid grid-cols-2 gap-4 lg:grid-cols-2 lg:gap-6">
+          
+          <!-- Stat Card 1 -->
+          <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+            <div class="flex items-center gap-2 mb-4">
+              <iconify-icon icon="ph:check-circle" width="18" class="text-gray-400"></iconify-icon>
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Завершено</span>
+            </div>
+            <div class="flex items-baseline gap-1">
+              <span class="text-3xl font-bold">12</span>
+              <span class="text-sm text-gray-400">заказов</span>
+            </div>
+          </div>
+
+          <!-- Stat Card 2 -->
+          <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-7 h-7 flex items-center justify-center bg-blue-50 rounded-full">
+                <iconify-icon icon="ph:wallet" width="16" class="text-blue-600"></iconify-icon>
+              </div>
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Заработано</span>
+            </div>
+            <div class="flex items-baseline gap-1">
+              <span class="text-3xl font-bold">45k</span>
+              <span class="text-sm text-gray-400">₽</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-3 flex justify-between items-center z-50 safe-bottom shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+    <a href="#" class="flex flex-col items-center gap-1 text-blue-600">
+      <iconify-icon icon="ph:house-fill" width="24"></iconify-icon>
+      <span class="text-[10px] font-bold">Главная</span>
+    </a>
+    <a href="#" class="flex flex-col items-center gap-1 text-gray-400">
+      <iconify-icon icon="ph:briefcase" width="24"></iconify-icon>
+      <span class="text-[10px] font-medium">Заказы</span>
+    </a>
+    <a href="#" class="flex flex-col items-center gap-1 text-gray-400">
+      <iconify-icon icon="ph:user" width="24"></iconify-icon>
+      <span class="text-[10px] font-medium">Профиль</span>
+    </a>
+  </nav>
+<script>
+</script>
+</body>
+</html>

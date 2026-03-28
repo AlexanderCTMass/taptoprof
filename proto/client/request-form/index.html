@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TapToProfi — Голосовая заявка</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@3.0.2/dist/iconify-icon.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: #181B20;
+      background: #F9FAFB;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 10px;
+    }
+    .chat-message {
+      animation: fadeSlideUp 0.3s ease-out;
+    }
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .loader-dots::after {
+      content: '...';
+      animation: dots 1.5s steps(4, end) infinite;
+      display: inline-block;
+      width: 24px;
+      text-align: left;
+    }
+    @keyframes dots {
+      0%, 20% { content: ''; }
+      40% { content: '.'; }
+      60% { content: '..'; }
+      80%, 100% { content: '...'; }
+    }
+    .tap-active:active {
+      transform: scale(0.97);
+      transition: transform 0.05s ease;
+    }
+    .safe-area-bottom {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row overflow-hidden bg-[#F9FAFB]">
+
+<!-- Desktop Sidebar (как в index.html) -->
+<aside class="hidden lg:flex flex-col w-72 bg-white border-r border-gray-100 h-screen sticky top-0">
+  <div class="p-6 border-b border-gray-50">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 flex items-center justify-center border border-[#181B20] rounded-[5px]">
+        <svg class="w-[18px] h-[18px] text-[#181B20]" viewBox="0 0 18 18">
+          <g transform="matrix(0.75 0 0 0.75 9 9)">
+            <path style="fill: rgb(24,27,32);" transform=" translate(-12, -12)" d="M 13.3511 1.00426 C 13.6035 0.979434 13.8584 1.01916 14.0913 1.11949 L 14.2056 1.17516 L 14.315 1.23961 C 14.5276 1.37773 14.7014 1.56768 14.8208 1.79137 L 14.8765 1.90563 L 14.9214 2.02477 C 15.0012 2.26511 15.0193 2.52186 14.9732 2.77086 L 14.9439 2.89488 C 14.9403 2.90782 14.9372 2.92116 14.9331 2.93395 L 13.0132 8.95348 L 12.9966 9.00035 L 19.9995 9.00035 C 20.377 8.99962 20.7472 9.10533 21.0669 9.30602 C 21.3874 9.50722 21.6438 9.79572 21.8072 10.1371 C 21.9705 10.4784 22.0342 10.8589 21.9898 11.2347 C 21.9509 11.5635 21.8311 11.8768 21.6421 12.1468 L 21.5562 12.2601 L 21.4976 12.3265 L 11.5972 22.5267 L 11.5962 22.5257 C 11.3775 22.7596 11.0908 22.9195 10.7749 22.9779 C 10.4404 23.0398 10.0945 22.986 9.79446 22.8255 C 9.49446 22.6651 9.25781 22.4067 9.12356 22.0941 C 8.98947 21.7816 8.96599 21.4328 9.05618 21.1048 L 9.06692 21.0658 L 10.9868 15.0463 L 11.0034 15.0004 L 3.99954 15.0004 L 3.99954 14.9994 C 3.62242 14.9999 3.25259 14.8942 2.93313 14.6937 C 2.61282 14.4926 2.35623 14.2048 2.1929 13.8636 C 2.02953 13.5222 1.96587 13.1409 2.01028 12.765 C 2.05474 12.3893 2.2055 12.0334 2.44388 11.7396 L 2.50247 11.6732 L 12.4029 1.47399 C 12.6216 1.23994 12.9092 1.08127 13.2251 1.02281 L 13.3511 1.00426 Z M 4.00247 13.0004 L 10.9995 13.0004 C 11.3221 12.9998 11.6401 13.0771 11.9263 13.2259 C 12.2132 13.3752 12.4602 13.5914 12.645 13.8568 C 12.8299 14.1223 12.9474 14.4294 12.9878 14.7504 C 13.0261 15.055 12.9904 15.363 12.8902 15.6527 L 12.8931 15.6537 L 11.6265 19.6244 L 19.9976 11.0004 L 12.9995 11.0004 L 12.9995 10.9994 C 12.6774 10.9998 12.3596 10.9234 12.0738 10.7748 C 11.7868 10.6255 11.5399 10.4084 11.355 10.1429 C 11.1703 9.87756 11.0527 9.57115 11.0122 9.25035 C 10.9738 8.94533 11.0084 8.63614 11.1089 8.34606 L 11.107 8.34606 L 12.3726 4.37438 L 4.00247 13.0004 Z" />
+          </g>
+        </svg>
+      </div>
+      <span class="text-[18px] font-bold tracking-tight">TapToProfi</span>
+    </div>
+  </div>
+  <nav class="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
+    <div class="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Меню</div>
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 bg-blue-50 text-blue-600 rounded-lg font-medium">
+      <iconify-icon icon="lucide:plus-circle" width="20"></iconify-icon> Новая запись
+    </a>
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+      <iconify-icon icon="lucide:history" width="20"></iconify-icon> История
+    </a>
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+      <iconify-icon icon="lucide:folder" width="20"></iconify-icon> Проекты
+    </a>
+    <div class="pt-6 px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Настройки</div>
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+      <iconify-icon icon="lucide:settings" width="20"></iconify-icon> Параметры
+    </a>
+  </nav>
+  <div class="p-4 border-t border-gray-50">
+    <div class="flex items-center gap-3 p-2">
+      <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+        <img src="../IMG_2.png" alt="User" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-semibold truncate">Александр</p>
+        <p class="text-xs text-gray-500 truncate">Pro Account</p>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Main Content Area (с новым чат-интерфейсом) -->
+<div class="flex-1 flex flex-col h-screen relative overflow-hidden">
+
+  <!-- Mobile Header (как в index.html) -->
+  <header class="lg:hidden flex flex-col w-full bg-[#F9FAFB] z-50">
+    <div class="h-10 flex justify-between items-center px-6 sm:hidden">
+      <svg class="w-[70px] h-[40px]"><g transform="matrix(1.03 0 0 1 -1 0)"><path fill="#171a1f" d="M33.7866 16.7856C31.5754 16.7856 30 18.2974 30 20.3673v.0142c0 1.9356 1.3705 3.3627 3.3274 3.3627 1.3987 0 2.2889-.7135 2.6633-1.5189h.1413c0 .0777-.0071.1554-.0071.2331-.0777 1.9498-.7629 3.5323-2.3807 3.5323-.8972 0-1.5259-.4663-1.7944-1.1798l-.0212-.0706h-1.7944l.0142.0777c.3249 1.5612 1.7237 2.6704 3.5958 2.6704 2.5644 0 4.1115-2.0346 4.1115-5.468v-.0141c0-3.6735-1.8933-5.2207-4.0691-5.2207zm-.0071 5.5598c-1.1586 0-1.9992-.8477-1.9992-2.0275v-.0141c0-1.1374.8971-2.0346 2.0204-2.0346 1.1303 0 2.0134.9113 2.0134 2.0769v.0142c0 1.1515-.8831 1.9851-2.0346 1.9851z"/><path fill="#171a1f" d="M40.7158 20.6287c.6499 0 1.1232-.4945 1.1232-1.1162 0-.6287-.4733-1.1162-1.1232-1.1162-.6429 0-1.1233.4875-1.1233 1.1162 0 .6217.4804 1.1162 1.1233 1.1162zm0 5.2419c.6499 0 1.1232-.4875 1.1232-1.1162 0-.6287-.4733-1.1162-1.1232-1.1162-.6429 0-1.1233.4875-1.1233 1.1162 0 .6287.4804 1.1162 1.1233 1.1162z"/><path fill="#171a1f" d="M48.521 27.234h1.7449v-1.9568h1.3705v-1.5048h-1.3705V17.04h-2.5786c-1.3846 2.1052-2.8328 4.4506-4.1539 6.7466v1.4906h4.9875v1.9568zm-3.2921-3.4192v-.106c.989-1.7308 2.1688-3.617 3.2143-5.2135h.106v5.3195h-3.3203z"/><path fill="#171a1f" d="M55.5137 27.234h1.8227V17.04h-1.8156l-2.6633 1.8721v1.7166l2.5361-1.7944h.1201v8.3997z"/></g></svg>
+      <svg class="w-[96px] h-[40px]"><g><path stroke="#171a1f" fill="none" d="M55.0532 20.17c0-1.933 1.567-3.5 3.5-3.5h13.2766c1.933 0 3.5 1.567 3.5 3.5v3.064c0 1.933-1.567 3.5-3.5 3.5H58.5532c-1.933 0-3.5-1.567-3.5-3.5V20.17z"/><path fill="#171a1f" d="M76.6808 20.4255v3.5918c.7227-.3042 1.1926-1.0119 1.1926-1.7959 0-.784-.4699-1.4917-1.1926-1.7959z"/><path fill="#171a1f" d="M56.2553 19.8723c0-1.1046.8955-2 2-2h13.8724c1.1045 0 2 .8954 2 2v3.6596c0 1.1045-.8955 2-2 2H58.2553c-1.1045 0-2-.8955-2-2v-3.6596z"/><path fill="#171a1f" d="M41.3621 19.2234c2.0992.0001 4.1181.8234 5.6395 2.2998.1146.114.2977.1125.4105-.0032l1.0951-1.1282c.0572-.0587.089-.1382.0885-.221-.0004-.0827-.033-.1619-.091-.2199-3.9931-3.9062-10.2927-3.9062-14.2858 0-.0579.058-.0907.1371-.0912.2198-.0006.0828.0312.1624.0883.2211l1.0955 1.1282c.1127.1159.296.1174.4105.0032 1.5215-1.4765 3.5407-2.2998 5.6401-2.2998zm.0302 3.4058c1.1533-.0001 2.2656.4375 3.1205 1.2278.1156.1121.2978.1097.4105-.0055l1.0939-1.1282c.0576-.0591.0895-.1394.0887-.2228-.0008-.0835-.0344-.1631-.0932-.221-2.6034-2.472-6.6352-2.472-9.2387 0-.0588.0579-.0924.1376-.0931.221-.0008.0835.0311.1637.0888.2228l1.0935 1.1282c.1128.1152.2949.1176.4106.0055.8543-.7897 1.9657-1.2273 3.1183-1.2278zm2.2243 2.202c.0017.0837-.0305.1643-.089.2228l-1.8922 1.9491c-.0554.0573-.131.0896-.2099.0896-.0789 0-.1546-.0323-.21-.0896l-1.8925-1.9491c-.0585-.0586-.0906-.1393-.0889-.223.0017-.0836.0372-.1628.0981-.2189 1.2084-1.0433 2.9782-1.0433 4.1866 0 .0608.0561.0962.1353.0978.219z"/><path fill="#171a1f" d="M20.5106 19.5744c0-.47.381-.851.8511-.851h.8511c.47 0 .851.381.851.851v6.8085c0 .4701-.381.8511-.851.8511h-.8511c-.47 0-.8511-.381-.8511-.8511v-6.8085z"/><path fill="#171a1f" d="M24.766 17.8723c0-.47.381-.8511.851-.8511h.8511c.47 0 .851.3811.851.8511v8.5106c0 .4701-.381.8511-.851.8511h-.8511c-.47 0-.851-.381-.851-.8511v-8.5106z"/><path fill="#171a1f" d="M16.2553 22.5531c0-.47.3811-.851.8511-.851h.851c.4701 0 .851.381.851.851v3.8298c0 .4701-.381.8511-.851.8511h-.851c-.47 0-.8511-.381-.8511-.8511v-3.8298z"/><path fill="#171a1f" d="M12 24.6808c0-.47.381-.8511.8511-.8511h.851c.4701 0 .851.3811.851.8511v1.7021c0 .4701-.381.8511-.851.8511h-.851c-.47 0-.8511-.381-.8511-.8511v-1.7021z"/></g></svg>
+    </div>
+    <div class="h-[53px] flex items-center px-4 border-b border-[#f3f4f6]">
+      <div class="flex items-center gap-3">
+        <div class="w-[30px] h-[30px] flex items-center justify-center border border-[#181B20] rounded-[5px]">
+          <svg class="w-[18px] h-[18px]" viewBox="0 0 18 18"><path fill="#181B20" d="M13.3511 1.00426c.2524-.024826.5073.0149.7402.11523l.1143.05567.1094.06445c.2126.13812.3864.32807.5058.55176l.0557.11426.0449.11914c.0798.24034.0979.49709.0518.74609l-.0293.12402c-.0036.01294-.0067.02628-.0108.03907l-1.9199 6.01953-.0166.04687h7.0029c.3775-.00073.7477.10498 1.0674.30567.3205.2012.5769.4897.7403.8311.1633.3413.227.7218.1826 1.0976-.0389.3288-.1587.6421-.3477.9121l-.0859.1133-.0586.0664-9.9004 10.2002-.001-.001c-.2187.2339-.5054.3938-.8213.4522-.3345.0619-.6804.0081-.9805-.1524-.3-.1604-.5366-.4188-.6709-.7314-.1341-.3125-.1575-.6613-.0674-.9893l.0107-.039 1.9199-6.0195.0166-.0459H3.99954v-.001c-.37712.0005-.74695-.1052-1.06641-.3057-.32031-.2011-.5769-.4889-.74023-.8301-.16337-.3414-.22703-.7227-.18262-1.0986.04446-.3757.19522-.7316.4336-1.0254l.05859-.0664L12.4029 1.47399c.2187-.23405.5063-.39272.8222-.45118l.126-.01865zM4.00247 13.0004h6.99703c.3226-.0006.6406.0767.9268.2255.2869.1493.5339.3655.7187.6309.1849.2655.3024.5726.3428.8936.0383.3046.0026.6126-.0976.9023l.003.001-1.2666 3.9707 8.3711-8.624-6.9981.001v-.001c-.3221.0004-.6399-.076- .9257-.2246-.287-.1493-.5339-.3664-.7188-.6319-.1847-.26534-.3023-.57175-.3428-.89255-.0384-.30502-.0038-.61421.0967-.90429l-.0019.001 1.2656-3.97168-8.3701 8.626z"/></svg>
+        </div>
+        <span class="text-[18px] font-bold tracking-tight">TapToProfi</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CHAT MAIN AREA (скроллируемый чат) -->
+  <main class="flex-1 overflow-y-auto p-4 lg:p-8 bg-[#F9FAFB]" id="chatContainer">
+    <div class="max-w-3xl mx-auto space-y-4" id="chatMessages">
+      <!-- Изначально только блок с фото и кнопка "Начать запись" -->
+      <div id="initialVoiceBlock" class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm chat-message">
+        <div class="flex flex-col items-center gap-5">
+          <!-- Фото объекта (одно) -->
+          <div class="w-full">
+            <div class="flex justify-between items-end mb-3">
+              <h2 class="text-lg font-bold">Фотография объекта</h2>
+              <span class="text-sm text-gray-400">1 фото</span>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-32 h-32 rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                <img src="assets/photo.JPG" class="w-full h-full object-cover" alt="сантехника">
+              </div>
+              <button class="w-32 h-32 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center gap-1">
+                <iconify-icon icon="lucide:plus" width="24" class="text-gray-400"></iconify-icon>
+                <span class="text-xs text-gray-400">Добавить</span>
+              </button>
+            </div>
+          </div>
+          <!-- Кнопка начала голосовой записи -->
+          <button id="startVoiceBtn" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg flex items-center gap-3 transition-all tap-active text-lg">
+            <iconify-icon icon="lucide:mic" width="28"></iconify-icon>
+            <span>Описать проблему</span>
+          </button>
+          <p class="text-sm text-gray-500 text-center">Нажмите и опишите проблему голосом</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Mobile bottom nav (как в index) -->
+  <nav class="lg:hidden flex justify-around items-center h-16 bg-white border-t border-gray-100 safe-area-bottom">
+    <button class="flex flex-col items-center gap-1 text-blue-600"><iconify-icon icon="ri:home-fill" width="24"></iconify-icon><span class="text-[10px] font-medium">Главная</span></button>
+    <button class="flex flex-col items-center gap-1 text-gray-400"><iconify-icon icon="ri:history-line" width="24"></iconify-icon><span class="text-[10px] font-medium">История</span></button>
+    <button class="flex flex-col items-center gap-1 text-gray-400"><iconify-icon icon="ri:user-line" width="24"></iconify-icon><span class="text-[10px] font-medium">Профиль</span></button>
+  </nav>
+</div>
+
+<!-- Desktop right panel (как в index) -->
+<aside class="hidden xl:flex flex-col w-80 bg-[#F9FAFB] border-l border-gray-100 h-screen sticky top-0 p-6">
+  <h2 class="text-lg font-bold mb-6">Недавние</h2>
+  <div class="space-y-4 overflow-y-auto custom-scrollbar pr-2">
+    <div class="bg-white p-4 rounded-xl shadow-sm"><div class="flex gap-3"><div class="w-8 h-8 rounded bg-blue-50 flex items-center justify-center"><iconify-icon icon="lucide:camera" width="16" class="text-blue-600"></iconify-icon></div><div><p class="text-sm font-semibold">Кухонный кран</p><p class="text-xs text-gray-400">2 недели назад</p></div></div></div>
+    <div class="bg-white p-4 rounded-xl shadow-sm"><div class="flex gap-3"><div class="w-8 h-8 rounded bg-purple-50 flex items-center justify-center"><iconify-icon icon="lucide:mic" width="16" class="text-purple-600"></iconify-icon></div><div><p class="text-sm font-semibold">Голосовая заметка</p><p class="text-xs text-gray-400">1 час назад</p></div></div></div>
+  </div>
+</aside>
+
+<script>
+  (function() {
+    const chatContainer = document.getElementById('chatMessages');
+    const startBtn = document.getElementById('startVoiceBtn');
+
+    // Состояние заявки
+    let orderData = {
+      photo: 'assets/photo.JPG',
+      problemDesc: '',
+      timePreference: null,
+      address: 'Москва, ул. Зорге, д. 1'
+    };
+
+    let currentStep = 'initial'; // initial, waitingProblem, waitingTime, ready
+
+    // Утилиты: добавление сообщения в чат
+    function addMessage(role, content, isHtml = false) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `chat-message flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+      const bubbleClass = role === 'user' ? 'bg-blue-600 text-white rounded-2xl rounded-br-md' : 'bg-white border border-gray-200 text-gray-800 rounded-2xl rounded-bl-md';
+      messageDiv.innerHTML = `
+          <div class="max-w-[85%] ${bubbleClass} px-4 py-3 shadow-sm">
+            ${isHtml ? content : `<div class="text-sm">${content}</div>`}
+          </div>
+        `;
+      chatContainer.appendChild(messageDiv);
+      messageDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      return messageDiv;
+    }
+
+    function addLoaderMessage(role, loaderText) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `chat-message flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+      const bubbleClass = role === 'user' ? 'bg-blue-600 text-white rounded-2xl' : 'bg-white border border-gray-200 text-gray-800 rounded-2xl';
+      messageDiv.innerHTML = `
+          <div class="max-w-[85%] ${bubbleClass} px-4 py-3 shadow-sm">
+            <div class="flex items-center gap-2 text-sm">
+              <iconify-icon icon="lucide:loader-2" width="18" class="animate-spin"></iconify-icon>
+              <span>${loaderText}</span>
+            </div>
+          </div>
+        `;
+      chatContainer.appendChild(messageDiv);
+      messageDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      return messageDiv;
+    }
+
+    function replaceInitialBlockWithChat() {
+      const initialBlock = document.getElementById('initialVoiceBlock');
+      if (initialBlock) initialBlock.remove();
+    }
+
+    // Имитация распознавания голоса
+    function simulateVoiceRecognition(callback) {
+      const demoProblem = "Протекает кран в санузле, постоянно капает вода, нужна срочная замена сифона";
+      setTimeout(() => {
+        callback(demoProblem);
+      }, 1800);
+    }
+
+    // Основной сценарий после нажатия кнопки
+    startBtn.addEventListener('click', () => {
+      if (currentStep !== 'initial') return;
+      replaceInitialBlockWithChat();
+
+      // 1. Добавляем сообщение "Обработка записи..." (лоадер)
+      const processingLoader = addLoaderMessage('bot', 'Обработка записи');
+      setTimeout(() => {
+        processingLoader.remove();
+        // 2. Добавляем распознанное сообщение от пользователя
+        const recognizedText = "Протекает кран в санузле, постоянно капает вода, нужна срочная замена сифона";
+        orderData.problemDesc = recognizedText;
+        addMessage('user', recognizedText);
+
+        // 3. Лоадер "Бот думает"
+        const botThinkingLoader = addLoaderMessage('bot', 'Бот думает');
+        setTimeout(() => {
+          botThinkingLoader.remove();
+          // 4. Сообщение бота + кнопки выбора времени
+          addMessage('bot', 'Уточните пожалуйста когда сможете принять специалиста?');
+
+          // Добавляем блок с кнопками (микрофон + две вспомогательные)
+          const actionDiv = document.createElement('div');
+          actionDiv.className = 'chat-message flex justify-start';
+          actionDiv.innerHTML = `
+              <div class="bg-white border border-gray-200 rounded-2xl rounded-bl-md p-4 shadow-sm max-w-[85%] space-y-3">
+                <div class="flex flex-wrap gap-2">
+                  <button class="timeQuickBtn tap-active bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium">⏱ Как можно скорее</button>
+                  <button class="timeQuickBtn tap-active bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium">🕒 В любое время</button>
+                </div>
+                <div class="border-t pt-2 mt-1">
+                  <button id="micInlineBtn" class="flex items-center gap-2 text-blue-600 font-medium tap-active">
+                    <iconify-icon icon="lucide:mic" width="20"></iconify-icon>
+                    <span class="text-sm">Записать голосом</span>
+                  </button>
+                </div>
+              </div>
+            `;
+          chatContainer.appendChild(actionDiv);
+          actionDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+          // Обработчики для быстрых кнопок
+          document.querySelectorAll('.timeQuickBtn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const chosen = btn.innerText.includes('скорее') ? 'как можно скорее' : 'в любое время';
+              orderData.timePreference = chosen;
+              // удаляем блок кнопок
+              actionDiv.remove();
+              // добавляем сообщение пользователя
+              addMessage('user', chosen);
+              // лоадер после выбора
+              const finalLoader = addLoaderMessage('bot', 'Формирую данные заявки');
+              setTimeout(() => {
+                finalLoader.remove();
+                // финальный блок с таблицей и кнопками
+                showFinalSummary();
+              }, 2000);
+            });
+          });
+
+          // микрофон в этом блоке (имитация голосового выбора)
+          const micInline = document.getElementById('micInlineBtn');
+          if (micInline) {
+            micInline.addEventListener('click', () => {
+              // имитация записи голоса для времени
+              micInline.disabled = true;
+              micInline.innerHTML = '<iconify-icon icon="lucide:loader-2" width="20" class="animate-spin"></iconify-icon><span>Слушаю...</span>';
+              setTimeout(() => {
+                const mockTimeAnswer = "Могу принять специалиста завтра в первой половине дня";
+                orderData.timePreference = mockTimeAnswer;
+                actionDiv.remove();
+                addMessage('user', mockTimeAnswer);
+                const loaderAfterVoice = addLoaderMessage('bot', 'Обрабатываю ответ');
+                setTimeout(() => {
+                  loaderAfterVoice.remove();
+                  showFinalSummary();
+                }, 1800);
+              }, 1500);
+            });
+          }
+
+          currentStep = 'waitingTime';
+        }, 2000);
+      }, 2000);
+      currentStep = 'waitingProblem';
+    });
+
+    function showFinalSummary() {
+      // Таблица с данными
+      const summaryHtml = `
+          <div class="bg-gray-50 rounded-xl p-4 space-y-2 text-sm">
+            <div class="font-bold mb-4">📋 Данные заявки</div>
+            <div class="grid grid-cols-2 gap-2 border-b pb-2"><span class="text-gray-500">Фото:</span><span class="font-medium"><img src="${orderData.photo}" alt="Фото объекта" class="w-16 h-16 rounded-lg object-cover border border-gray-200 shadow-sm"></span></div>
+            <div class="grid grid-cols-2 gap-2 border-b pb-2"><span class="text-gray-500">Описание:</span><span class="font-medium">${orderData.problemDesc.substring(0, 70)}${orderData.problemDesc.length > 70 ? '…' : ''}</span></div>
+            <div class="grid grid-cols-2 gap-2 border-b pb-2"><span class="text-gray-500">Время визита:</span><span class="font-medium">${orderData.timePreference}</span></div>
+            <div class="grid grid-cols-2 gap-2"><span class="text-gray-500">Адрес:</span><span class="font-medium">${orderData.address}</span></div>
+          </div>
+        `;
+      addMessage('bot', summaryHtml, true);
+
+      // Добавляем блок с микрофоном и кнопкой отправки
+      const actionFooter = document.createElement('div');
+      actionFooter.className = 'chat-message flex justify-start';
+      actionFooter.innerHTML = `
+          <div class="bg-white border border-gray-200 rounded-2xl rounded-bl-md p-4 shadow-sm w-full max-w-[85%]">
+            <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
+              <button id="finalMicBtn" class="flex items-center gap-2 text-blue-600 font-medium tap-active px-4 py-2 rounded-full bg-blue-50">
+                <iconify-icon icon="lucide:mic" width="22"></iconify-icon>
+                <span>Записать уточнение</span>
+              </button>
+              <button id="submitOrderBtn" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-8 rounded-xl shadow-md tap-active flex items-center gap-2">
+                <iconify-icon icon="lucide:send" width="20"></iconify-icon>
+                Отправить заявку
+              </button>
+            </div>
+            <p class="text-xs text-gray-400 mt-3 text-center">Проверьте данные перед отправкой</p>
+          </div>
+        `;
+      chatContainer.appendChild(actionFooter);
+      actionFooter.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+      // Обработка микрофона в финале (имитация)
+      const finalMic = document.getElementById('finalMicBtn');
+      if (finalMic) {
+        finalMic.addEventListener('click', () => {
+          finalMic.disabled = true;
+          finalMic.innerHTML = '<iconify-icon icon="lucide:loader-2" width="22" class="animate-spin"></iconify-icon><span>Слушаю...</span>';
+          setTimeout(() => {
+            finalMic.innerHTML = '<iconify-icon icon="lucide:mic" width="22"></iconify-icon><span>Записать уточнение</span>';
+            finalMic.disabled = false;
+            addMessage('user', 'Дополнительно: подъезд 3, код домофона 123');
+            const thanksLoader = addLoaderMessage('bot', 'Обновляю данные');
+            setTimeout(() => {
+              thanksLoader.remove();
+              addMessage('bot', '✅ Дополнение принято. Вся информация сохранена.');
+              // обновляем таблицу (опционально) - просто добавляем новое сообщение с обновлёнными данными
+              const updatedHtml = `
+                  <div class="bg-gray-50 rounded-xl p-4 space-y-2 text-sm">
+                    <div class="font-bold mb-2">📋 Обновлённые данные заявки</div>
+                    <div class="grid grid-cols-2 gap-2 border-b pb-2"><span class="text-gray-500">Фото:</span><span>✅ добавлено</span></div>
+                    <div class="grid grid-cols-2 gap-2 border-b pb-2"><span class="text-gray-500">Описание:</span><span class="font-medium">${orderData.problemDesc.substring(0, 70)}…</span></div>
+                    <div class="grid grid-cols-2 gap-2 border-b pb-2"><span class="text-gray-500">Время визита:</span><span class="font-medium">${orderData.timePreference}</span></div>
+                    <div class="grid grid-cols-2 gap-2"><span class="text-gray-500">Доп. инфо:</span><span class="font-medium">подъезд 3, код 123</span></div>
+                  </div>
+                `;
+              addMessage('bot', updatedHtml, true);
+            }, 1500);
+          }, 1600);
+        });
+      }
+
+      // Кнопка отправки заявки
+      const submitBtn = document.getElementById('submitOrderBtn');
+      if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+          addMessage('user', '📨 Отправить заявку');
+          const sendingLoader = addLoaderMessage('bot', 'Отправка заявки');
+          setTimeout(() => {
+            sendingLoader.remove();
+            addMessage('bot', '✅ Заявка успешно создана! Номер #TP-2412. Специалист свяжется в ближайшее время.');
+            // деактивируем кнопки отправки
+            if (submitBtn) submitBtn.disabled = true;
+            if (finalMic) finalMic.disabled = true;
+            submitBtn.classList.add('opacity-50');
+
+            // ✅ РЕДИРЕКТ НА request.html ЧЕРЕЗ 2 СЕКУНДЫ
+            setTimeout(() => {
+              window.location.href = '../match/index.html';
+            }, 2000);
+          }, 1800);
+        });
+      }
+
+      currentStep = 'ready';
+    }
+  })();
+</script>
+</body>
+</html>

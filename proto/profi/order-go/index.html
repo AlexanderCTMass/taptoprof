@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Новое приглашение</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@3.0.2/dist/iconify-icon.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" type="text/css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" type="text/css" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color: #181B20;
+      background-color: #f9fafb;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Archivo", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-primary-glow {
+      box-shadow: 0 12px 24px 0px rgba(37, 99, 235, 0.25);
+    }
+
+    .card-subtle-shadow {
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    }
+
+    .tap-highlight-none {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .safe-area-bottom {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .active-nav-item {
+      color: #2563EB;
+    }
+
+    .active-nav-item::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background-color: #2563EB;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body class="flex min-h-screen">
+
+  <!-- Desktop Sidebar Navigation -->
+  <aside class="hidden lg:flex flex-col w-64 bg-white border-r border-gray-100 h-screen sticky top-0 p-6">
+    <div class="mb-10 px-2">
+      <h1 class="text-2xl font-bold text-blue-600">ServiceApp</h1>
+    </div>
+    <nav class="flex flex-col gap-2">
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-gray-50 transition-colors">
+        <iconify-icon icon="lucide:home" width="24"></iconify-icon>
+        <span class="font-medium">Главная</span>
+      </a>
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-50 text-blue-600 transition-colors">
+        <div class="relative">
+          <iconify-icon icon="lucide:bell" width="24"></iconify-icon>
+          <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full border-2 border-white">9</span>
+        </div>
+        <span class="font-semibold">Приглашения</span>
+      </a>
+      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-gray-50 transition-colors">
+        <iconify-icon icon="lucide:user" width="24"></iconify-icon>
+        <span class="font-medium">Профиль</span>
+      </a>
+    </nav>
+    <div class="mt-auto pt-6 border-t border-gray-100">
+      <div class="flex items-center gap-3 px-2">
+        <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
+          <img src="./assets/IMG_8.png" alt="User" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <p class="text-sm font-semibold">Иванов Илья</p>
+          <p class="text-xs text-gray-400">Мастер</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col min-h-screen relative">
+    
+    <!-- Mobile Header -->
+    <header class="lg:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-4 h-16 flex items-center">
+      <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors tap-highlight-none">
+        <img src="./assets/IMG_3.svg" alt="Back" class="w-6 h-6">
+      </button>
+      <h2 class="ml-2 text-lg font-semibold tracking-tight">Новое приглашение</h2>
+    </header>
+
+    <!-- Content Container -->
+    <div class="flex-1 overflow-y-auto px-4 py-6 md:py-10 lg:px-12">
+      <div class="max-w-2xl mx-auto lg:mx-0 lg:max-w-none lg:grid lg:grid-cols-12 lg:gap-10">
+        
+        <!-- Invitation Card -->
+        <section class="lg:col-span-7 xl:col-span-6">
+          <div class="bg-white rounded-[32px] p-6 md:p-8 card-subtle-shadow border border-gray-50">
+            
+            <!-- Header Info -->
+            <div class="flex items-start gap-4 mb-8">
+              <div class="w-12 h-12 bg-[#1dd75b]/10 rounded-full flex items-center justify-center shrink-0">
+                <img src="./assets/IMG_4.svg" alt="Bell" class="w-6 h-6 text-[#105f53]">
+              </div>
+              <div>
+                <h3 class="text-xl md:text-2xl font-bold leading-tight">Вас пригласили</h3>
+                <p class="text-[#8F96A3] font-medium mt-1">Ремонт кухонного крана</p>
+              </div>
+            </div>
+
+            <div class="space-y-6 mb-8">
+              <!-- Location -->
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 flex items-center justify-center shrink-0">
+                  <img src="./assets/IMG_5.svg" alt="Location" class="w-6 h-6 text-[#8F96A3]">
+                </div>
+                <div>
+                  <p class="text-[17px] font-medium">ул. Ленина, 15</p>
+                  <p class="text-sm text-[#8F96A3] mt-0.5">3.2 км от вас</p>
+                </div>
+              </div>
+
+              <!-- Time -->
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 flex items-center justify-center shrink-0">
+                  <img src="./assets/IMG_6.svg" alt="Time" class="w-6 h-6 text-[#8F96A3]">
+                </div>
+                <div>
+                  <p class="text-[17px] font-medium">Сегодня, 15:00 - 16:00</p>
+                  <p class="text-sm text-[#8F96A3] mt-0.5">Смена 12 часов, перерыв 1 час</p>
+                </div>
+              </div>
+
+              <!-- Payment -->
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 flex items-center justify-center shrink-0">
+                  <img src="./assets/IMG_7.svg" alt="Payment" class="w-6 h-6 text-[#8F96A3]">
+                </div>
+                <div>
+                  <p class="text-lg font-bold">2 500 ₽</p>
+                  <p class="text-sm text-[#8F96A3] mt-0.5">выплата сразу на карту</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Client Profile -->
+            <div class="bg-[#F9FAFB]/50 rounded-2xl p-4 border border-gray-100 flex items-center gap-4 mb-10 hover:bg-gray-50 transition-colors cursor-pointer group">
+              <div class="w-12 h-12 rounded-full overflow-hidden bg-blue-100 shrink-0">
+                <img src="./assets/IMG_8.png" alt="Client" class="w-full h-full object-cover">
+              </div>
+              <div class="flex-1">
+                <p class="font-semibold text-[15px]">Иванов Илья</p>
+                <div class="flex items-center gap-1 mt-0.5">
+                  <img src="./assets/IMG_10.svg" alt="Star" class="w-3.5 h-3.5">
+                  <span class="text-xs font-semibold">4.9</span>
+                  <span class="text-xs text-[#8F96A3]">(12)</span>
+                </div>
+              </div>
+              <img src="./assets/IMG_9.svg" alt="Arrow" class="w-5 h-5 text-[#8F96A3] group-hover:translate-x-1 transition-transform">
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-col gap-3">
+              <button class="w-full h-14 bg-[#2563EB] text-white rounded-full font-semibold text-lg flex items-center justify-center gap-2 btn-primary-glow hover:bg-blue-700 transition-all active:scale-[0.98] tap-highlight-none">
+                <img src="./assets/IMG_11.svg" alt="Check" class="w-5 h-5">
+                Принять приглашение
+              </button>
+              <button class="w-full h-12 text-[#8F96A3] font-semibold text-lg hover:text-gray-600 transition-colors tap-highlight-none">
+                Отклонить
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Desktop Sidebar Context (Visible only on LG) -->
+        <aside class="hidden lg:block lg:col-span-5 xl:col-span-6 space-y-6">
+          <div class="bg-white rounded-3xl p-6 border border-gray-100">
+            <h4 class="text-lg font-bold mb-4">Детали заказа</h4>
+            <p class="text-gray-500 text-sm leading-relaxed">
+              Клиент ожидает мастера для замены прокладки в кухонном смесителе. Инструменты желательно иметь свои. Оплата производится через безопасную сделку сразу после подтверждения выполнения работ.
+            </p>
+            <div class="mt-6 p-4 bg-blue-50 rounded-2xl border border-blue-100">
+              <div class="flex items-center gap-3 text-blue-700">
+                <iconify-icon icon="lucide:info" width="20"></iconify-icon>
+                <span class="text-sm font-semibold">Важная информация</span>
+              </div>
+              <p class="text-blue-600/80 text-xs mt-2">Вы находитесь в 15 минутах езды от объекта. Рекомендуем выезжать заранее.</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-3xl p-6 border border-gray-100">
+            <h4 class="text-lg font-bold mb-4">Другие приглашения</h4>
+            <div class="space-y-4">
+              <div class="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer">
+                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                  <iconify-icon icon="lucide:wrench" class="text-gray-400"></iconify-icon>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-semibold">Установка люстры</p>
+                  <p class="text-xs text-gray-400">Завтра, 10:00 • 1 800 ₽</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer">
+                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                  <iconify-icon icon="lucide:zap" class="text-gray-400"></iconify-icon>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-semibold">Замена розеток</p>
+                  <p class="text-xs text-gray-400">24 Окт • 3 200 ₽</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="lg:hidden sticky bottom-0 w-full bg-white border-t border-gray-100 flex justify-around items-center h-16 safe-area-bottom shadow-[0px_-2px_10px_0px_rgba(0,0,0,0.05)]">
+      <a href="#" class="flex flex-col items-center justify-center gap-1 w-full h-full text-[#8F96A3] tap-highlight-none">
+        <img src="./assets/IMG_12.svg" alt="Home" class="w-6 h-6">
+        <span class="text-[10px] font-medium">Главная</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center gap-1 w-full h-full active-nav-item relative tap-highlight-none">
+        <div class="relative">
+          <img src="./assets/IMG_4.svg" alt="Invitations" class="w-6 h-6 text-[#2563EB]">
+          <span class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#de3b40] text-white text-[8px] font-bold flex items-center justify-center rounded-full border-2 border-white">9</span>
+        </div>
+        <span class="text-[10px] font-bold">Приглашения</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center gap-1 w-full h-full text-[#8F96A3] tap-highlight-none">
+        <img src="./assets/IMG_13.svg" alt="Profile" class="w-6 h-6">
+        <span class="text-[10px] font-medium">Профиль</span>
+      </a>
+    </nav>
+
+  </main>
+
+</body>
+</html>
