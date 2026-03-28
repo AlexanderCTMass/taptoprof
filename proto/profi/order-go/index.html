@@ -2,56 +2,138 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Новое приглашение</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Новое приглашение — TapToProfi</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@3.0.2/dist/iconify-icon.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" type="text/css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" type="text/css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
+    * {
+      transition: all 0.2s ease;
+    }
     body {
-      font-family: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       color: #181B20;
-      background-color: #f9fafb;
+      background-color: #F9FAFB;
     }
-
     h1, h2, h3, h4, h5, h6 {
-      font-family: "Archivo", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
       font-weight: 600;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
-
-    .btn-primary-glow {
-      box-shadow: 0 12px 24px 0px rgba(37, 99, 235, 0.25);
+    .bg-soft-glow {
+      background: radial-gradient(circle at center, rgba(37, 99, 235, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
     }
-
-    .card-subtle-shadow {
-      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    .tap-active:active {
+      transform: scale(0.96);
+      filter: brightness(0.95);
     }
-
-    .tap-highlight-none {
-      -webkit-tap-highlight-color: transparent;
-    }
-
     .safe-area-bottom {
       padding-bottom: env(safe-area-inset-bottom);
     }
-
+    .safe-area-top {
+      padding-top: env(safe-area-inset-top);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 10px;
+    }
+    .photo-ring {
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .photo-ring:active {
+      transform: scale(0.97);
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+    }
+    .accent-border-left {
+      position: relative;
+      overflow: hidden;
+    }
+    .accent-border-left::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background-color: #2563EB;
+      border-radius: 4px 0 0 4px;
+    }
+    .linkButton {
+      display: block;
+      text-align: center;
+    }
+    @media (max-width: 1023px) {
+      .mobile-fixed-layout {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .mobile-header-fixed {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        flex-shrink: 0;
+        background-color: #F9FAFB;
+      }
+      .mobile-scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .mobile-bottom-fixed {
+        flex-shrink: 0;
+        position: sticky;
+        bottom: 0;
+        z-index: 50;
+        background-color: white;
+      }
+      header.lg\:hidden {
+        position: relative;
+      }
+    }
+    @media (min-width: 1024px) {
+      .mobile-fixed-layout {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .mobile-scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+      }
+      .mobile-header-fixed, .mobile-bottom-fixed {
+        position: relative;
+      }
+    }
+    /* дополнительно для карточки приглашения сохраняем стили */
+    .card-subtle-shadow {
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    }
+    .tap-highlight-none {
+      -webkit-tap-highlight-color: transparent;
+    }
     .hide-scrollbar::-webkit-scrollbar {
       display: none;
     }
-
     .hide-scrollbar {
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-
     .active-nav-item {
       color: #2563EB;
     }
-
     .active-nav-item::after {
       content: '';
       position: absolute;
@@ -65,200 +147,289 @@
     }
   </style>
 </head>
-<body class="flex min-h-screen">
+<body class="bg-[#F9FAFB] min-h-screen flex flex-col lg:flex-row">
 
-  <!-- Desktop Sidebar Navigation -->
-  <aside class="hidden lg:flex flex-col w-64 bg-white border-r border-gray-100 h-screen sticky top-0 p-6">
-    <div class="mb-10 px-2">
-      <h1 class="text-2xl font-bold text-blue-600">ServiceApp</h1>
+<!-- Desktop Sidebar (точно из первого файла) -->
+<aside class="hidden lg:flex flex-col w-72 bg-white border-r border-gray-100 h-screen sticky top-0">
+  <div class="p-6 border-b border-gray-50">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 flex items-center justify-center border border-[#181B20] rounded-[5px]">
+        <svg class="w-[18px] h-[18px] text-[#181B20]" viewBox="0 0 18 18">
+          <g transform="matrix(1 0 0 1 0 0)">
+            <g>
+              <g transform="matrix(0.75 0 0 0.75 9 9)">
+                <path style="fill: rgb(24,27,32);" transform=" translate(-12, -12)"
+                      d="M 13.3511 1.00426 C 13.6035 0.979434 13.8584 1.01916 14.0913 1.11949 L 14.2056 1.17516 L 14.315 1.23961 C 14.5276 1.37773 14.7014 1.56768 14.8208 1.79137 L 14.8765 1.90563 L 14.9214 2.02477 C 15.0012 2.26511 15.0193 2.52186 14.9732 2.77086 L 14.9439 2.89488 C 14.9403 2.90782 14.9372 2.92116 14.9331 2.93395 L 13.0132 8.95348 L 12.9966 9.00035 L 19.9995 9.00035 C 20.377 8.99962 20.7472 9.10533 21.0669 9.30602 C 21.3874 9.50722 21.6438 9.79572 21.8072 10.1371 C 21.9705 10.4784 22.0342 10.8589 21.9898 11.2347 C 21.9509 11.5635 21.8311 11.8768 21.6421 12.1468 L 21.5562 12.2601 L 21.4976 12.3265 L 11.5972 22.5267 L 11.5962 22.5257 C 11.3775 22.7596 11.0908 22.9195 10.7749 22.9779 C 10.4404 23.0398 10.0945 22.986 9.79446 22.8255 C 9.49446 22.6651 9.25781 22.4067 9.12356 22.0941 C 8.98947 21.7816 8.96599 21.4328 9.05618 21.1048 L 9.06692 21.0658 L 10.9868 15.0463 L 11.0034 15.0004 L 3.99954 15.0004 L 3.99954 14.9994 C 3.62242 14.9999 3.25259 14.8942 2.93313 14.6937 C 2.61282 14.4926 2.35623 14.2048 2.1929 13.8636 C 2.02953 13.5222 1.96587 13.1409 2.01028 12.765 C 2.05474 12.3893 2.2055 12.0334 2.44388 11.7396 L 2.50247 11.6732 L 12.4029 1.47399 C 12.6216 1.23994 12.9092 1.08127 13.2251 1.02281 L 13.3511 1.00426 Z M 4.00247 13.0004 L 10.9995 13.0004 C 11.3221 12.9998 11.6401 13.0771 11.9263 13.2259 C 12.2132 13.3752 12.4602 13.5914 12.645 13.8568 C 12.8299 14.1223 12.9474 14.4294 12.9878 14.7504 C 13.0261 15.055 12.9904 15.363 12.8902 15.6527 L 12.8931 15.6537 L 11.6265 19.6244 L 19.9976 11.0004 L 12.9995 11.0004 L 12.9995 10.9994 C 12.6774 10.9998 12.3596 10.9234 12.0738 10.7748 C 11.7868 10.6255 11.5399 10.4084 11.355 10.1429 C 11.1703 9.87756 11.0527 9.57115 11.0122 9.25035 C 10.9738 8.94533 11.0084 8.63614 11.1089 8.34606 L 11.107 8.34606 L 12.3726 4.37438 L 4.00247 13.0004 Z"
+                      stroke-linecap="round"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <span class="text-[18px] font-bold tracking-tight">TapToProfi</span>
     </div>
-    <nav class="flex flex-col gap-2">
-      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-gray-50 transition-colors">
-        <iconify-icon icon="lucide:home" width="24"></iconify-icon>
-        <span class="font-medium">Главная</span>
-      </a>
-      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-50 text-blue-600 transition-colors">
-        <div class="relative">
-          <iconify-icon icon="lucide:bell" width="24"></iconify-icon>
-          <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full border-2 border-white">9</span>
+  </div>
+  <nav class="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
+    <div class="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Меню</div>
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 bg-blue-50 text-blue-600 rounded-lg font-medium">
+      <iconify-icon icon="lucide:plus-circle" width="20"></iconify-icon>
+      Новая запись
+    </a>
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+      <iconify-icon icon="lucide:history" width="20"></iconify-icon>
+      История
+    </a>
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+      <iconify-icon icon="lucide:folder" width="20"></iconify-icon>
+      Проекты
+    </a>
+    <div class="pt-6 px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Настройки</div>
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+      <iconify-icon icon="lucide:settings" width="20"></iconify-icon>
+      Параметры
+    </a>
+    <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+      <iconify-icon icon="lucide:help-circle" width="20"></iconify-icon>
+      Поддержка
+    </a>
+  </nav>
+  <div class="p-4 border-t border-gray-50">
+    <div class="flex items-center gap-3 p-2">
+      <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+        <img src="IMG_2.png" alt="User" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-semibold truncate">Александр</p>
+        <p class="text-xs text-gray-500 truncate">Pro Account</p>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile Header (Fixed on mobile) из первого файла -->
+<div class="mobile-header-fixed">
+  <header class="lg:hidden flex flex-col w-full bg-[#F9FAFB]">
+    <div class="h-[53px] flex items-center px-4 border-b border-[#f3f4f6]">
+      <div class="flex items-center gap-3 justify-between w-[100%]">
+        <div class="flex items-center gap-3">
+          <div class="w-[30px] h-[30px] flex items-center justify-center border border-[#181B20] rounded-[5px]">
+            <svg class="w-[18px] h-[18px] text-[#181B20]" viewBox="0 0 18 18">
+              <g transform="matrix(1 0 0 1 0 0)">
+                <g>
+                  <g transform="matrix(0.75 0 0 0.75 9 9)">
+                    <path style="fill: rgb(24,27,32);" transform=" translate(-12, -12)"
+                          d="M 13.3511 1.00426 C 13.6035 0.979434 13.8584 1.01916 14.0913 1.11949 L 14.2056 1.17516 L 14.315 1.23961 C 14.5276 1.37773 14.7014 1.56768 14.8208 1.79137 L 14.8765 1.90563 L 14.9214 2.02477 C 15.0012 2.26511 15.0193 2.52186 14.9732 2.77086 L 14.9439 2.89488 C 14.9403 2.90782 14.9372 2.92116 14.9331 2.93395 L 13.0132 8.95348 L 12.9966 9.00035 L 19.9995 9.00035 C 20.377 8.99962 20.7472 9.10533 21.0669 9.30602 C 21.3874 9.50722 21.6438 9.79572 21.8072 10.1371 C 21.9705 10.4784 22.0342 10.8589 21.9898 11.2347 C 21.9509 11.5635 21.8311 11.8768 21.6421 12.1468 L 21.5562 12.2601 L 21.4976 12.3265 L 11.5972 22.5267 L 11.5962 22.5257 C 11.3775 22.7596 11.0908 22.9195 10.7749 22.9779 C 10.4404 23.0398 10.0945 22.986 9.79446 22.8255 C 9.49446 22.6651 9.25781 22.4067 9.12356 22.0941 C 8.98947 21.7816 8.96599 21.4328 9.05618 21.1048 L 9.06692 21.0658 L 10.9868 15.0463 L 11.0034 15.0004 L 3.99954 15.0004 L 3.99954 14.9994 C 3.62242 14.9999 3.25259 14.8942 2.93313 14.6937 C 2.61282 14.4926 2.35623 14.2048 2.1929 13.8636 C 2.02953 13.5222 1.96587 13.1409 2.01028 12.765 C 2.05474 12.3893 2.2055 12.0334 2.44388 11.7396 L 2.50247 11.6732 L 12.4029 1.47399 C 12.6216 1.23994 12.9092 1.08127 13.2251 1.02281 L 13.3511 1.00426 Z M 4.00247 13.0004 L 10.9995 13.0004 C 11.3221 12.9998 11.6401 13.0771 11.9263 13.2259 C 12.2132 13.3752 12.4602 13.5914 12.645 13.8568 C 12.8299 14.1223 12.9474 14.4294 12.9878 14.7504 C 13.0261 15.055 12.9904 15.363 12.8902 15.6527 L 12.8931 15.6537 L 11.6265 19.6244 L 19.9976 11.0004 L 12.9995 11.0004 L 12.9995 10.9994 C 12.6774 10.9998 12.3596 10.9234 12.0738 10.7748 C 11.7868 10.6255 11.5399 10.4084 11.355 10.1429 C 11.1703 9.87756 11.0527 9.57115 11.0122 9.25035 C 10.9738 8.94533 11.0084 8.63614 11.1089 8.34606 L 11.107 8.34606 L 12.3726 4.37438 L 4.00247 13.0004 Z"/>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <span class="text-[18px] font-bold tracking-tight">TapToProfi</span>
         </div>
-        <span class="font-semibold">Приглашения</span>
-      </a>
-      <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-gray-50 transition-colors">
-        <iconify-icon icon="lucide:user" width="24"></iconify-icon>
-        <span class="font-medium">Профиль</span>
-      </a>
-    </nav>
-    <div class="mt-auto pt-6 border-t border-gray-100">
-      <div class="flex items-center gap-3 px-2">
-        <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
-          <img src="./assets/IMG_8.png" alt="User" class="w-full h-full object-cover">
-        </div>
-        <div>
-          <p class="text-sm font-semibold">Иванов Илья</p>
-          <p class="text-xs text-gray-400">Мастер</p>
+        <div class="border-t border-gray-50 flex items-center gap-3 flex-row-reverse">
+          <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+            <img src="./assets/IMG_8.png" alt="User" class="w-full h-full object-cover">
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-semibold truncate">Алексей</p>
+            <p class="text-xs text-gray-500 truncate">Pro Account</p>
+          </div>
         </div>
       </div>
     </div>
-  </aside>
+  </header>
+</div>
 
-  <!-- Main Content Area -->
-  <main class="flex-1 flex flex-col min-h-screen relative">
-    
-    <!-- Mobile Header -->
-    <header class="lg:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-4 h-16 flex items-center">
-      <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors tap-highlight-none">
-        <img src="./assets/IMG_3.svg" alt="Back" class="w-6 h-6">
-      </button>
-      <h2 class="ml-2 text-lg font-semibold tracking-tight">Новое приглашение</h2>
-    </header>
+<!-- Main Content Area (mobile-fixed-layout) -->
+<div class="flex-1 flex flex-col h-screen relative mobile-fixed-layout">
 
-    <!-- Content Container -->
-    <div class="flex-1 overflow-y-auto px-4 py-6 md:py-10 lg:px-12">
-      <div class="max-w-2xl mx-auto lg:mx-0 lg:max-w-none lg:grid lg:grid-cols-12 lg:gap-10">
-        
-        <!-- Invitation Card -->
-        <section class="lg:col-span-7 xl:col-span-6">
-          <div class="bg-white rounded-[32px] p-6 md:p-8 card-subtle-shadow border border-gray-50">
-            
-            <!-- Header Info -->
-            <div class="flex items-start gap-4 mb-8">
-              <div class="w-12 h-12 bg-[#1dd75b]/10 rounded-full flex items-center justify-center shrink-0">
-                <img src="./assets/IMG_4.svg" alt="Bell" class="w-6 h-6 text-[#105f53]">
-              </div>
-              <div>
-                <h3 class="text-xl md:text-2xl font-bold leading-tight">Вас пригласили</h3>
-                <p class="text-[#8F96A3] font-medium mt-1">Ремонт кухонного крана</p>
-              </div>
-            </div>
+  <!-- Scrollable Main Content: здесь размещаем оригинальное содержимое второго файла (приглашение), но заменяем хедер/футер уже глобально -->
+  <div class="mobile-scrollable-content">
+    <main class="flex-1 flex flex-col min-h-screen pb-24 lg:pb-8">
+      <div class="flex-1 overflow-y-auto px-4 py-6 md:py-10 lg:px-12">
+        <div class="max-w-2xl mx-auto lg:mx-0 lg:max-w-none lg:grid lg:grid-cols-12 lg:gap-10">
 
-            <div class="space-y-6 mb-8">
-              <!-- Location -->
-              <div class="flex items-start gap-4">
-                <div class="w-10 h-10 flex items-center justify-center shrink-0">
-                  <img src="./assets/IMG_5.svg" alt="Location" class="w-6 h-6 text-[#8F96A3]">
+          <!-- Invitation Card (второй файл, оригинальное содержимое) -->
+          <section class="lg:col-span-7 xl:col-span-6">
+            <div class="bg-white rounded-[32px] p-6 md:p-8 card-subtle-shadow border border-gray-50">
+
+              <!-- Header Info -->
+              <div class="flex items-start gap-4 mb-8">
+                <div class="w-12 h-12 bg-[#1dd75b]/10 rounded-full flex items-center justify-center shrink-0">
+                  <img src="./assets/IMG_4.svg" alt="Bell" class="w-6 h-6 text-[#105f53]">
                 </div>
                 <div>
-                  <p class="text-[17px] font-medium">ул. Ленина, 15</p>
-                  <p class="text-sm text-[#8F96A3] mt-0.5">3.2 км от вас</p>
+                  <h3 class="text-xl md:text-2xl font-bold leading-tight">Вас пригласили</h3>
+                  <p class="text-[#8F96A3] font-medium mt-1">Ремонт крана</p>
                 </div>
               </div>
 
-              <!-- Time -->
-              <div class="flex items-start gap-4">
-                <div class="w-10 h-10 flex items-center justify-center shrink-0">
-                  <img src="./assets/IMG_6.svg" alt="Time" class="w-6 h-6 text-[#8F96A3]">
+              <div class="space-y-6 mb-8">
+                <!-- Location -->
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 flex items-center justify-center shrink-0">
+                    <img src="./assets/IMG_5.svg" alt="Location" class="w-6 h-6 text-[#8F96A3]">
+                  </div>
+                  <div>
+                    <p class="text-[17px] font-medium">ул. Зорге, д.1</p>
+                    <p class="text-sm text-[#8F96A3] mt-0.5">3.2 км от вас</p>
+                  </div>
                 </div>
-                <div>
-                  <p class="text-[17px] font-medium">Сегодня, 15:00 - 16:00</p>
-                  <p class="text-sm text-[#8F96A3] mt-0.5">Смена 12 часов, перерыв 1 час</p>
+
+                <!-- Time -->
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 flex items-center justify-center shrink-0">
+                    <img src="./assets/IMG_6.svg" alt="Time" class="w-6 h-6 text-[#8F96A3]">
+                  </div>
+                  <div>
+                    <p class="text-[17px] font-medium">Сегодня, 15:00 - 16:00</p>
+                  </div>
+                </div>
+
+                <!-- Payment -->
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 flex items-center justify-center shrink-0">
+                    <img src="./assets/IMG_7.svg" alt="Payment" class="w-6 h-6 text-[#8F96A3]">
+                  </div>
+                  <div>
+                    <p class="text-lg font-bold">450 ₽</p>
+                    <p class="text-sm text-[#8F96A3] mt-0.5">выплата сразу на карту</p>
+                  </div>
                 </div>
               </div>
 
-              <!-- Payment -->
-              <div class="flex items-start gap-4">
-                <div class="w-10 h-10 flex items-center justify-center shrink-0">
-                  <img src="./assets/IMG_7.svg" alt="Payment" class="w-6 h-6 text-[#8F96A3]">
-                </div>
-                <div>
-                  <p class="text-lg font-bold">2 500 ₽</p>
-                  <p class="text-sm text-[#8F96A3] mt-0.5">выплата сразу на карту</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Client Profile -->
-            <div class="bg-[#F9FAFB]/50 rounded-2xl p-4 border border-gray-100 flex items-center gap-4 mb-10 hover:bg-gray-50 transition-colors cursor-pointer group">
-              <div class="w-12 h-12 rounded-full overflow-hidden bg-blue-100 shrink-0">
-                <img src="./assets/IMG_8.png" alt="Client" class="w-full h-full object-cover">
-              </div>
-              <div class="flex-1">
-                <p class="font-semibold text-[15px]">Иванов Илья</p>
-                <div class="flex items-center gap-1 mt-0.5">
-                  <img src="./assets/IMG_10.svg" alt="Star" class="w-3.5 h-3.5">
-                  <span class="text-xs font-semibold">4.9</span>
-                  <span class="text-xs text-[#8F96A3]">(12)</span>
-                </div>
-              </div>
-              <img src="./assets/IMG_9.svg" alt="Arrow" class="w-5 h-5 text-[#8F96A3] group-hover:translate-x-1 transition-transform">
-            </div>
-
-            <!-- Actions -->
-            <div class="flex flex-col gap-3">
-              <button class="w-full h-14 bg-[#2563EB] text-white rounded-full font-semibold text-lg flex items-center justify-center gap-2 btn-primary-glow hover:bg-blue-700 transition-all active:scale-[0.98] tap-highlight-none">
-                <img src="./assets/IMG_11.svg" alt="Check" class="w-5 h-5">
-                Принять приглашение
-              </button>
-              <button class="w-full h-12 text-[#8F96A3] font-semibold text-lg hover:text-gray-600 transition-colors tap-highlight-none">
-                Отклонить
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Desktop Sidebar Context (Visible only on LG) -->
-        <aside class="hidden lg:block lg:col-span-5 xl:col-span-6 space-y-6">
-          <div class="bg-white rounded-3xl p-6 border border-gray-100">
-            <h4 class="text-lg font-bold mb-4">Детали заказа</h4>
-            <p class="text-gray-500 text-sm leading-relaxed">
-              Клиент ожидает мастера для замены прокладки в кухонном смесителе. Инструменты желательно иметь свои. Оплата производится через безопасную сделку сразу после подтверждения выполнения работ.
-            </p>
-            <div class="mt-6 p-4 bg-blue-50 rounded-2xl border border-blue-100">
-              <div class="flex items-center gap-3 text-blue-700">
-                <iconify-icon icon="lucide:info" width="20"></iconify-icon>
-                <span class="text-sm font-semibold">Важная информация</span>
-              </div>
-              <p class="text-blue-600/80 text-xs mt-2">Вы находитесь в 15 минутах езды от объекта. Рекомендуем выезжать заранее.</p>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-3xl p-6 border border-gray-100">
-            <h4 class="text-lg font-bold mb-4">Другие приглашения</h4>
-            <div class="space-y-4">
-              <div class="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer">
-                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                  <iconify-icon icon="lucide:wrench" class="text-gray-400"></iconify-icon>
+              <!-- Client Profile -->
+              <div class="bg-[#F9FAFB]/50 rounded-2xl p-4 border border-gray-100 flex items-center gap-4 mb-10 hover:bg-gray-50 transition-colors cursor-pointer group">
+                <div class="w-12 h-12 rounded-full overflow-hidden bg-blue-100 shrink-0">
+                  <img src="./assets/IMG_8.png" alt="Client" class="w-full h-full object-cover">
                 </div>
                 <div class="flex-1">
-                  <p class="text-sm font-semibold">Установка люстры</p>
-                  <p class="text-xs text-gray-400">Завтра, 10:00 • 1 800 ₽</p>
+                  <p class="font-semibold text-[15px]">Александр</p>
+                  <div class="flex items-center gap-1 mt-0.5">
+                    <img src="./assets/IMG_10.svg" alt="Star" class="w-3.5 h-3.5">
+                    <span class="text-xs font-semibold">4.9</span>
+                    <span class="text-xs text-[#8F96A3]">(12)</span>
+                  </div>
                 </div>
+                <img src="./assets/IMG_9.svg" alt="Arrow" class="w-5 h-5 text-[#8F96A3] group-hover:translate-x-1 transition-transform">
               </div>
-              <div class="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer">
-                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                  <iconify-icon icon="lucide:zap" class="text-gray-400"></iconify-icon>
+
+              <!-- Actions -->
+              <div class="flex flex-col gap-3">
+                <a href="../index.html" class="w-full h-14 bg-[#2563EB] text-white rounded-full font-semibold text-sm lg:text-lg flex items-center justify-center gap-2 btn-primary-glow hover:bg-blue-700 transition-all active:scale-[0.98] tap-highlight-none">
+                  <img src="./assets/IMG_11.svg" alt="Check" class="w-5 h-5">
+                  Принять приглашение
+                </a>
+                <button class="w-full h-12 text-[#8F96A3] font-semibold text-lg hover:text-gray-600 transition-colors tap-highlight-none">
+                  Отклонить
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Desktop Sidebar Context (Visible only on LG) — оригинальный из второго файла -->
+          <aside class="hidden lg:block lg:col-span-5 xl:col-span-6 space-y-6">
+            <div class="bg-white rounded-3xl p-6 border border-gray-100">
+              <h4 class="text-lg font-bold mb-4">Детали заказа</h4>
+              <p class="text-gray-500 text-sm leading-relaxed">
+                Клиент ожидает мастера для замены прокладки в кухонном смесителе. Инструменты желательно иметь свои. Оплата производится через безопасную сделку сразу после подтверждения выполнения работ.
+              </p>
+              <div class="mt-6 p-4 bg-blue-50 rounded-2xl border border-blue-100">
+                <div class="flex items-center gap-3 text-blue-700">
+                  <iconify-icon icon="lucide:info" width="20"></iconify-icon>
+                  <span class="text-sm font-semibold">Важная информация</span>
                 </div>
-                <div class="flex-1">
-                  <p class="text-sm font-semibold">Замена розеток</p>
-                  <p class="text-xs text-gray-400">24 Окт • 3 200 ₽</p>
+                <p class="text-blue-600/80 text-xs mt-2">Вы находитесь в 15 минутах езды от объекта. Рекомендуем выезжать заранее.</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 border border-gray-100">
+              <h4 class="text-lg font-bold mb-4">Другие приглашения</h4>
+              <div class="space-y-4">
+                <div class="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer">
+                  <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                    <iconify-icon icon="lucide:wrench" class="text-gray-400"></iconify-icon>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm font-semibold">Установка люстры</p>
+                    <p class="text-xs text-gray-400">Завтра, 10:00 • 1 800 ₽</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer">
+                  <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                    <iconify-icon icon="lucide:zap" class="text-gray-400"></iconify-icon>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm font-semibold">Замена розеток</p>
+                    <p class="text-xs text-gray-400">24 Окт • 3 200 ₽</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </aside>
-      </div>
-    </div>
-
-    <!-- Mobile Bottom Navigation -->
-    <nav class="lg:hidden sticky bottom-0 w-full bg-white border-t border-gray-100 flex justify-around items-center h-16 safe-area-bottom shadow-[0px_-2px_10px_0px_rgba(0,0,0,0.05)]">
-      <a href="#" class="flex flex-col items-center justify-center gap-1 w-full h-full text-[#8F96A3] tap-highlight-none">
-        <img src="./assets/IMG_12.svg" alt="Home" class="w-6 h-6">
-        <span class="text-[10px] font-medium">Главная</span>
-      </a>
-      <a href="#" class="flex flex-col items-center justify-center gap-1 w-full h-full active-nav-item relative tap-highlight-none">
-        <div class="relative">
-          <img src="./assets/IMG_4.svg" alt="Invitations" class="w-6 h-6 text-[#2563EB]">
-          <span class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#de3b40] text-white text-[8px] font-bold flex items-center justify-center rounded-full border-2 border-white">9</span>
+          </aside>
         </div>
-        <span class="text-[10px] font-bold">Приглашения</span>
-      </a>
-      <a href="#" class="flex flex-col items-center justify-center gap-1 w-full h-full text-[#8F96A3] tap-highlight-none">
-        <img src="./assets/IMG_13.svg" alt="Profile" class="w-6 h-6">
-        <span class="text-[10px] font-medium">Профиль</span>
-      </a>
-    </nav>
+      </div>
+    </main>
+  </div>
+</div>
 
-  </main>
+<!-- Mobile Bottom Navigation (из первого файла) -->
+<div class="mobile-bottom-fixed">
+  <nav class="lg:hidden flex justify-around items-center h-16 bg-white border-t border-gray-100 safe-area-bottom">
+    <button class="flex flex-col items-center gap-1 text-blue-600">
+      <iconify-icon icon="ri:home-fill" width="24"></iconify-icon>
+      <span class="text-[10px] font-medium">Главная</span>
+    </button>
+    <button class="flex flex-col items-center gap-1 text-gray-400">
+      <iconify-icon icon="ri:history-line" width="24"></iconify-icon>
+      <span class="text-[10px] font-medium">История</span>
+    </button>
+    <button class="flex flex-col items-center gap-1 text-gray-400">
+      <iconify-icon icon="ri:user-line" width="24"></iconify-icon>
+      <span class="text-[10px] font-medium">Профиль</span>
+    </button>
+  </nav>
+</div>
+
+<!-- Desktop Right Panel (Recent Activity) из первого файла -->
+<aside class="hidden xl:flex flex-col w-80 bg-[#F9FAFB] border-l border-gray-100 h-screen sticky top-0 p-6">
+  <h2 class="text-lg font-bold mb-6">Недавние</h2>
+  <div class="space-y-4 overflow-y-auto custom-scrollbar pr-2">
+    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-50">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-8 h-8 rounded bg-blue-50 flex items-center justify-center text-blue-600">
+          <iconify-icon icon="lucide:camera" width="16"></iconify-icon>
+        </div>
+        <div class="flex-1"><p class="text-sm font-semibold">Кухонный кран</p>
+          <p class="text-[10px] text-gray-400 uppercase">2 недели назад</p></div>
+      </div>
+      <p class="text-xs text-gray-500 line-clamp-2">Снимок: сломанный кран — мастер выполнил работу.</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-50">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-8 h-8 rounded bg-purple-50 flex items-center justify-center text-purple-600">
+          <iconify-icon icon="lucide:image" width="16"></iconify-icon>
+        </div>
+        <div class="flex-1"><p class="text-sm font-semibold">Фото интерьера</p>
+          <p class="text-[10px] text-gray-400 uppercase">5 дней назад</p></div>
+      </div>
+      <p class="text-xs text-gray-500 line-clamp-2">Замер для ремонта гостиной.</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-50">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-8 h-8 rounded bg-blue-50 flex items-center justify-center text-blue-600">
+          <iconify-icon icon="lucide:user" width="16"></iconify-icon>
+        </div>
+        <div class="flex-1"><p class="text-sm font-semibold">Визитка</p>
+          <p class="text-[10px] text-gray-400 uppercase">Вчера</p></div>
+      </div>
+      <p class="text-xs text-gray-500 line-clamp-2">Мастер: Иван Петров, сантехник</p>
+    </div>
+  </div>
+  <button class="mt-auto w-full py-3 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+    Показать все
+  </button>
+</aside>
 
 </body>
 </html>
